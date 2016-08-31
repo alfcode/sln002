@@ -44,6 +44,7 @@
     <Compile Include="LN_estado.cs" />
     <Compile Include="LN_github.cs" />
     <Compile Include="LN_guia.cs" />
+    <Compile Include="LN_tingreso.cs" />
     <Compile Include="LN_usuario.cs" />
     <Compile Include="LN_zero.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
