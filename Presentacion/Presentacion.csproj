@@ -85,6 +85,12 @@
     <Compile Include="frm_tingreso.Designer.cs">
       <DependentUpon>frm_tingreso.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm_tipodocu_personal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_tipodocu_personal.Designer.cs">
+      <DependentUpon>frm_tipodocu_personal.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_usuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm_tingreso.resx">
       <DependentUpon>frm_tingreso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_tipodocu_personal.resx">
+      <DependentUpon>frm_tipodocu_personal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_usuario.resx">
       <DependentUpon>frm_usuario.cs</DependentUpon>
