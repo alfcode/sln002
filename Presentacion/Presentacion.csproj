@@ -32,24 +32,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.BonusSkins.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Sparkline.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraEditors.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="MetroFramework">
-      <HintPath>..\MetroDLL\MetroFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="MetroFramework.Design">
-      <HintPath>..\MetroDLL\MetroFramework.Design.dll</HintPath>
-    </Reference>
-    <Reference Include="MetroFramework.Fonts">
-      <HintPath>..\MetroDLL\MetroFramework.Fonts.dll</HintPath>
-    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,61 +60,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Cls_Global.cs" />
+    <Compile Include="Cls_Grid_DevExpress_Mnt_1.cs" />
+    <Compile Include="Cls_Mensajes.cs" />
     <Compile Include="frm_articulo.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frm_articulo.Designer.cs">
       <DependentUpon>frm_articulo.cs</DependentUpon>
     </Compile>
-    <Compile Include="frm_estado.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frm_estado.Designer.cs">
-      <DependentUpon>frm_estado.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frm_tingreso.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frm_tingreso.Designer.cs">
-      <DependentUpon>frm_tingreso.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frm_tipodocu_personal.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frm_tipodocu_personal.Designer.cs">
-      <DependentUpon>frm_tipodocu_personal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frm_usuario.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frm_usuario.Designer.cs">
-      <DependentUpon>frm_usuario.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frm_articulo.resx">
       <DependentUpon>frm_articulo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frm_estado.resx">
-      <DependentUpon>frm_estado.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frm_tingreso.resx">
-      <DependentUpon>frm_tingreso.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frm_tipodocu_personal.resx">
-      <DependentUpon>frm_tipodocu_personal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frm_usuario.resx">
-      <DependentUpon>frm_usuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -126,6 +83,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -149,6 +107,46 @@
       <Project>{cdf16e93-3bea-4239-b259-e073b4810a86}</Project>
       <Name>Negocio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\_ExtensionMethods\_ExtensionMethods.csproj">
+      <Project>{a650c505-2cf6-4da1-8f11-84c2e811942d}</Project>
+      <Name>_ExtensionMethods</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ico\salir64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ico\delete64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ico\grabar64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ico\Next 64.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ico\nextbutton 64.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ico\nuevo64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ico\prev 64.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ico\prevtop 64.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ico\folder64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ico\limpiar64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ico\empresa.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
