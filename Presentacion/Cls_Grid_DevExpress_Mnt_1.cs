@@ -10,6 +10,7 @@ using Entidad;
 using System.Data;
 using System.Reflection;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Windows.Forms;
 using System.Drawing;
 using DevExpress.XtraEditors;
@@ -152,7 +153,7 @@ namespace Presentacion
                 }
                 else
                 {
-                    gridView1.Columns[j].Width = Convert.ToInt32(dt_param1.Columns[j].AutoIncrementStep); // AutoIncrementStep--- contiene el valor ancho de celda desde funcion  listto_data
+                    gridView1.Columns[j].Width = Convert.ToInt32(dt_param1.Columns[j].Namespace); // AutoIncrementStep--- contiene el valor ancho de celda desde funcion  listto_data
                 }
 
             }
@@ -164,52 +165,7 @@ namespace Presentacion
         }
 
 
-        public  DataTable ListToTable<T>(IList<T> list)
-        {
-
-            DataTable dt = new DataTable();
-            PropertyInfo[] propiedades = typeof(T).GetProperties();
-            var i = 0;
-            foreach (PropertyInfo p in propiedades)
-            {
-                dt.Columns.Add(p.Name, p.PropertyType);
-
-                var pInfo = typeof(T).GetProperty(p.Name)
-                            .GetCustomAttributes(typeof(DisplayAttribute), false)
-                            .Cast<DisplayAttribute>().FirstOrDefault();
-
-                if (pInfo != null)
-                {
-
-                    dt.Columns[i].Caption = pInfo.Description;
-
-                    if (dt.Columns[i].Caption != "")
-                    {
-                        dt.Columns[i].AutoIncrementStep = pInfo.Order;
-                    }
-                   
-
-                    if (pInfo.Prompt != null) dt.Columns[i].DefaultValue = pInfo.Prompt;
-                }
-                else
-                {
-                    dt.Columns[i].Caption = "";
-                }
-
-                i++;
-            }
-            foreach (T item in list)
-            {
-                DataRow row = dt.NewRow();
-                foreach (PropertyInfo p in propiedades)
-                {
-                    row[p.Name] = p.GetValue(item, null);
-                }
-                dt.Rows.Add(row);
-            }
-            return dt;
-        }
-
+      
 
         private void gridView1_ValidatingEditor(object sender, BaseContainerValidateEditorEventArgs e)
         {
@@ -381,7 +337,71 @@ namespace Presentacion
         }
 
 
+        public DataTable ListToTable<T>(IList<T> list)
+        {
 
+            DataTable dt = new DataTable();
+            PropertyInfo[] propiedades = typeof(T).GetProperties();
+            var i = 0;
+            foreach (PropertyInfo p in propiedades)
+            {
+              
+                var pKey = typeof(T).GetProperty(p.Name)
+                       .GetCustomAttributes(typeof(KeyAttribute), false)
+                        .Cast<KeyAttribute>().FirstOrDefault();
+
+                var pRequired = typeof(T).GetProperty(p.Name)
+                        .GetCustomAttributes(typeof(RequiredAttribute), false)
+                        .Cast<RequiredAttribute>().FirstOrDefault();
+
+
+                var pColumn = typeof(T).GetProperty(p.Name)
+                        .GetCustomAttributes(typeof(ColumnAttribute), false)
+                        .Cast<ColumnAttribute>().FirstOrDefault();
+
+                var pMaxLength = typeof(T).GetProperty(p.Name)
+                        .GetCustomAttributes(typeof(MaxLengthAttribute), false)
+                        .Cast<MaxLengthAttribute>().FirstOrDefault();
+                var pDisplay = typeof(T).GetProperty(p.Name)
+                           .GetCustomAttributes(typeof(DisplayAttribute), false)
+                           .Cast<DisplayAttribute>().FirstOrDefault();
+
+                DataColumn dc = new DataColumn();
+                dc.DataType = p.PropertyType;
+
+                if (pKey != null) dc.Unique = true;
+
+                if (pDisplay.Description != "")
+                {
+                    if (pRequired != null) dc.AllowDBNull = false;
+                }
+                
+                
+                dc.ColumnName = p.Name;
+                dc.Namespace = pColumn.Order.ToString(); // ancho en la grilla
+                dc.Caption = pDisplay.Description;
+
+                if(pDisplay.Prompt!=null) dc.DefaultValue = pDisplay.Prompt;
+                if (dc.DataType.FullName.Equals("System.String"))  dc.MaxLength = pMaxLength.Length;
+
+                dt.Columns.Add(dc);
+        
+                i++;
+            }
+
+
+
+            foreach (T item in list)
+            {
+                DataRow row = dt.NewRow();
+                foreach (PropertyInfo p in propiedades)
+                {
+                    row[p.Name] = p.GetValue(item, null);
+                }
+                dt.Rows.Add(row);
+            }
+            return dt;
+        }
 
 
 

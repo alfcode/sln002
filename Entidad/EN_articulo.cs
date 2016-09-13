@@ -1,53 +1,119 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entidad
 {
     public class EN_articulo
     {
-
-       
-
         public class t_articulo
         {
+            /// [Key]   para columnas cuyo valor es unico en la grilla
+            /// [Display(Prompt = "GRU0000001")]   valor por defecto
 
+            [Display(Description = "")]
+            [Column(Order = 0)]
+            [Required]
+            [MaxLength(10)]
             public string id_articulo { get; set; }
-            [Display(Description = "Articulo", Order = 100)]
+
+            [Key]
+            [Display(Description = "Articulo")]
+            [Column(Order = 100)]
+            [Required]
+            [MaxLength(200)]
             public string nombre { get; set; }
-            [Display(Description = "Obsercación", Order = 100)]
+
+            [Display(Description = "Observacion")]
+            [Column(Order = 80)]
+            [MaxLength(200)]
             public string observacion { get; set; }
-            [Display(Description = "Unidad 1", Order = 40)]
+
+            [Display(Description = "Unidad Base")]
+            [Column(Order = 50)]
+            [Required]
+            [MaxLength(10)]
             public string id_unidad1 { get; set; }
-            [Display(Description = "Unidad 2", Order = 40)]
+
+            [Display(Description = "Unidad Factor")]
+            [Column(Order = 50)]
+            [Required]
+            [MaxLength(10)]
             public string id_unidad2 { get; set; }
-            [Display(Description = "Factor U.M.", Order = 30,Prompt ="1")]
+
+            [Display(Description = "F.UM",Prompt ="1")]
+            [Column(Order = 20)]
+            [Required]
             public decimal factor { get; set; }
-            [Display(Description = "Linea", Order = 70)]
+
+            [Display(Description = "Linea")]
+            [Column(Order = 70)]
+            [Required]
+            [MaxLength(10)]
             public string id_grupo1 { get; set; }
-            [Display(Description = "Familia", Order = 50)]
+
+            [Display(Description = "Familia")]
+            [Column(Order = 70)]
+            [Required]
+            [MaxLength(10)]
             public string id_grupo2 { get; set; }
-            [Display(Description = "Categoria", Order = 50)]
+
+            [Display(Description = "Categoria")]
+            [Column(Order = 70)]
+            [Required]
+            [MaxLength(10)]
             public string id_grupo3 { get; set; }
 
-            [Display(Description = "", Order = 0, Prompt = "GRU0000001")]
+            [Display(Description = "",Prompt = "GRU0000001")]
+            [Column(Order = 0)]
+            [Required]
+            [MaxLength(10)]
             public string id_grupo4 { get; set; }
-            [Display(Description = "", Order = 0, Prompt = "GRU0000001")]
+
+            [Display(Description = "",Prompt = "GRU0000001")]
+            [Column(Order = 0)]
+            [Required]
+            [MaxLength(10)]
             public string id_grupo5 { get; set; }
+
+            [Display(Description = "")]
+            [Column(Order = 0)]
+            [MaxLength(300)]
             public string imagen { get; set; }
 
-            public string id_usuario_inicia { get; set; }
-            [Display(Description = "", Order = 0, Prompt = "nuevo")]
-            public string id_usuario_ultimo { get; set; }
-            [Display(Description = "", Order = 40, Prompt = "01/01/2016")]
-            public DateTime fecha_inicia { get; set; }
-            [Display(Description = "", Order = 40, Prompt = "01/01/2016")]
-            public DateTime fecha_ultimo { get; set; }
-           
-            [Display(Description = "Estado", Order = 50, Prompt = "EST0000001")]
-            public string id_estado { get; set; }
-            [Display(Description = "Activo", Order = 30, Prompt = "true")]
+            [Display(Description = "Activo", Prompt ="1")]
+            [Column(Order = 25)]
+            [Required]
             public bool activo { get; set; }
+
+            [Display(Description = "Estado",Prompt = "EST0000001")]
+            [Column(Order = 30)]
+            [Required]
+            [MaxLength(10)]
+            public string id_estado { get; set; }
+
+            [Display(Description = "")]
+            [Column(Order = 0)]
+            [Required]
+            [MaxLength(10)]
+            public string id_usuario_inicia { get; set; }
+
+            [Display(Description = "",Prompt ="nuevo")]
+            [Column(Order = 0)]
+            [Required]
+            [MaxLength(10)]
+            public string id_usuario_ultimo { get; set; }
+
+            [Display(Description = "",Prompt = "01/01/2016")]
+            [Column(Order = 0)]
+            [Required]
+            public DateTime fecha_inicia { get; set; }
+
+            [Display(Description = "",Prompt = "01/01/2016")]
+            [Column(Order = 0)]
+            [Required]
+            public DateTime fecha_ultimo { get; set; }
 
         }
 

@@ -52,30 +52,7 @@ namespace Presentacion
             Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_articulo_grid);
         }
 
-        private bool valida_grid()
-        {
-
-            try
-            {
-                dt_t_articulo_grid.PrimaryKey = new DataColumn[]
-                            {
-                 dt_t_articulo_grid.Columns["nombre"]
-                ,dt_t_articulo_grid.Columns["id_unidad1"]
-                ,dt_t_articulo_grid.Columns["id_unidad2"]
-                ,dt_t_articulo_grid.Columns["id_grupo1"]
-                ,dt_t_articulo_grid.Columns["id_grupo2"]
-                ,dt_t_articulo_grid.Columns["id_grupo3"]
-                            };
-                return true;
-            }
-            catch (Exception ex)
-            {
-                string error = ex.TargetSite.Name + ", " + ex.Message + " - " + Cls_Mensajes.error_sistema;
-                DevExpress.XtraEditors.XtraMessageBox.Show(error, Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-                return false;
-            }
-
-        }
+       
 
         private void cargar_combo()
         {
@@ -98,6 +75,9 @@ namespace Presentacion
         private void mnt_datos(string id_usuario)
         {
 
+            try
+            {
+
             t_articulo = dt_t_articulo_final.DataTableToList<EN_articulo.t_articulo>().ToList();
             var negocio = new LN_articulo();
             var parametro = new EN_articulo.proc_articulo_mnt();
@@ -115,26 +95,26 @@ namespace Presentacion
 
             if (id_usuario != "")
             {
-
-                DevExpress.XtraEditors.XtraMessageBox.Show(Cls_Mensajes.titulo_exito, Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-                dt_t_articulo_grid.Clear();
+                    dt_t_articulo_grid.Clear();
+                    DevExpress.XtraEditors.XtraMessageBox.Show(Cls_Mensajes.titulo_exito, Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
             }
             else
             {
                 retorno.t_articulo.ToList().ForEach(c => { c.id_usuario_inicia = ""; c.id_usuario_ultimo = "grabado"; });
                 dt_t_articulo_grid = Cls_Grid.ListToTable(retorno.t_articulo);
-                if (valida_grid())
-                {
-                    gridControl1.DataSource = dt_t_articulo_grid;
-                    ((GridView)gridControl1.MainView).MoveLast();
-                }
-                else
-                {
-                    dt_t_articulo_grid.Clear();
-                    gridControl1.DataSource = dt_t_articulo_grid;
-                }
+
+                gridControl1.DataSource = dt_t_articulo_grid;
+                ((GridView)gridControl1.MainView).MoveLast();
+            }
 
             }
+            catch(Exception ex)
+            {
+                string error = ex.TargetSite.Name + ", " + ex.Message + " - " + Cls_Mensajes.error_sistema;
+               DevExpress.XtraEditors.XtraMessageBox.Show(error, Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+
+            }
+
 
         }
 
@@ -176,8 +156,7 @@ namespace Presentacion
             if (e.Button.ButtonType == NavigatorButtonType.Append)
             {
 
-                dt_t_articulo_grid.Clear();
-                valida_grid();
+               // dt_t_articulo_grid.Clear();
                 gridView1.FocusedColumn = gridView1.VisibleColumns[0];
 
             }
