@@ -20,47 +20,47 @@ namespace Entidad
 
             [Key]
             [Display(Description = "Articulo")]
-            [Column(Order = 100)]
+            [Column(Order = 200)]
             [Required]
             [MaxLength(200)]
             public string nombre { get; set; }
 
             [Display(Description = "Observacion")]
-            [Column(Order = 80)]
+            [Column(Order = 120)]
             [MaxLength(200)]
             public string observacion { get; set; }
 
             [Display(Description = "Unidad Base")]
-            [Column(Order = 50)]
+            [Column(Order = 80)]
             [Required]
             [MaxLength(10)]
             public string id_unidad1 { get; set; }
 
             [Display(Description = "Unidad Factor")]
-            [Column(Order = 50)]
+            [Column(Order = 80)]
             [Required]
             [MaxLength(10)]
             public string id_unidad2 { get; set; }
 
             [Display(Description = "F.UM",Prompt ="1")]
-            [Column(Order = 20)]
+            [Column(Order = 70)]
             [Required]
             public decimal factor { get; set; }
 
             [Display(Description = "Linea")]
-            [Column(Order = 70)]
+            [Column(Order = 120)]
             [Required]
             [MaxLength(10)]
             public string id_grupo1 { get; set; }
 
             [Display(Description = "Familia")]
-            [Column(Order = 70)]
+            [Column(Order = 120)]
             [Required]
             [MaxLength(10)]
             public string id_grupo2 { get; set; }
 
             [Display(Description = "Categoria")]
-            [Column(Order = 70)]
+            [Column(Order = 120)]
             [Required]
             [MaxLength(10)]
             public string id_grupo3 { get; set; }
@@ -83,15 +83,9 @@ namespace Entidad
             public string imagen { get; set; }
 
             [Display(Description = "Activo", Prompt ="1")]
-            [Column(Order = 25)]
+            [Column(Order = 40)]
             [Required]
             public bool activo { get; set; }
-
-            [Display(Description = "Estado",Prompt = "EST0000001")]
-            [Column(Order = 30)]
-            [Required]
-            [MaxLength(10)]
-            public string id_estado { get; set; }
 
             [Display(Description = "")]
             [Column(Order = 0)]
@@ -125,7 +119,6 @@ namespace Entidad
             public List<EN_zero.datacombo> grupo1 { get; set; }
             public List<EN_zero.datacombo> grupo2 { get; set; }
             public List<EN_zero.datacombo> grupo3 { get; set; }
-            public List<EN_zero.datacombo> estado { get; set; }
         }
 
         public class proc_articulo_mnt

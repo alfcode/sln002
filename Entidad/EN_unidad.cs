@@ -1,43 +1,77 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entidad
 {
     public class EN_unidad
     {
-
         public class t_unidad
-    {
-        public string id_unidad { get; set; }
-        [Display(Description = "Unidad", Order = 200)]
-        public string nombre { get; set; }
-        [Display(Description = "Sunat_Unidad", Order = 200)]
-        public string abreviatura { get; set; }
+        {
+            /// [Key]   para columnas cuyo valor es unico en la grilla
+            /// [Display(Prompt = "GRU0000001")]   valor por defecto
 
-        public string id_usuario_inicia { get; set; }
+            [Display(Description = "")]
+            [Column(Order = 0)]
+            [Required]
+            [MaxLength(10)]
+            public string id_unidad { get; set; }
 
-        [Display(Description = "", Order = 0, Prompt = "nuevo")]
-        public string id_usuario_ultimo { get; set; }
-        [Display(Description = "", Order = 40, Prompt = "01/01/2016")]
-        public DateTime fecha_inicia { get; set; }
-        [Display(Description = "", Order = 40, Prompt = "01/01/2016")]
-        public DateTime fecha_ultimo { get; set; }
-        [Display(Description = "", Order = 25, Prompt = "EST0000001")]
-        public string id_estado { get; set; }
-        public string cc { get; set; }
-    }
+            [Key]
+            [Display(Description = "Descripción de Medidad")]
+            [Column(Order = 50)]
+            [MaxLength(50)]
+            public string nombre { get; set; }
 
-    public class proc_unidad_mnt
-    {
-        public string id_usuario { get; set; }
-        public List<t_unidad> t_unidad { get; set; }
-    }
+            [Display(Description = "Abreviatura")]
+            [Column(Order = 50)]
+            [MaxLength(50)]
+            public string abreviatura { get; set; }
+
+            [Display(Description = "")]
+            [Column(Order = 0)]
+            [MaxLength(10)]
+            public string cc { get; set; }
+
+            [Display(Description = "Activo", Prompt="1")]
+            [Column(Order = 10)]
+            public bool activo { get; set; }
+
+            [Display(Description = "")]
+            [Column(Order = 0)]
+            [MaxLength(10)]
+            public string id_usuario_inicia { get; set; }
+
+            [Display(Description = "", Prompt = "nuevo")]
+            [Column(Order = 0)]
+            [MaxLength(10)]
+            public string id_usuario_ultimo { get; set; }
+
+            [Display(Description = "", Prompt = "01/01/2016")]
+            [Column(Order = 0)]
+            public DateTime fecha_inicia { get; set; }
+
+            [Display(Description = "",Prompt ="01/01/2016")]
+            [Column(Order = 0)]
+            public DateTime fecha_ultimo { get; set; }
+
+        }
+
+
+
+        public class proc_unidad_mnt
+        {
+            public string id_usuario { get; set; }
+            public List<t_unidad> t_unidad { get; set; }
+        }
 
         public class proc_unidad_mnt_retorno
         {
             public List<EN_zero.informe> informe { get; set; }
             public List<t_unidad> t_unidad { get; set; }
         }
+
+
     }
 }

@@ -3,38 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Entidad;
-using System.Data;
-using System.Data.SqlClient;
 using Conexion;
 using _ExtensionMethods;
+using Entidad;
+using System.Data.SqlClient;
+using System.Data;
 namespace Datos
 {
-    public class DAO_tingreso
+    public class DAO_unidad
     {
 
-        public List<EN_zero.informe> prc_tingreso(EN_tingreso.param_tingreso parametros)
-        {
-            var retorno = new List<EN_zero.informe>();
 
+        public EN_unidad.proc_unidad_mnt_retorno proc_unidad_mnt(EN_unidad.proc_unidad_mnt parametros)
+        {
+            var retorno = new EN_unidad.proc_unidad_mnt_retorno();
             var cmd = new SqlCommand();
             var ds = new DataSet();
             var da = new SqlDataAdapter();
 
-            var dt = new DataTable();
 
-
-            dt = DAO_zero.ObjectToData(parametros.t_ingreso);
+            DataTable dt = DAO_zero.ListToData(parametros.t_unidad);
 
 
             cmd.Connection = AdoConn.Conn();
             cmd.Connection.Open();
             try
             {
-                cmd.CommandText = "inve.proc_tingreso_mnt";
+                cmd.CommandText = "inve.proc_unidad_mnt";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@tarea", parametros.accion.tarea);
+                cmd.Parameters.AddWithValue("@id_usuario", parametros.id_usuario);
                 cmd.Parameters.AddWithValue("@tdp_param1", SqlDbType.Structured).Value = dt;
 
                 da.SelectCommand = cmd;
@@ -43,12 +41,14 @@ namespace Datos
                 for (int i = 0; i < ds.Tables.Count; i++)
                 {
                     if (ds.Tables[i].Columns[0].ColumnName == "informe") { ds.Tables[i].TableName = "informe"; }
+                    if (ds.Tables[i].Columns[0].ColumnName == "unidad") { ds.Tables[i].TableName = "unidad"; }
                 }
 
-                List<EN_zero.informe> informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
+                retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
+                string Error = (from item in retorno.informe select item.Id).First().ToString();
+                if (Error.Equals("1")) return retorno;
 
-
-                retorno = informe;
+                retorno.t_unidad = ds.Tables["unidad"].DataTableToList<EN_unidad.t_unidad>().ToList();
 
                 return retorno;
 
@@ -56,17 +56,23 @@ namespace Datos
 
             catch (Exception ex)
             {
-                var ayuda = new DAO_zero();
-                retorno = ayuda.MsgInformeCapaDatos(ayuda.MsgErrorCapaDatos(ex)); ;
+                var error = new DAO_zero();
+                retorno.informe = error.msg_exception(ex);
                 return retorno;
+
             }
             finally
             {
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }
-      
+
         }
+
+
+
+
+
 
     }
 }

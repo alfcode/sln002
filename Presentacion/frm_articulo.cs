@@ -10,6 +10,7 @@ using _ExtensionMethods;
 using Negocio;
 using System;
 using System.Diagnostics;
+using DevExpress.XtraEditors.Repository;
 
 namespace Presentacion
 {
@@ -35,10 +36,14 @@ namespace Presentacion
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
             labelControl1.Text = "Mantenimiento de Articulos";
+
+          
+            
         }
 
         private void frm_articulo_Load(object sender, EventArgs e)
         {
+            
             inicio();
         }
 
@@ -50,17 +55,19 @@ namespace Presentacion
             gridControl1.DataSource = dt_t_articulo_grid;
             cargar_combo();
             Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_articulo_grid);
+           
         }
 
-       
+
 
         private void cargar_combo()
         {
             var negocio = new LN_articulo();
             var retorno = new EN_articulo.proc_articulo_mnt_combo();
 
+            Cursor.Current = Cursors.WaitCursor;
             retorno = negocio.proc_articulo_mnt_combo();
-
+            Cursor.Current = Cursors.Default;
             if (Cls_Grid.ExisteError(retorno.informe)) return;
 
             Cls_Grid.Load_Combo(gridView1, retorno.unidad, "id_unidad1", true);
@@ -68,7 +75,6 @@ namespace Presentacion
             Cls_Grid.Load_Combo(gridView1, retorno.grupo1, "id_grupo1", false);
             Cls_Grid.Load_Combo(gridView1, retorno.grupo2, "id_grupo2", false);
             Cls_Grid.Load_Combo(gridView1, retorno.grupo3, "id_grupo3", false);
-            Cls_Grid.Load_Combo(gridView1, retorno.estado, "id_estado", false);
         }
 
 
@@ -86,7 +92,9 @@ namespace Presentacion
             parametro.id_usuario = id_usuario;
             parametro.t_articulo = t_articulo;
 
-            retorno = negocio.proc_articulo_mnt(parametro);
+                Cursor.Current = Cursors.WaitCursor;
+                retorno = negocio.proc_articulo_mnt(parametro);
+                Cursor.Current = Cursors.Default;
 
             if (Cls_Grid.ExisteError(retorno.informe))
             {
@@ -140,15 +148,16 @@ namespace Presentacion
 
             if ("Folder".Equals(e.Button.Tag))
             {
-
-                DialogResult dialogResult = DevExpress.XtraEditors.XtraMessageBox.Show(Cls_Mensajes.titulo_todos, Cls_Mensajes.titulo_ventana, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (dialogResult == DialogResult.Yes)
+                DialogResult dialogResult = DialogResult.Yes;
+                if (Cls_Global.mostrar_msg_demora)
                 {
-                    mnt_datos("");
-                    e.Handled = true;
+                    dialogResult = DevExpress.XtraEditors.XtraMessageBox.Show(Cls_Mensajes.titulo_todos, Cls_Mensajes.titulo_ventana, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 }
 
-
+                if (dialogResult == DialogResult.Yes)
+                    mnt_datos("");
+                e.Handled = true;
+               
             }
 
 
@@ -189,6 +198,8 @@ namespace Presentacion
         }
 
 
-      
+       
+
+   
     }
 }

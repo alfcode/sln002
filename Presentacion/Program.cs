@@ -14,9 +14,12 @@ namespace Presentacion
         [STAThread]
         static void Main()
         {
+            Cls_Global.mostrar_msg_demora = false;
             Cls_Global.id_usuario = "USU0000001";
             Cls_Global.skinName = "McSkin";
             Cls_Global.empresa = " :: Capsule Corporation ::";
+            
+
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

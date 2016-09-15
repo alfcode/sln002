@@ -14,6 +14,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Windows.Forms;
 using System.Drawing;
 using DevExpress.XtraEditors;
+using DevExpress.Utils;
 
 namespace Presentacion
 {
@@ -25,9 +26,13 @@ namespace Presentacion
         {
             gridView1.ValidatingEditor += new DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventHandler(this.gridView1_ValidatingEditor);
             gridView1.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gridView1_RowStyle);
+            gridView1.OptionsView.ColumnAutoWidth = false;
 
-          
+            SetGridFont(gridView1, new System.Drawing.Font("Tahoma", 8));
+
             ImageList imageList1 = new ImageList();
+
+            
 
             imageList1.Images.Add(Properties.Resources.prevtop_64);
             imageList1.Images.Add(Properties.Resources.prev_64);
@@ -106,6 +111,17 @@ namespace Presentacion
         }
 
 
+        private void SetGridFont( GridView view , Font font )
+        {
+           foreach (AppearanceObject ap in view.Appearance)
+            {
+                ap.Font = font;
+            }
+        }
+        
+
+
+
 
         public void Load_Combo(GridView gridView1, List<EN_zero.datacombo> lista,string ValueMember,bool registra_nombre2 )
         {
@@ -169,15 +185,35 @@ namespace Presentacion
 
         private void gridView1_ValidatingEditor(object sender, BaseContainerValidateEditorEventArgs e)
         {
-            var gridView1 = sender as GridView;
-            string id = gridView1.GetFocusedRowCellValue("id_usuario_ultimo").ToString();
 
-            if (id != "nuevo")
+            try
+            {
+
+            var gridView1 = sender as GridView;
+
+
+                if (gridView1.GetFocusedRowCellValue("id_usuario_ultimo") == null) return;
+               
+                string id = gridView1.GetFocusedRowCellValue("id_usuario_ultimo").ToString();
+
+
+                if (id != "nuevo")
             {
                 DataRow row = gridView1.GetDataRow(gridView1.FocusedRowHandle);
                 row["id_usuario_ultimo"] = "modificar";
                 row["id_usuario_inicia"] = "modificar";
+                   
             }
+
+
+            }
+            catch (Exception ex)
+            {
+                string error = ex.TargetSite.Name + ", " + ex.Message + " - " + Cls_Mensajes.error_sistema;
+                   DevExpress.XtraEditors.XtraMessageBox.Show(error, Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+
+            }
+
         }
 
         private void gridView1_RowStyle(object sender, RowStyleEventArgs e)
@@ -201,7 +237,7 @@ namespace Presentacion
 
                 if (estado_color == "grabado")
                 {
-                    e.Appearance.BackColor = Color.Silver;
+                    e.Appearance.BackColor = Color.Gainsboro;
                 }
 
                 if (estado_color == "nuevo")
@@ -254,6 +290,9 @@ namespace Presentacion
 
             if (e.Button.ButtonType == NavigatorButtonType.Remove)
             {
+
+               
+
 
                 e.Handled = true;
 
@@ -327,9 +366,12 @@ namespace Presentacion
 
             if (_id == "1")
             {
+                string nl = System.Environment.NewLine;
+                var mensaje = "Nro Error: " + _error  + nl + "Procedure: " + _procedure + nl + "Linea: " + _linea + nl + "Aviso: " + nl + _mensaje;
+               // MessageBox.Show(mensaje, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                DevExpress.XtraEditors.XtraMessageBox.Show(mensaje, Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 
-                var mensaje = "Nro Error: " + _error + "Procedure: " + _procedure + "Linea: " + _linea + "Aviso: " + _mensaje;
-                MessageBox.Show(mensaje, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+
                 return true;
             }
 

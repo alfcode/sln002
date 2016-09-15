@@ -3,38 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Conexion;
+using _ExtensionMethods;
 using Entidad;
 using System.Data.SqlClient;
 using System.Data;
-using Conexion;
-using _ExtensionMethods;
 namespace Datos
 {
     public class DAO_estado
     {
 
-        public List<EN_zero.informe> proc_estado_mnt(EN_estado.param_estado parametros)
-        {
-            var retorno = new List<EN_zero.informe>();
 
+        public EN_estado.proc_estado_mnt_retorno proc_estado_mnt(EN_estado.proc_estado_mnt parametros)
+        {
+            var retorno = new EN_estado.proc_estado_mnt_retorno();
             var cmd = new SqlCommand();
             var ds = new DataSet();
             var da = new SqlDataAdapter();
 
-            var dt = new DataTable();
 
-
-            dt = DAO_zero.ObjectToData(parametros.t_estado);
+            DataTable dt = DAO_zero.ListToData(parametros.t_estado);
 
 
             cmd.Connection = AdoConn.Conn();
             cmd.Connection.Open();
             try
             {
-                cmd.CommandText = "conta.proc_estado_mtto";
+                cmd.CommandText = "conta.proc_estado_mnt";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@tarea", parametros.accion.tarea);
+                cmd.Parameters.AddWithValue("@id_usuario", parametros.id_usuario);
                 cmd.Parameters.AddWithValue("@tdp_param1", SqlDbType.Structured).Value = dt;
 
                 da.SelectCommand = cmd;
@@ -43,12 +41,14 @@ namespace Datos
                 for (int i = 0; i < ds.Tables.Count; i++)
                 {
                     if (ds.Tables[i].Columns[0].ColumnName == "informe") { ds.Tables[i].TableName = "informe"; }
+                    if (ds.Tables[i].Columns[0].ColumnName == "estado") { ds.Tables[i].TableName = "estado"; }
                 }
 
-                List<EN_zero.informe> informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
+                retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
+                string Error = (from item in retorno.informe select item.Id).First().ToString();
+                if (Error.Equals("1")) return retorno;
 
-
-                retorno = informe;
+                retorno.t_estado = ds.Tables["estado"].DataTableToList<EN_estado.t_estado>().ToList();
 
                 return retorno;
 
@@ -57,7 +57,9 @@ namespace Datos
             catch (Exception ex)
             {
                 var error = new DAO_zero();
-                return error.msg_exception(ex);
+                retorno.informe = error.msg_exception(ex);
+                return retorno;
+
             }
             finally
             {
@@ -66,6 +68,11 @@ namespace Datos
             }
 
         }
+
+
+
+
+
 
     }
 }

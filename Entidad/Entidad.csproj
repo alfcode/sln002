@@ -41,12 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EN_almacen.cs" />
+    <Compile Include="EN_empresa.cs" />
     <Compile Include="EN_estado.cs" />
-    <Compile Include="EN_guia.cs" />
     <Compile Include="EN_articulo.cs" />
-    <Compile Include="EN_tingreso.cs" />
+    <Compile Include="EN_forma_pago.cs" />
+    <Compile Include="EN_gironegocio.cs" />
+    <Compile Include="EN_moneda.cs" />
+    <Compile Include="EN_proveedor.cs" />
     <Compile Include="EN_unidad.cs" />
-    <Compile Include="EN_usuario.cs" />
     <Compile Include="EN_zero.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
