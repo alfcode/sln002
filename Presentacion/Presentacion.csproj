@@ -83,14 +83,167 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="frm_zona.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_zona.Designer.cs">
+      <DependentUpon>frm_zona.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_usuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_usuario.Designer.cs">
+      <DependentUpon>frm_usuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_tipodocu_personal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_tipodocu_personal.Designer.cs">
+      <DependentUpon>frm_tipodocu_personal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_rol_usuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_rol_usuario.Designer.cs">
+      <DependentUpon>frm_rol_usuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_rol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_rol.Designer.cs">
+      <DependentUpon>frm_rol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_provincia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_provincia.Designer.cs">
+      <DependentUpon>frm_provincia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_proveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_proveedor.Designer.cs">
+      <DependentUpon>frm_proveedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_pais.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_pais.Designer.cs">
+      <DependentUpon>frm_pais.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_moneda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_moneda.Designer.cs">
+      <DependentUpon>frm_moneda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_gironegocio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_gironegocio.Designer.cs">
+      <DependentUpon>frm_gironegocio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_formapago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_formapago.Designer.cs">
+      <DependentUpon>frm_formapago.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_empresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_empresa.Designer.cs">
+      <DependentUpon>frm_empresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_distrito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_distrito.Designer.cs">
+      <DependentUpon>frm_distrito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_departamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_departamento.Designer.cs">
+      <DependentUpon>frm_departamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_cargo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_cargo.Designer.cs">
+      <DependentUpon>frm_cargo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_area.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_area.Designer.cs">
+      <DependentUpon>frm_area.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_almacen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_almacen.Designer.cs">
+      <DependentUpon>frm_almacen.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="frm_almacen.resx">
+      <DependentUpon>frm_almacen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_area.resx">
+      <DependentUpon>frm_area.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_articulo.resx">
       <DependentUpon>frm_articulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_cargo.resx">
+      <DependentUpon>frm_cargo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_departamento.resx">
+      <DependentUpon>frm_departamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_distrito.resx">
+      <DependentUpon>frm_distrito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_empresa.resx">
+      <DependentUpon>frm_empresa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_estado.resx">
       <DependentUpon>frm_estado.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frm_formapago.resx">
+      <DependentUpon>frm_formapago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_gironegocio.resx">
+      <DependentUpon>frm_gironegocio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_moneda.resx">
+      <DependentUpon>frm_moneda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_pais.resx">
+      <DependentUpon>frm_pais.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_proveedor.resx">
+      <DependentUpon>frm_proveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_provincia.resx">
+      <DependentUpon>frm_provincia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_rol.resx">
+      <DependentUpon>frm_rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_rol_usuario.resx">
+      <DependentUpon>frm_rol_usuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_tipodocu_personal.resx">
+      <DependentUpon>frm_tipodocu_personal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_unidad.resx">
       <DependentUpon>frm_unidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_usuario.resx">
+      <DependentUpon>frm_usuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_zona.resx">
+      <DependentUpon>frm_zona.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

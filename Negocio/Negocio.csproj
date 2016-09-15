@@ -41,10 +41,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LN_almacen.cs" />
+    <Compile Include="LN_area.cs" />
+    <Compile Include="LN_cargo.cs" />
+    <Compile Include="LN_departamento.cs" />
+    <Compile Include="LN_distrito.cs" />
+    <Compile Include="LN_empresa.cs" />
+    <Compile Include="LN_formapago.cs" />
+    <Compile Include="LN_gironegocio.cs" />
+    <Compile Include="LN_moneda.cs" />
+    <Compile Include="LN_pais.cs" />
+    <Compile Include="LN_proveedor.cs" />
+    <Compile Include="LN_provincia.cs" />
+    <Compile Include="LN_rol_usuario.cs" />
     <Compile Include="LN_articulo.cs" />
     <Compile Include="LN_estado.cs" />
+    <Compile Include="LN_rol.cs" />
+    <Compile Include="LN_tipodocu_personal.cs" />
     <Compile Include="LN_unidad.cs" />
+    <Compile Include="LN_usuario.cs" />
     <Compile Include="LN_zero.cs" />
+    <Compile Include="LN_zona.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

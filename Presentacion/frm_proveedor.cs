@@ -11,16 +11,16 @@ using _ExtensionMethods;
 
 namespace Presentacion
 {
-    public partial class frm_articulo : DevExpress.XtraEditors.XtraForm
+    public partial class frm_proveedor : DevExpress.XtraEditors.XtraForm
     {
         string id_usuario = Cls_Global.id_usuario;
 
         Cls_Grid_DevExpress_Mnt_1 Cls_Grid = new Cls_Grid_DevExpress_Mnt_1();
-        List<EN_articulo.t_articulo> t_articulo = new List<EN_articulo.t_articulo>();
-        DataTable dt_t_articulo_grid = new DataTable();
-        DataTable dt_t_articulo_final = new DataTable();
+        List<EN_proveedor.t_proveedor> t_proveedor = new List<EN_proveedor.t_proveedor>();
+        DataTable dt_t_proveedor_grid = new DataTable();
+        DataTable dt_t_proveedor_final = new DataTable();
 
-        public frm_articulo()
+        public frm_proveedor()
         {
             DevExpress.UserSkins.BonusSkins.Register();
             DevExpress.Skins.SkinManager.EnableFormSkins();
@@ -28,50 +28,51 @@ namespace Presentacion
 
             InitializeComponent();
             gridControl1.EmbeddedNavigator.ButtonClick += new DevExpress.XtraEditors.NavigatorButtonClickEventHandler(this.gridControl1_EmbeddedNavigator_ButtonClick);
-            this.Load += new System.EventHandler(this.frm_articulo_Load);
+            this.Load += new System.EventHandler(this.frm_proveedor_Load);
             this.Icon = Properties.Resources.empresa;
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
-            labelControl1.Text = "Mantenimiento de Articulos";
+            labelControl1.Text = "Mantenimiento de proveedors";
 
-          
-            
+
+
         }
 
-        private void frm_articulo_Load(object sender, EventArgs e)
+        private void frm_proveedor_Load(object sender, EventArgs e)
         {
-            
+
             inicio();
         }
 
         private void inicio()
         {
-            dt_t_articulo_grid = Cls_Grid.ListToTable(t_articulo);
-            dt_t_articulo_final = Cls_Grid.ListToTable(t_articulo);
+            dt_t_proveedor_grid = Cls_Grid.ListToTable(t_proveedor);
+            dt_t_proveedor_final = Cls_Grid.ListToTable(t_proveedor);
 
-            gridControl1.DataSource = dt_t_articulo_grid;
+            gridControl1.DataSource = dt_t_proveedor_grid;
             cargar_combo();
-            Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_articulo_grid);
-           
+            Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_proveedor_grid);
+
         }
 
 
 
         private void cargar_combo()
         {
-            var negocio = new LN_articulo();
-            var retorno = new EN_articulo.proc_articulo_mnt_combo();
+            var negocio = new LN_proveedor();
+            var retorno = new EN_proveedor.proc_proveedor_mnt_combo();
 
             Cursor.Current = Cursors.WaitCursor;
-            retorno = negocio.proc_articulo_mnt_combo();
+            retorno = negocio.proc_proveedor_mnt_combo();
             Cursor.Current = Cursors.Default;
             if (Cls_Grid.ExisteError(retorno.informe)) return;
 
-            Cls_Grid.Load_Combo(gridView1, retorno.unidad, "id_unidad1", true);
-            Cls_Grid.Load_Combo(gridView1, retorno.unidad, "id_unidad2", true);
-            Cls_Grid.Load_Combo(gridView1, retorno.grupo1, "id_grupo1", false);
-            Cls_Grid.Load_Combo(gridView1, retorno.grupo2, "id_grupo2", false);
-            Cls_Grid.Load_Combo(gridView1, retorno.grupo3, "id_grupo3", false);
+            Cls_Grid.Load_Combo(gridView1, retorno.departamento, "id_departamento", false);
+            Cls_Grid.Load_Combo(gridView1, retorno.formapago, "id_formapago", false);
+            Cls_Grid.Load_Combo(gridView1, retorno.gironegocio, "id_gironegocio", false);
+            Cls_Grid.Load_Combo(gridView1, retorno.pais, "id_pais", false);
+            Cls_Grid.Load_Combo(gridView1, retorno.postal, "id_postal", false);
+            Cls_Grid.Load_Combo(gridView1, retorno.zona, "id_zona", false);
         }
 
 
@@ -81,42 +82,42 @@ namespace Presentacion
             try
             {
 
-            t_articulo = dt_t_articulo_final.DataTableToList<EN_articulo.t_articulo>().ToList();
-            var negocio = new LN_articulo();
-            var parametro = new EN_articulo.proc_articulo_mnt();
-            var retorno = new EN_articulo.proc_articulo_mnt_retorno();
+                t_proveedor = dt_t_proveedor_final.DataTableToList<EN_proveedor.t_proveedor>().ToList();
+                var negocio = new LN_proveedor();
+                var parametro = new EN_proveedor.proc_proveedor_mnt();
+                var retorno = new EN_proveedor.proc_proveedor_mnt_retorno();
 
-            parametro.id_usuario = id_usuario;
-            parametro.t_articulo = t_articulo;
+                parametro.id_usuario = id_usuario;
+                parametro.t_proveedor = t_proveedor;
 
                 Cursor.Current = Cursors.WaitCursor;
-                retorno = negocio.proc_articulo_mnt(parametro);
+                retorno = negocio.proc_proveedor_mnt(parametro);
                 Cursor.Current = Cursors.Default;
 
-            if (Cls_Grid.ExisteError(retorno.informe))
-            {
-                return;
-            }
+                if (Cls_Grid.ExisteError(retorno.informe))
+                {
+                    return;
+                }
 
-            if (id_usuario != "")
-            {
-                    dt_t_articulo_grid.Clear();
+                if (id_usuario != "")
+                {
+                    dt_t_proveedor_grid.Clear();
                     DevExpress.XtraEditors.XtraMessageBox.Show(Cls_Mensajes.titulo_exito, Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-            }
-            else
-            {
-                retorno.t_articulo.ToList().ForEach(c => { c.id_usuario_inicia = ""; c.id_usuario_ultimo = "grabado"; });
-                dt_t_articulo_grid = Cls_Grid.ListToTable(retorno.t_articulo);
+                }
+                else
+                {
+                    retorno.t_proveedor.ToList().ForEach(c => { c.id_usuario_inicia = ""; c.id_usuario_ultimo = "grabado"; });
+                    dt_t_proveedor_grid = Cls_Grid.ListToTable(retorno.t_proveedor);
 
-                gridControl1.DataSource = dt_t_articulo_grid;
-                ((GridView)gridControl1.MainView).MoveLast();
-            }
+                    gridControl1.DataSource = dt_t_proveedor_grid;
+                    ((GridView)gridControl1.MainView).MoveLast();
+                }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string error = ex.TargetSite.Name + ", " + ex.Message + " - " + Cls_Mensajes.error_sistema;
-               DevExpress.XtraEditors.XtraMessageBox.Show(error, Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                DevExpress.XtraEditors.XtraMessageBox.Show(error, Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
 
             }
 
@@ -131,8 +132,8 @@ namespace Presentacion
 
             if ("Limpiar".Equals(e.Button.Tag))
             {
-                dt_t_articulo_grid.Clear();
-                gridControl1.DataSource = dt_t_articulo_grid;
+                dt_t_proveedor_grid.Clear();
+                gridControl1.DataSource = dt_t_proveedor_grid;
                 e.Handled = true;
 
             }
@@ -154,7 +155,7 @@ namespace Presentacion
                 if (dialogResult == DialogResult.Yes)
                     mnt_datos("");
                 e.Handled = true;
-               
+
             }
 
 
@@ -162,23 +163,23 @@ namespace Presentacion
             if (e.Button.ButtonType == NavigatorButtonType.Append)
             {
 
-               // dt_t_articulo_grid.Clear();
+                // dt_t_proveedor_grid.Clear();
                 gridView1.FocusedColumn = gridView1.VisibleColumns[0];
 
             }
 
             if (e.Button.ButtonType == NavigatorButtonType.Remove)
             {
-                Cls_Grid.EmbeddedNavigator(gridView1, e, dt_t_articulo_grid);
+                Cls_Grid.EmbeddedNavigator(gridView1, e, dt_t_proveedor_grid);
             }
 
 
             if (e.Button.ButtonType == NavigatorButtonType.EndEdit)
             {
 
-                dt_t_articulo_final = Cls_Grid.EmbeddedNavigator(gridView1, e, dt_t_articulo_grid);
+                dt_t_proveedor_final = Cls_Grid.EmbeddedNavigator(gridView1, e, dt_t_proveedor_grid);
 
-                int count = dt_t_articulo_final.Rows.Count;
+                int count = dt_t_proveedor_final.Rows.Count;
                 if (count == 0)
                 {
                     return;
@@ -195,8 +196,8 @@ namespace Presentacion
         }
 
 
-       
 
-   
+
+
     }
 }

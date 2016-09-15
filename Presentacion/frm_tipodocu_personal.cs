@@ -11,16 +11,16 @@ using _ExtensionMethods;
 
 namespace Presentacion
 {
-    public partial class frm_articulo : DevExpress.XtraEditors.XtraForm
+    public partial class frm_tipodocu_personal : DevExpress.XtraEditors.XtraForm
     {
         string id_usuario = Cls_Global.id_usuario;
 
         Cls_Grid_DevExpress_Mnt_1 Cls_Grid = new Cls_Grid_DevExpress_Mnt_1();
-        List<EN_articulo.t_articulo> t_articulo = new List<EN_articulo.t_articulo>();
-        DataTable dt_t_articulo_grid = new DataTable();
-        DataTable dt_t_articulo_final = new DataTable();
+        List<EN_tipodocu_personal.t_tipodocu_personal> t_tipodocu_personal = new List<EN_tipodocu_personal.t_tipodocu_personal>();
+        DataTable dt_t_tipodocu_personal_grid = new DataTable();
+        DataTable dt_t_tipodocu_personal_final = new DataTable();
 
-        public frm_articulo()
+        public frm_tipodocu_personal()
         {
             DevExpress.UserSkins.BonusSkins.Register();
             DevExpress.Skins.SkinManager.EnableFormSkins();
@@ -28,50 +28,31 @@ namespace Presentacion
 
             InitializeComponent();
             gridControl1.EmbeddedNavigator.ButtonClick += new DevExpress.XtraEditors.NavigatorButtonClickEventHandler(this.gridControl1_EmbeddedNavigator_ButtonClick);
-            this.Load += new System.EventHandler(this.frm_articulo_Load);
+            this.Load += new System.EventHandler(this.frm_tipodocu_personal_Load);
             this.Icon = Properties.Resources.empresa;
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
-            labelControl1.Text = "Mantenimiento de Articulos";
+            labelControl1.Text = "Mantenimiento de tipodocu_personals";
 
-          
-            
+
+
         }
 
-        private void frm_articulo_Load(object sender, EventArgs e)
+        private void frm_tipodocu_personal_Load(object sender, EventArgs e)
         {
-            
+
             inicio();
         }
 
         private void inicio()
         {
-            dt_t_articulo_grid = Cls_Grid.ListToTable(t_articulo);
-            dt_t_articulo_final = Cls_Grid.ListToTable(t_articulo);
+            dt_t_tipodocu_personal_grid = Cls_Grid.ListToTable(t_tipodocu_personal);
+            dt_t_tipodocu_personal_final = Cls_Grid.ListToTable(t_tipodocu_personal);
 
-            gridControl1.DataSource = dt_t_articulo_grid;
-            cargar_combo();
-            Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_articulo_grid);
-           
-        }
+            gridControl1.DataSource = dt_t_tipodocu_personal_grid;
+        
+            Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_tipodocu_personal_grid);
 
-
-
-        private void cargar_combo()
-        {
-            var negocio = new LN_articulo();
-            var retorno = new EN_articulo.proc_articulo_mnt_combo();
-
-            Cursor.Current = Cursors.WaitCursor;
-            retorno = negocio.proc_articulo_mnt_combo();
-            Cursor.Current = Cursors.Default;
-            if (Cls_Grid.ExisteError(retorno.informe)) return;
-
-            Cls_Grid.Load_Combo(gridView1, retorno.unidad, "id_unidad1", true);
-            Cls_Grid.Load_Combo(gridView1, retorno.unidad, "id_unidad2", true);
-            Cls_Grid.Load_Combo(gridView1, retorno.grupo1, "id_grupo1", false);
-            Cls_Grid.Load_Combo(gridView1, retorno.grupo2, "id_grupo2", false);
-            Cls_Grid.Load_Combo(gridView1, retorno.grupo3, "id_grupo3", false);
         }
 
 
@@ -81,42 +62,42 @@ namespace Presentacion
             try
             {
 
-            t_articulo = dt_t_articulo_final.DataTableToList<EN_articulo.t_articulo>().ToList();
-            var negocio = new LN_articulo();
-            var parametro = new EN_articulo.proc_articulo_mnt();
-            var retorno = new EN_articulo.proc_articulo_mnt_retorno();
+                t_tipodocu_personal = dt_t_tipodocu_personal_final.DataTableToList<EN_tipodocu_personal.t_tipodocu_personal>().ToList();
+                var negocio = new LN_tipodocu_personal();
+                var parametro = new EN_tipodocu_personal.proc_tipodocu_personal_mnt();
+                var retorno = new EN_tipodocu_personal.proc_tipodocu_personal_mnt_retorno();
 
-            parametro.id_usuario = id_usuario;
-            parametro.t_articulo = t_articulo;
+                parametro.id_usuario = id_usuario;
+                parametro.t_tipodocu_personal = t_tipodocu_personal;
 
                 Cursor.Current = Cursors.WaitCursor;
-                retorno = negocio.proc_articulo_mnt(parametro);
+                retorno = negocio.proc_tipodocu_personal_mnt(parametro);
                 Cursor.Current = Cursors.Default;
 
-            if (Cls_Grid.ExisteError(retorno.informe))
-            {
-                return;
-            }
+                if (Cls_Grid.ExisteError(retorno.informe))
+                {
+                    return;
+                }
 
-            if (id_usuario != "")
-            {
-                    dt_t_articulo_grid.Clear();
+                if (id_usuario != "")
+                {
+                    dt_t_tipodocu_personal_grid.Clear();
                     DevExpress.XtraEditors.XtraMessageBox.Show(Cls_Mensajes.titulo_exito, Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-            }
-            else
-            {
-                retorno.t_articulo.ToList().ForEach(c => { c.id_usuario_inicia = ""; c.id_usuario_ultimo = "grabado"; });
-                dt_t_articulo_grid = Cls_Grid.ListToTable(retorno.t_articulo);
+                }
+                else
+                {
+                    retorno.t_tipodocu_personal.ToList().ForEach(c => { c.id_usuario_inicia = ""; c.id_usuario_ultimo = "grabado"; });
+                    dt_t_tipodocu_personal_grid = Cls_Grid.ListToTable(retorno.t_tipodocu_personal);
 
-                gridControl1.DataSource = dt_t_articulo_grid;
-                ((GridView)gridControl1.MainView).MoveLast();
-            }
+                    gridControl1.DataSource = dt_t_tipodocu_personal_grid;
+                    ((GridView)gridControl1.MainView).MoveLast();
+                }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string error = ex.TargetSite.Name + ", " + ex.Message + " - " + Cls_Mensajes.error_sistema;
-               DevExpress.XtraEditors.XtraMessageBox.Show(error, Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                DevExpress.XtraEditors.XtraMessageBox.Show(error, Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
 
             }
 
@@ -131,8 +112,8 @@ namespace Presentacion
 
             if ("Limpiar".Equals(e.Button.Tag))
             {
-                dt_t_articulo_grid.Clear();
-                gridControl1.DataSource = dt_t_articulo_grid;
+                dt_t_tipodocu_personal_grid.Clear();
+                gridControl1.DataSource = dt_t_tipodocu_personal_grid;
                 e.Handled = true;
 
             }
@@ -154,7 +135,7 @@ namespace Presentacion
                 if (dialogResult == DialogResult.Yes)
                     mnt_datos("");
                 e.Handled = true;
-               
+
             }
 
 
@@ -162,23 +143,23 @@ namespace Presentacion
             if (e.Button.ButtonType == NavigatorButtonType.Append)
             {
 
-               // dt_t_articulo_grid.Clear();
+                // dt_t_tipodocu_personal_grid.Clear();
                 gridView1.FocusedColumn = gridView1.VisibleColumns[0];
 
             }
 
             if (e.Button.ButtonType == NavigatorButtonType.Remove)
             {
-                Cls_Grid.EmbeddedNavigator(gridView1, e, dt_t_articulo_grid);
+                Cls_Grid.EmbeddedNavigator(gridView1, e, dt_t_tipodocu_personal_grid);
             }
 
 
             if (e.Button.ButtonType == NavigatorButtonType.EndEdit)
             {
 
-                dt_t_articulo_final = Cls_Grid.EmbeddedNavigator(gridView1, e, dt_t_articulo_grid);
+                dt_t_tipodocu_personal_final = Cls_Grid.EmbeddedNavigator(gridView1, e, dt_t_tipodocu_personal_grid);
 
-                int count = dt_t_articulo_final.Rows.Count;
+                int count = dt_t_tipodocu_personal_final.Rows.Count;
                 if (count == 0)
                 {
                     return;
@@ -195,8 +176,8 @@ namespace Presentacion
         }
 
 
-       
 
-   
+
+
     }
 }

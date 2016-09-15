@@ -42,15 +42,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EN_almacen.cs" />
+    <Compile Include="EN_area.cs" />
+    <Compile Include="EN_cargo.cs" />
+    <Compile Include="EN_departamento.cs" />
+    <Compile Include="EN_distrito.cs" />
     <Compile Include="EN_empresa.cs" />
     <Compile Include="EN_estado.cs" />
     <Compile Include="EN_articulo.cs" />
-    <Compile Include="EN_forma_pago.cs" />
+    <Compile Include="EN_formapago.cs" />
     <Compile Include="EN_gironegocio.cs" />
     <Compile Include="EN_moneda.cs" />
+    <Compile Include="EN_pais.cs" />
     <Compile Include="EN_proveedor.cs" />
+    <Compile Include="EN_provincia.cs" />
+    <Compile Include="EN_rol.cs" />
+    <Compile Include="EN_rol_usuario.cs" />
+    <Compile Include="EN_tipodocu_personal.cs" />
     <Compile Include="EN_unidad.cs" />
+    <Compile Include="EN_usuario.cs" />
     <Compile Include="EN_zero.cs" />
+    <Compile Include="EN_zona.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

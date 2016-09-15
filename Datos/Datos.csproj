@@ -40,10 +40,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO_almacen.cs" />
+    <Compile Include="DAO_area.cs" />
     <Compile Include="DAO_articulo.cs" />
+    <Compile Include="DAO_cargo.cs" />
+    <Compile Include="DAO_departamento.cs" />
+    <Compile Include="DAO_distrito.cs" />
+    <Compile Include="DAO_empresa.cs" />
     <Compile Include="DAO_estado.cs" />
+    <Compile Include="DAO_formapago.cs" />
+    <Compile Include="DAO_gironegocio.cs" />
+    <Compile Include="DAO_moneda.cs" />
+    <Compile Include="DAO_pais.cs" />
+    <Compile Include="DAO_proveedor.cs" />
+    <Compile Include="DAO_provincia.cs" />
+    <Compile Include="DAO_rol.cs" />
+    <Compile Include="DAO_rol_usuario.cs" />
+    <Compile Include="DAO_tipodocu_personal.cs" />
     <Compile Include="DAO_unidad.cs" />
+    <Compile Include="DAO_usuario.cs" />
     <Compile Include="DAO_zero.cs" />
+    <Compile Include="DAO_zona.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
