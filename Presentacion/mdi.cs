@@ -25,12 +25,12 @@ namespace Presentacion
             this.MaximizeBox = false;
 
 
-            TaskbarVista.Hide();
+           // TaskbarVista.Hide();
         }
 
         private void mdi_FormClosing(object sender, FormClosingEventArgs e)
         {
-            TaskbarVista.Show();
+          //  TaskbarVista.Show();
         }
 
         private void conta_tdocu_sunat_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
