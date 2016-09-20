@@ -19,7 +19,7 @@ namespace Entidad
             public string id_zona { get; set; }
 
             [Display(Description = "Zona")]
-            [Column(Order = 400)]
+            [Column(Order = 340)]
             [MaxLength(80)]
             public string nombre { get; set; }
 

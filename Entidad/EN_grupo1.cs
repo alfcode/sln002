@@ -19,13 +19,13 @@ namespace Entidad
             public string id_grupo1 { get; set; }
 
             [Display(Description = "Linea")]
-            [Column(Order = 0)]
+            [Column(Order = 280)]
             [Required]
             [MaxLength(50)]
             public string nombre { get; set; }
 
-            [Display(Description = "CC")]
-            [Column(Order = 0)]
+            [Display(Description = "COD. SUNAT")]
+            [Column(Order = 80)]
             [MaxLength(10)]
             public string cc { get; set; }
 

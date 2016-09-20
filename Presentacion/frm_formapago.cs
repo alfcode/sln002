@@ -33,9 +33,9 @@ namespace Presentacion
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
 
-            labelControl1.Text = " formapagos";
+            labelControl1.Text = "Forma de Pago";
 
-            this.Width = 735;
+            this.Width = 468;
             this.Height = 400;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             int positionfinal = this.Width - this.labelControl1.Size.Width - 15;

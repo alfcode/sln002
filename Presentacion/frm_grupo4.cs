@@ -32,9 +32,9 @@ namespace Presentacion
             this.Icon = Properties.Resources.empresa;
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
-            labelControl1.Text = " grupo4s";
+            labelControl1.Text = "Grupo 4";
 
-            this.Width = 735;
+            this.Width = 442;
             this.Height = 400;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             int positionfinal = this.Width - this.labelControl1.Size.Width - 15;

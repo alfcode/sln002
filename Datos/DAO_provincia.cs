@@ -22,7 +22,7 @@ namespace Datos
             cmd.Connection.Open();
             try
             {
-                cmd.CommandText = "inve.proc_provincia_mnt_combo";
+                cmd.CommandText = "rrhh.proc_provincia_mnt_combo";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@id_departamento", parametros.id_departamento);
@@ -78,7 +78,7 @@ namespace Datos
             cmd.Connection.Open();
             try
             {
-                cmd.CommandText = "inve.proc_provincia_mnt";
+                cmd.CommandText = "rrhh.proc_provincia_mnt";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@id_usuario", parametros.id_usuario);

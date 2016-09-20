@@ -19,7 +19,7 @@ namespace Entidad
             public string id_departamento { get; set; }
 
             [Display(Description = "Departamento")]
-            [Column(Order = 0)]
+            [Column(Order = 340)]
             [MaxLength(80)]
             public string nombre { get; set; }
 

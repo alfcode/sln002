@@ -19,13 +19,13 @@ namespace Entidad
             public string id_grupo4 { get; set; }
 
             [Display(Description = "Grupo4")]
-            [Column(Order = 0)]
+            [Column(Order = 300)]
             [Required]
             [MaxLength(50)]
             public string nombre { get; set; }
 
             [Display(Description = "CC")]
-            [Column(Order = 0)]
+            [Column(Order = 60)]
             [MaxLength(10)]
             public string cc { get; set; }
 

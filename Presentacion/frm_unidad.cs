@@ -36,9 +36,9 @@ namespace Presentacion
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
 
-            labelControl1.Text = " Unidad";
+            labelControl1.Text = "Unidad de Medida";
 
-            this.Width = 735;
+            this.Width =450;
             this.Height = 400;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             int positionfinal = this.Width - this.labelControl1.Size.Width - 15;

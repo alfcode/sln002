@@ -36,6 +36,7 @@ namespace Presentacion
         private void conta_tdocu_sunat_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             Form form = new frm_tdocu_sunat();
+            
             form.Show();
 
 
@@ -204,6 +205,16 @@ namespace Presentacion
             MessageBox.Show("tipo salida");
         }
 
-       
+        private void inve_gironegocio_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form form = new frm_gironegocio();
+            form.Show();
+        }
+
+        private void conta_tdocu_personal_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form form = new frm_tipodocu_personal();
+            form.Show();
+        }
     }
 }

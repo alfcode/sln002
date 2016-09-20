@@ -19,18 +19,18 @@ namespace Entidad
             public string id_tdocu_sunat { get; set; }
 
             [Display(Description = "Documento Sunat")]
-            [Column(Order = 0)]
+            [Column(Order = 222)]
             [Required]
             [MaxLength(50)]
             public string nombre { get; set; }
 
             [Display(Description = "Abreviatura")]
-            [Column(Order = 0)]
+            [Column(Order = 70)]
             [MaxLength(10)]
             public string abreviatura { get; set; }
 
             [Display(Description = "Codigo Sunat")]
-            [Column(Order = 0)]
+            [Column(Order = 75)]
             [MaxLength(50)]
             public string cod_sunat { get; set; }
 

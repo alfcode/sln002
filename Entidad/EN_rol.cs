@@ -19,7 +19,7 @@ namespace Entidad
             public string id_rol { get; set; }
 
             [Display(Description = "Rol")]
-            [Column(Order = 0)]
+            [Column(Order = 357)]
             [Required]
             [MaxLength(255)]
             public string nombre { get; set; }

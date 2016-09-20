@@ -19,90 +19,90 @@ namespace Entidad
             public string id_usuario { get; set; }
 
             [Display(Description = "Nombres")]
-            [Column(Order = 0)]
+            [Column(Order = 150)]
             [Required]
             [MaxLength(200)]
             public string nombre { get; set; }
 
             [Display(Description = "Ape. Paterno")]
-            [Column(Order = 0)]
+            [Column(Order = 110)]
             [Required]
             [MaxLength(20)]
             public string apepat { get; set; }
 
             [Display(Description = "Ape. Materno")]
-            [Column(Order = 0)]
+            [Column(Order = 110)]
             [Required]
             [MaxLength(20)]
             public string apemat { get; set; }
 
             [Display(Description = "Sexo")]
-            [Column(Order = 0)]
+            [Column(Order = 40)]
             [Required]
             [MaxLength(1)]
             public string sexo { get; set; }
 
             [Display(Description = "Fecha Nac.")]
-            [Column(Order = 0)]
+            [Column(Order = 70)]
             public DateTime fechanac { get; set; }
 
             [Display(Description = "Tipo Documento")]
-            [Column(Order = 0)]
+            [Column(Order = 90)]
             [MaxLength(10)]
             public string id_tipodocu_personal { get; set; }
 
             [Display(Description = "numero")]
-            [Column(Order = 0)]
+            [Column(Order = 60)]
             [MaxLength(20)]
             public string num_tdocu { get; set; }
 
             [Display(Description = "Departamento")]
-            [Column(Order = 0)]
+            [Column(Order = 80)]
             [MaxLength(10)]
             public string id_departamento { get; set; }
 
             [Display(Description = "Provincia")]
-            [Column(Order = 0)]
+            [Column(Order = 80)]
             [MaxLength(10)]
             public string id_provincia { get; set; }
 
             [Display(Description = "Distrito")]
-            [Column(Order = 0)]
+            [Column(Order = 145)]
             [MaxLength(10)]
             public string id_distrito { get; set; }
 
             [Display(Description = "Dirección")]
-            [Column(Order = 0)]
+            [Column(Order = 280)]
             [MaxLength(500)]
             public string direccion { get; set; }
 
             [Display(Description = "Teléfono 1")]
-            [Column(Order = 0)]
+            [Column(Order = 75)]
             [MaxLength(50)]
             public string telefono1 { get; set; }
 
             [Display(Description = "Teléfono 2")]
-            [Column(Order = 0)]
+            [Column(Order = 75)]
             [MaxLength(50)]
             public string telefono2 { get; set; }
 
             [Display(Description = "Email")]
-            [Column(Order = 0)]
+            [Column(Order = 150)]
             [MaxLength(50)]
             public string email { get; set; }
 
             [Display(Description = "Area")]
-            [Column(Order = 0)]
+            [Column(Order = 150)]
             [MaxLength(10)]
             public string id_area { get; set; }
 
             [Display(Description = "Cargo")]
-            [Column(Order = 0)]
+            [Column(Order = 150)]
             [MaxLength(10)]
             public string id_cargo { get; set; }
 
             [Display(Description = "Fecha de Ingreso")]
-            [Column(Order = 0)]
+            [Column(Order = 90)]
             public DateTime fecha_ingreso { get; set; }
 
             [Display(Description = "")]
@@ -111,7 +111,7 @@ namespace Entidad
             public string foto { get; set; }
 
             [Display(Description = "Activo", Prompt = "1")]
-            [Column(Order = 40)]
+            [Column(Order = 50)]
             [Required]
             public bool activo { get; set; }
 

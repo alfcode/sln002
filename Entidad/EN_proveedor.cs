@@ -19,97 +19,97 @@ namespace Entidad
             public string id_proveedor { get; set; }
 
             [Display(Description = "Proveedor")]
-            [Column(Order = 0)]
+            [Column(Order = 230)]
             [Required]
             [MaxLength(100)]
             public string nombre { get; set; }
 
             [Display(Description = "ruc")]
-            [Column(Order = 0)]
+            [Column(Order = 80)]
             [MaxLength(11)]
             public string ruc { get; set; }
 
             [Display(Description = "Giro de Negocio")]
-            [Column(Order = 0)]
+            [Column(Order = 120)]
             [MaxLength(10)]
             public string id_gironegocio { get; set; }
 
             [Display(Description = "Forma de pago")]
-            [Column(Order = 0)]
+            [Column(Order = 85)]
             [MaxLength(10)]
             public string id_formapago { get; set; }
 
             [Display(Description = "Contacto")]
-            [Column(Order = 0)]
+            [Column(Order = 165)]
             [MaxLength(100)]
             public string contacto { get; set; }
 
             [Display(Description = "Dirección")]
-            [Column(Order = 0)]
+            [Column(Order = 193)]
             [MaxLength(200)]
             public string direccion { get; set; }
 
             [Display(Description = "Teléfono 1")]
-            [Column(Order = 0)]
+            [Column(Order = 75)]
             [MaxLength(12)]
             public string telefono1 { get; set; }
 
             [Display(Description = "Teléfono 2")]
-            [Column(Order = 0)]
+            [Column(Order = 75)]
             [MaxLength(12)]
             public string telefono2 { get; set; }
 
             [Display(Description = "Email")]
-            [Column(Order = 0)]
+            [Column(Order = 136)]
             [MaxLength(100)]
             public string email { get; set; }
 
             [Display(Description = "Web")]
-            [Column(Order = 0)]
+            [Column(Order = 156)]
             [MaxLength(200)]
             public string web { get; set; }
 
             [Display(Description = "Comentario")]
-            [Column(Order = 0)]
+            [Column(Order =164)]
             [MaxLength(8000)]
             public string comentario { get; set; }
 
             [Display(Description = "Linea de crédito")]
-            [Column(Order = 0)]
+            [Column(Order = 85)]
             public decimal linea_credito { get; set; }
 
             [Display(Description = "Dias de atención")]
-            [Column(Order = 0)]
+            [Column(Order = 124)]
             [MaxLength(100)]
             public string dias_atencion { get; set; }
 
             [Display(Description = "País")]
-            [Column(Order = 0)]
+            [Column(Order = 96)]
             [MaxLength(10)]
             public string id_pais { get; set; }
 
             [Display(Description = "Departamento")]
-            [Column(Order = 0)]
+            [Column(Order = 102)]
             [MaxLength(10)]
             public string id_departamento { get; set; }
 
             [Display(Description = "Provincia")]
-            [Column(Order = 0)]
+            [Column(Order = 97)]
             [MaxLength(10)]
             public string id_provincia { get; set; }
 
             [Display(Description = "Distrito")]
-            [Column(Order = 0)]
+            [Column(Order = 127)]
             [MaxLength(10)]
             public string id_distrito { get; set; }
 
             [Display(Description = "Zona")]
-            [Column(Order = 0)]
+            [Column(Order = 76)]
             [MaxLength(10)]
             public string id_zona { get; set; }
 
             [Display(Description = "Postal")]
-            [Column(Order = 0)]
+            [Column(Order = 67)]
             [MaxLength(10)]
             public string id_postal { get; set; }
 

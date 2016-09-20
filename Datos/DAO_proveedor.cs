@@ -47,10 +47,10 @@ namespace Datos
 
                 retorno.gironegocio = ds.Tables["gironegocio"].DataTableToList<EN_zero.datacombo>().ToList();
                 retorno.formapago = ds.Tables["formapago"].DataTableToList<EN_zero.datacombo>().ToList();
-                retorno.pais= ds.Tables["grupo2"].DataTableToList<EN_zero.datacombo>().ToList();
-                retorno.departamento = ds.Tables["grupo3"].DataTableToList<EN_zero.datacombo>().ToList();
-                retorno.zona = ds.Tables["grupo3"].DataTableToList<EN_zero.datacombo>().ToList();
-                retorno.postal = ds.Tables["grupo3"].DataTableToList<EN_zero.datacombo>().ToList();
+                retorno.pais= ds.Tables["pais"].DataTableToList<EN_zero.datacombo>().ToList();
+                retorno.departamento = ds.Tables["departamento"].DataTableToList<EN_zero.datacombo>().ToList();
+                retorno.zona = ds.Tables["zona"].DataTableToList<EN_zero.datacombo>().ToList();
+                retorno.postal = ds.Tables["postal"].DataTableToList<EN_zero.datacombo>().ToList();
 
                 return retorno;
 

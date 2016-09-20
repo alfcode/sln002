@@ -22,7 +22,7 @@ namespace Datos
             cmd.Connection.Open();
             try
             {
-                cmd.CommandText = "inve.proc_usuario_mnt_combo";
+                cmd.CommandText = "rrhh.proc_usuario_mnt_combo";
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 da.SelectCommand = cmd;
@@ -88,7 +88,7 @@ namespace Datos
             cmd.Connection.Open();
             try
             {
-                cmd.CommandText = "inve.proc_usuario_mnt";
+                cmd.CommandText = "rrhh.proc_usuario_mnt";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@id_usuario", parametros.id_usuario);

@@ -13,25 +13,25 @@ namespace Entidad
             /// [Display(Prompt = "GRU0000001")]   valor por defecto
 
             [Display(Description = "Rol")]
-            [Column(Order = 0)]
+            [Column(Order = 200)]
             [Required]
             [MaxLength(10)]
             public string id_rol { get; set; }
 
             [Display(Description = "Usuario")]
-            [Column(Order = 0)]
+            [Column(Order = 200)]
             [Required]
             [MaxLength(10)]
             public string id_usuario { get; set; }
 
             [Display(Description = "Login")]
-            [Column(Order = 0)]
+            [Column(Order = 70)]
             [Required]
             [MaxLength(20)]
             public string login { get; set; }
 
             [Display(Description = "Password")]
-            [Column(Order = 0)]
+            [Column(Order = 70)]
             [Required]
             [MaxLength(20)]
             public string password { get; set; }

@@ -19,28 +19,28 @@ namespace Entidad
             public string id_empresa { get; set; }
 
             [Display(Description = "Empresa")]
-            [Column(Order = 0)]
+            [Column(Order = 210)]
             [Required]
             [MaxLength(200)]
             public string nombre { get; set; }
 
             [Display(Description = "Dirección")]
-            [Column(Order = 0)]
+            [Column(Order = 290)]
             [MaxLength(200)]
             public string direccion { get; set; }
 
             [Display(Description = "RUC")]
-            [Column(Order = 0)]
+            [Column(Order = 75)]
             [MaxLength(30)]
             public string ruc { get; set; }
 
             [Display(Description = "Representante")]
-            [Column(Order = 0)]
+            [Column(Order = 120)]
             [MaxLength(200)]
             public string representante { get; set; }
 
             [Display(Description = "Telefono")]
-            [Column(Order = 0)]
+            [Column(Order = 80)]
             [MaxLength(30)]
             public string telefono { get; set; }
 

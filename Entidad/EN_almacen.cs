@@ -25,12 +25,12 @@ namespace Entidad
             public string nombre { get; set; }
 
             [Display(Description = "Representante")]
-            [Column(Order = 220)]
+            [Column(Order = 200)]
             [MaxLength(200)]
             public string representante { get; set; }
 
             [Display(Description = "Direccion")]
-            [Column(Order = 220)]
+            [Column(Order = 230)]
             [MaxLength(200)]
             public string direccion { get; set; }
 

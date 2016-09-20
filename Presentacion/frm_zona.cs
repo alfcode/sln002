@@ -33,9 +33,9 @@ namespace Presentacion
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
 
-            labelControl1.Text = " zonas";
+            labelControl1.Text = "Zonas";
 
-            this.Width = 735;
+            this.Width = 421;
             this.Height = 400;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             int positionfinal = this.Width - this.labelControl1.Size.Width - 15;

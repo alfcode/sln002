@@ -40,6 +40,7 @@
             this.rrhh_departamento = new DevExpress.XtraBars.BarButtonItem();
             this.rrhh_provincia = new DevExpress.XtraBars.BarButtonItem();
             this.rrhh_distrito = new DevExpress.XtraBars.BarButtonItem();
+            this.conta_tdocu_personal = new DevExpress.XtraBars.BarButtonItem();
             this.barSubItem2 = new DevExpress.XtraBars.BarSubItem();
             this.conta_empresa = new DevExpress.XtraBars.BarButtonItem();
             this.conta_tdocu_sunat = new DevExpress.XtraBars.BarButtonItem();
@@ -61,6 +62,7 @@
             this.inve_proveedor_articulo = new DevExpress.XtraBars.BarButtonItem();
             this.inve_tipoingreso = new DevExpress.XtraBars.BarButtonItem();
             this.inve_tiposalida = new DevExpress.XtraBars.BarButtonItem();
+            this.inve_gironegocio = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
@@ -102,9 +104,11 @@
             this.inve_almacen_articulo,
             this.inve_proveedor_articulo,
             this.inve_tiposalida,
-            this.inve_tipoingreso});
+            this.inve_tipoingreso,
+            this.inve_gironegocio,
+            this.conta_tdocu_personal});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 39;
+            this.ribbonControl1.MaxItemId = 41;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -127,7 +131,8 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_postal),
             new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_departamento),
             new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_provincia),
-            new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_distrito)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_distrito),
+            new DevExpress.XtraBars.LinkPersistInfo(this.conta_tdocu_personal)});
             this.barSubItem1.Name = "barSubItem1";
             // 
             // rrhh_usuario
@@ -200,6 +205,13 @@
             this.rrhh_distrito.Name = "rrhh_distrito";
             this.rrhh_distrito.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rrhh_distrito_ItemClick);
             // 
+            // conta_tdocu_personal
+            // 
+            this.conta_tdocu_personal.Caption = "Tipo Documento Usuario";
+            this.conta_tdocu_personal.Id = 40;
+            this.conta_tdocu_personal.Name = "conta_tdocu_personal";
+            this.conta_tdocu_personal.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.conta_tdocu_personal_ItemClick);
+            // 
             // barSubItem2
             // 
             this.barSubItem2.Caption = "conta";
@@ -252,20 +264,21 @@
             this.barSubItem3.Caption = "inve";
             this.barSubItem3.Id = 9;
             this.barSubItem3.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.inve_articulo),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_unidad),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_grupo1),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_grupo2),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_grupo3),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_grupo4),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_grupo5),
+            new DevExpress.XtraBars.LinkPersistInfo(this.inve_articulo),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_proveedor),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_formapago),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_almacen),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_almacen_articulo),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_proveedor_articulo),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_tipoingreso),
-            new DevExpress.XtraBars.LinkPersistInfo(this.inve_tiposalida)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.inve_tiposalida),
+            new DevExpress.XtraBars.LinkPersistInfo(this.inve_gironegocio)});
             this.barSubItem3.Name = "barSubItem3";
             // 
             // inve_articulo
@@ -284,21 +297,21 @@
             // 
             // inve_grupo1
             // 
-            this.inve_grupo1.Caption = "Grupo 1";
+            this.inve_grupo1.Caption = "Linea";
             this.inve_grupo1.Id = 27;
             this.inve_grupo1.Name = "inve_grupo1";
             this.inve_grupo1.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_grupo1_ItemClick);
             // 
             // inve_grupo2
             // 
-            this.inve_grupo2.Caption = "Grupo 2";
+            this.inve_grupo2.Caption = "Familia";
             this.inve_grupo2.Id = 28;
             this.inve_grupo2.Name = "inve_grupo2";
             this.inve_grupo2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_grupo2_ItemClick);
             // 
             // inve_grupo3
             // 
-            this.inve_grupo3.Caption = "Grupo 3";
+            this.inve_grupo3.Caption = "Catalogo";
             this.inve_grupo3.Id = 29;
             this.inve_grupo3.Name = "inve_grupo3";
             this.inve_grupo3.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_grupo3_ItemClick);
@@ -366,6 +379,13 @@
             this.inve_tiposalida.Name = "inve_tiposalida";
             this.inve_tiposalida.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_tiposalida_ItemClick);
             // 
+            // inve_gironegocio
+            // 
+            this.inve_gironegocio.Caption = "Giro de Negocio";
+            this.inve_gironegocio.Id = 39;
+            this.inve_gironegocio.Name = "inve_gironegocio";
+            this.inve_gironegocio.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_gironegocio_ItemClick);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -431,5 +451,7 @@
         private DevExpress.XtraBars.BarButtonItem inve_proveedor_articulo;
         private DevExpress.XtraBars.BarButtonItem inve_tipoingreso;
         private DevExpress.XtraBars.BarButtonItem inve_tiposalida;
+        private DevExpress.XtraBars.BarButtonItem inve_gironegocio;
+        private DevExpress.XtraBars.BarButtonItem conta_tdocu_personal;
     }
 }

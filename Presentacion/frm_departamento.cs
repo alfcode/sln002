@@ -35,7 +35,7 @@ namespace Presentacion
 
             labelControl1.Text = " departamentos";
 
-            this.Width = 735;
+            this.Width = 422;
             this.Height = 400;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             int positionfinal = this.Width - this.labelControl1.Size.Width - 15;

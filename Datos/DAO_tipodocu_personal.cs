@@ -25,7 +25,7 @@ namespace Datos
             cmd.Connection.Open();
             try
             {
-                cmd.CommandText = "inve.proc_tipodocu_personal_mnt";
+                cmd.CommandText = "rrhh.proc_tipodocu_personal_mnt";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@id_usuario", parametros.id_usuario);

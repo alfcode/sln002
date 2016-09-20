@@ -19,7 +19,7 @@ namespace Entidad
             public string id_cargo { get; set; }
 
             [Display(Description = "Cargo")]
-            [Column(Order = 0)]
+            [Column(Order = 340)]
             [Required]
             [MaxLength(100)]
             public string nombre { get; set; }

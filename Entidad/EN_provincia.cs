@@ -19,7 +19,7 @@ namespace Entidad
             public string id_provincia { get; set; }
 
             [Display(Description = "Provincia")]
-            [Column(Order = 0)]
+            [Column(Order = 340)]
             [Required]
             [MaxLength(80)]
             public string nombre { get; set; }

@@ -20,17 +20,17 @@ namespace Entidad
 
             [Key]
             [Display(Description = "Unidad de Medida")]
-            [Column(Order = 190)]
+            [Column(Order = 200)]
             [MaxLength(50)]
             public string nombre { get; set; }
 
             [Display(Description = "Abreviatura")]
-            [Column(Order = 170)]
+            [Column(Order = 70)]
             [MaxLength(50)]
             public string abreviatura { get; set; }
 
-            [Display(Description = "")]
-            [Column(Order = 0)]
+            [Display(Description = "COD. SUNAT")]
+            [Column(Order = 95)]
             [MaxLength(10)]
             public string cc { get; set; }
 
