@@ -12,61 +12,61 @@ namespace Entidad
             /// [Key]   para columnas cuyo valor es unico en la grilla
             /// [Display(Prompt = "GRU0000001")]   valor por defecto
 
-            [Display(Description = "id_empresa")]
+            [Display(Description = "")]
             [Column(Order = 0)]
             [Required]
             [MaxLength(10)]
             public string id_empresa { get; set; }
 
-            [Display(Description = "nombre")]
+            [Display(Description = "Empresa")]
             [Column(Order = 0)]
             [Required]
             [MaxLength(200)]
             public string nombre { get; set; }
 
-            [Display(Description = "direccion")]
+            [Display(Description = "Dirección")]
             [Column(Order = 0)]
             [MaxLength(200)]
             public string direccion { get; set; }
 
-            [Display(Description = "ruc")]
+            [Display(Description = "RUC")]
             [Column(Order = 0)]
             [MaxLength(30)]
             public string ruc { get; set; }
 
-            [Display(Description = "representante")]
+            [Display(Description = "Representante")]
             [Column(Order = 0)]
             [MaxLength(200)]
             public string representante { get; set; }
 
-            [Display(Description = "telefono")]
+            [Display(Description = "Telefono")]
             [Column(Order = 0)]
             [MaxLength(30)]
             public string telefono { get; set; }
 
-            [Display(Description = "activo")]
-            [Column(Order = 0)]
+            [Display(Description = "Activo", Prompt = "1")]
+            [Column(Order = 40)]
             [Required]
             public bool activo { get; set; }
 
-            [Display(Description = "id_usuario_inicia")]
+            [Display(Description = "")]
             [Column(Order = 0)]
             [Required]
             [MaxLength(10)]
             public string id_usuario_inicia { get; set; }
 
-            [Display(Description = "id_usuario_ultimo")]
+            [Display(Description = "", Prompt = "nuevo")]
             [Column(Order = 0)]
             [Required]
             [MaxLength(10)]
             public string id_usuario_ultimo { get; set; }
 
-            [Display(Description = "fecha_inicia")]
+            [Display(Description = "", Prompt = "01/01/2016")]
             [Column(Order = 0)]
             [Required]
             public DateTime fecha_inicia { get; set; }
 
-            [Display(Description = "fecha_ultimo")]
+            [Display(Description = "", Prompt = "01/01/2016")]
             [Column(Order = 0)]
             [Required]
             public DateTime fecha_ultimo { get; set; }

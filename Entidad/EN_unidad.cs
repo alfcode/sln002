@@ -19,13 +19,13 @@ namespace Entidad
             public string id_unidad { get; set; }
 
             [Key]
-            [Display(Description = "Descripción de Medidad")]
-            [Column(Order = 50)]
+            [Display(Description = "Unidad de Medida")]
+            [Column(Order = 190)]
             [MaxLength(50)]
             public string nombre { get; set; }
 
             [Display(Description = "Abreviatura")]
-            [Column(Order = 50)]
+            [Column(Order = 170)]
             [MaxLength(50)]
             public string abreviatura { get; set; }
 
@@ -34,26 +34,31 @@ namespace Entidad
             [MaxLength(10)]
             public string cc { get; set; }
 
-            [Display(Description = "Activo", Prompt="1")]
-            [Column(Order = 10)]
+            [Display(Description = "Activo", Prompt = "1")]
+            [Column(Order = 40)]
+            [Required]
             public bool activo { get; set; }
 
             [Display(Description = "")]
             [Column(Order = 0)]
+            [Required]
             [MaxLength(10)]
             public string id_usuario_inicia { get; set; }
 
             [Display(Description = "", Prompt = "nuevo")]
             [Column(Order = 0)]
+            [Required]
             [MaxLength(10)]
             public string id_usuario_ultimo { get; set; }
 
             [Display(Description = "", Prompt = "01/01/2016")]
             [Column(Order = 0)]
+            [Required]
             public DateTime fecha_inicia { get; set; }
 
-            [Display(Description = "",Prompt ="01/01/2016")]
+            [Display(Description = "", Prompt = "01/01/2016")]
             [Column(Order = 0)]
+            [Required]
             public DateTime fecha_ultimo { get; set; }
 
         }

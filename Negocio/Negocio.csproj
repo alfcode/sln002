@@ -49,6 +49,11 @@
     <Compile Include="LN_empresa.cs" />
     <Compile Include="LN_formapago.cs" />
     <Compile Include="LN_gironegocio.cs" />
+    <Compile Include="LN_grupo1.cs" />
+    <Compile Include="LN_grupo2.cs" />
+    <Compile Include="LN_grupo3.cs" />
+    <Compile Include="LN_grupo4.cs" />
+    <Compile Include="LN_grupo5.cs" />
     <Compile Include="LN_moneda.cs" />
     <Compile Include="LN_pais.cs" />
     <Compile Include="LN_proveedor.cs" />
@@ -57,6 +62,7 @@
     <Compile Include="LN_articulo.cs" />
     <Compile Include="LN_estado.cs" />
     <Compile Include="LN_rol.cs" />
+    <Compile Include="LN_tdocu_sunat.cs" />
     <Compile Include="LN_tipodocu_personal.cs" />
     <Compile Include="LN_unidad.cs" />
     <Compile Include="LN_usuario.cs" />

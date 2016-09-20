@@ -12,49 +12,49 @@ namespace Entidad
             /// [Key]   para columnas cuyo valor es unico en la grilla
             /// [Display(Prompt = "GRU0000001")]   valor por defecto
 
-            [Display(Description = "id_formapago")]
+            [Display(Description = "")]
             [Column(Order = 0)]
             [Required]
             [MaxLength(10)]
             public string id_formapago { get; set; }
 
-            [Display(Description = "nombre")]
+            [Display(Description = "Forma de pago")]
             [Column(Order = 0)]
             [Required]
             [MaxLength(100)]
             public string nombre { get; set; }
 
-            [Display(Description = "plazo")]
+            [Display(Description = "Plazo x dias")]
             [Column(Order = 0)]
             public decimal plazo { get; set; }
 
-            [Display(Description = "fecha_vcto")]
+            [Display(Description = "Vencimiento")]
             [Column(Order = 0)]
             public DateTime fecha_vcto { get; set; }
 
-            [Display(Description = "activo")]
-            [Column(Order = 0)]
+            [Display(Description = "Activo", Prompt = "1")]
+            [Column(Order = 40)]
             [Required]
             public bool activo { get; set; }
 
-            [Display(Description = "id_usuario_inicia")]
+            [Display(Description = "")]
             [Column(Order = 0)]
             [Required]
             [MaxLength(10)]
             public string id_usuario_inicia { get; set; }
 
-            [Display(Description = "id_usuario_ultimo")]
+            [Display(Description = "", Prompt = "nuevo")]
             [Column(Order = 0)]
             [Required]
             [MaxLength(10)]
             public string id_usuario_ultimo { get; set; }
 
-            [Display(Description = "fecha_inicia")]
+            [Display(Description = "", Prompt = "01/01/2016")]
             [Column(Order = 0)]
             [Required]
             public DateTime fecha_inicia { get; set; }
 
-            [Display(Description = "fecha_ultimo")]
+            [Display(Description = "", Prompt = "01/01/2016")]
             [Column(Order = 0)]
             [Required]
             public DateTime fecha_ultimo { get; set; }

@@ -34,8 +34,14 @@ namespace Presentacion
             this.Icon = Properties.Resources.empresa;
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
-            labelControl1.Text = "Mantenimiento de distritos";
 
+            labelControl1.Text = " distritos";
+
+            this.Width = 735;
+            this.Height = 400;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            int positionfinal = this.Width - this.labelControl1.Size.Width - 15;
+            this.labelControl1.Location = new System.Drawing.Point(positionfinal, 5);
 
 
         }
@@ -146,6 +152,10 @@ namespace Presentacion
 
             if ("Folder".Equals(e.Button.Tag))
             {
+                if (Cls_Global.mostrar_ancho_xgrid)
+                    this.Text = Cls_Grid.info_columnas(this, gridView1);
+
+
                 DialogResult dialogResult = DialogResult.Yes;
                 if (Cls_Global.mostrar_msg_demora)
                 {

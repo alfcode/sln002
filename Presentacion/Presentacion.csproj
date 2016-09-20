@@ -37,6 +37,7 @@
     <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Sparkline.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -75,11 +76,53 @@
     <Compile Include="frm_estado.Designer.cs">
       <DependentUpon>frm_estado.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm_grupo1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_grupo1.Designer.cs">
+      <DependentUpon>frm_grupo1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_grupo2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_grupo2.Designer.cs">
+      <DependentUpon>frm_grupo2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_grupo3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_grupo3.Designer.cs">
+      <DependentUpon>frm_grupo3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_grupo4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_grupo4.Designer.cs">
+      <DependentUpon>frm_grupo4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_grupo5.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_grupo5.Designer.cs">
+      <DependentUpon>frm_grupo5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_tdocu_sunat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_tdocu_sunat.Designer.cs">
+      <DependentUpon>frm_tdocu_sunat.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_unidad.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frm_unidad.Designer.cs">
       <DependentUpon>frm_unidad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="mdi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mdi.Designer.cs">
+      <DependentUpon>mdi.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -215,6 +258,21 @@
     <EmbeddedResource Include="frm_gironegocio.resx">
       <DependentUpon>frm_gironegocio.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frm_grupo1.resx">
+      <DependentUpon>frm_grupo1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_grupo2.resx">
+      <DependentUpon>frm_grupo2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_grupo3.resx">
+      <DependentUpon>frm_grupo3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_grupo4.resx">
+      <DependentUpon>frm_grupo4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_grupo5.resx">
+      <DependentUpon>frm_grupo5.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_moneda.resx">
       <DependentUpon>frm_moneda.cs</DependentUpon>
     </EmbeddedResource>
@@ -233,6 +291,9 @@
     <EmbeddedResource Include="frm_rol_usuario.resx">
       <DependentUpon>frm_rol_usuario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frm_tdocu_sunat.resx">
+      <DependentUpon>frm_tdocu_sunat.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_tipodocu_personal.resx">
       <DependentUpon>frm_tipodocu_personal.cs</DependentUpon>
     </EmbeddedResource>
@@ -244,6 +305,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm_zona.resx">
       <DependentUpon>frm_zona.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="mdi.resx">
+      <DependentUpon>mdi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

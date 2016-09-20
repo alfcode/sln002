@@ -22,6 +22,29 @@ namespace Presentacion
     {
 
 
+
+        public string info_columnas(Form forma, GridView gridView1)
+        {
+
+            int conta = gridView1.Columns.Count - 1;
+            string tamano = "";
+
+            for (int i=0;i <= conta;i++)
+            {
+
+                if(gridView1.Columns[i].Visible==true)
+                {
+                     tamano = tamano + " ---" + gridView1.Columns[i].Width.ToString();
+                }
+               
+            }
+
+            tamano = "Form(W * H " + forma.Width.ToString() + " x " + forma.Height.ToString() + " )  Grid = " + tamano;
+
+            return tamano;
+        }
+
+
         public void Load_Grid(DevExpress.XtraGrid.GridControl gridControl1, GridView gridView1, DataTable dt_param1 )
         {
             gridView1.ValidatingEditor += new DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventHandler(this.gridView1_ValidatingEditor);
@@ -47,7 +70,7 @@ namespace Presentacion
 
 
 
-            imageList1.ImageSize = new Size(25, 25);
+            imageList1.ImageSize = new Size(22, 22);
 
             gridControl1.UseEmbeddedNavigator = true;
             DevExpress.XtraEditors.ControlNavigatorButtons buttons = gridControl1.EmbeddedNavigator.Buttons;

@@ -12,13 +12,13 @@ namespace Entidad
             /// [Key]   para columnas cuyo valor es unico en la grilla
             /// [Display(Prompt = "GRU0000001")]   valor por defecto
 
-            [Display(Description = "id_proveedor")]
+            [Display(Description = "")]
             [Column(Order = 0)]
             [Required]
             [MaxLength(10)]
             public string id_proveedor { get; set; }
 
-            [Display(Description = "nombre")]
+            [Display(Description = "Proveedor")]
             [Column(Order = 0)]
             [Required]
             [MaxLength(100)]
@@ -29,113 +29,113 @@ namespace Entidad
             [MaxLength(11)]
             public string ruc { get; set; }
 
-            [Display(Description = "id_gironegocio")]
+            [Display(Description = "Giro de Negocio")]
             [Column(Order = 0)]
             [MaxLength(10)]
             public string id_gironegocio { get; set; }
 
-            [Display(Description = "id_formapago")]
+            [Display(Description = "Forma de pago")]
             [Column(Order = 0)]
             [MaxLength(10)]
             public string id_formapago { get; set; }
 
-            [Display(Description = "contacto")]
+            [Display(Description = "Contacto")]
             [Column(Order = 0)]
             [MaxLength(100)]
             public string contacto { get; set; }
 
-            [Display(Description = "direccion")]
+            [Display(Description = "Dirección")]
             [Column(Order = 0)]
             [MaxLength(200)]
             public string direccion { get; set; }
 
-            [Display(Description = "telefono1")]
+            [Display(Description = "Teléfono 1")]
             [Column(Order = 0)]
             [MaxLength(12)]
             public string telefono1 { get; set; }
 
-            [Display(Description = "telefono2")]
+            [Display(Description = "Teléfono 2")]
             [Column(Order = 0)]
             [MaxLength(12)]
             public string telefono2 { get; set; }
 
-            [Display(Description = "email")]
+            [Display(Description = "Email")]
             [Column(Order = 0)]
             [MaxLength(100)]
             public string email { get; set; }
 
-            [Display(Description = "web")]
+            [Display(Description = "Web")]
             [Column(Order = 0)]
             [MaxLength(200)]
             public string web { get; set; }
 
-            [Display(Description = "comentario")]
+            [Display(Description = "Comentario")]
             [Column(Order = 0)]
             [MaxLength(8000)]
             public string comentario { get; set; }
 
-            [Display(Description = "linea_credito")]
+            [Display(Description = "Linea de crédito")]
             [Column(Order = 0)]
             public decimal linea_credito { get; set; }
 
-            [Display(Description = "dias_atencion")]
+            [Display(Description = "Dias de atención")]
             [Column(Order = 0)]
             [MaxLength(100)]
             public string dias_atencion { get; set; }
 
-            [Display(Description = "id_pais")]
+            [Display(Description = "País")]
             [Column(Order = 0)]
             [MaxLength(10)]
             public string id_pais { get; set; }
 
-            [Display(Description = "id_departamento")]
+            [Display(Description = "Departamento")]
             [Column(Order = 0)]
             [MaxLength(10)]
             public string id_departamento { get; set; }
 
-            [Display(Description = "id_provincia")]
+            [Display(Description = "Provincia")]
             [Column(Order = 0)]
             [MaxLength(10)]
             public string id_provincia { get; set; }
 
-            [Display(Description = "id_distrito")]
+            [Display(Description = "Distrito")]
             [Column(Order = 0)]
             [MaxLength(10)]
             public string id_distrito { get; set; }
 
-            [Display(Description = "id_zona")]
+            [Display(Description = "Zona")]
             [Column(Order = 0)]
             [MaxLength(10)]
             public string id_zona { get; set; }
 
-            [Display(Description = "id_postal")]
+            [Display(Description = "Postal")]
             [Column(Order = 0)]
             [MaxLength(10)]
             public string id_postal { get; set; }
 
-            [Display(Description = "activo")]
-            [Column(Order = 0)]
+            [Display(Description = "Activo", Prompt = "1")]
+            [Column(Order = 40)]
             [Required]
             public bool activo { get; set; }
 
-            [Display(Description = "id_usuario_inicia")]
+            [Display(Description = "")]
             [Column(Order = 0)]
             [Required]
             [MaxLength(10)]
             public string id_usuario_inicia { get; set; }
 
-            [Display(Description = "id_usuario_ultimo")]
+            [Display(Description = "", Prompt = "nuevo")]
             [Column(Order = 0)]
             [Required]
             [MaxLength(10)]
             public string id_usuario_ultimo { get; set; }
 
-            [Display(Description = "fecha_inicia")]
+            [Display(Description = "", Prompt = "01/01/2016")]
             [Column(Order = 0)]
             [Required]
             public DateTime fecha_inicia { get; set; }
 
-            [Display(Description = "fecha_ultimo")]
+            [Display(Description = "", Prompt = "01/01/2016")]
             [Column(Order = 0)]
             [Required]
             public DateTime fecha_ultimo { get; set; }

@@ -31,11 +31,20 @@ namespace Presentacion
             InitializeComponent();
             gridControl1.EmbeddedNavigator.ButtonClick += new DevExpress.XtraEditors.NavigatorButtonClickEventHandler(this.gridControl1_EmbeddedNavigator_ButtonClick);
             this.Load += new System.EventHandler(this.frm_unidad_Load);
+   
             this.Icon = Properties.Resources.empresa;
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
-            labelControl1.Text = "Mantenimiento de Unidad";
+
+            labelControl1.Text = " Unidad";
+
+            this.Width = 735;
+            this.Height = 400;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            int positionfinal = this.Width - this.labelControl1.Size.Width - 15;
+            this.labelControl1.Location = new System.Drawing.Point(positionfinal, 5);
         }
+
 
         private void frm_unidad_Load(object sender, EventArgs e)
         {
@@ -109,6 +118,8 @@ namespace Presentacion
 
             if ("Limpiar".Equals(e.Button.Tag))
             {
+              
+
                 dt_t_unidad_grid.Clear();
                 gridControl1.DataSource = dt_t_unidad_grid;
                 e.Handled = true;
@@ -117,12 +128,18 @@ namespace Presentacion
 
             if ("Salir".Equals(e.Button.Tag))
             {
+               
                 e.Handled = true;
                 Hide();
             }
 
             if ("Folder".Equals(e.Button.Tag))
             {
+                if (Cls_Global.mostrar_ancho_xgrid)
+                    this.Text = Cls_Grid.info_columnas(this, gridView1);
+
+                
+
                 DialogResult dialogResult = DialogResult.Yes;
                 if (Cls_Global.mostrar_msg_demora)
                 {
@@ -171,6 +188,7 @@ namespace Presentacion
             }
         }
 
+    
 
 
     }
