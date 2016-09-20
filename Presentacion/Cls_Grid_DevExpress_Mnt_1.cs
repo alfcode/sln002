@@ -13,7 +13,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Windows.Forms;
 using System.Drawing;
-using DevExpress.XtraEditors;
+using DevExpress.XtraEditors ;
 using DevExpress.Utils;
 
 namespace Presentacion
