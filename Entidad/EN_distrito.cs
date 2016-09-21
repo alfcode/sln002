@@ -18,6 +18,7 @@ namespace Entidad
             [MaxLength(10)]
             public string id_distrito { get; set; }
 
+            [Key]
             [Display(Description = "Distrito")]
             [Column(Order = 340)]
             [Required]
@@ -63,17 +64,15 @@ namespace Entidad
         public class proc_distrito_mnt_combo
         {
             public List<EN_zero.informe> informe { get; set; }
-            public List<EN_zero.datacombo> distrito{ get; set; }
+            public List<EN_zero.datacombo> departamento { get; set; }
+            public List<EN_zero.datacombo> provincia { get; set; }
         }
 
-        public class proc_distrito_mnt_combo_parametro
-        {
-            public string id_provincia { get; set; }
-        }
-
+  
         public class proc_distrito_mnt
         {
             public string id_usuario { get; set; }
+            public string id_provincia { get; set; }
             public List<t_distrito> t_distrito { get; set; }
         }
 

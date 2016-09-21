@@ -110,6 +110,12 @@ namespace Entidad
             [MaxLength(200)]
             public string foto { get; set; }
 
+            [Display(Description = "Acceso Sistema", Prompt = "0")]
+            [Column(Order = 82)]
+            [Required]
+            public bool acceso_sistema { get; set; }
+
+
             [Display(Description = "Activo", Prompt = "1")]
             [Column(Order = 50)]
             [Required]

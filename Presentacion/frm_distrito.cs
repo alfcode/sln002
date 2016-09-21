@@ -20,6 +20,8 @@ namespace Presentacion
         DataTable dt_t_distrito_grid = new DataTable();
         DataTable dt_t_distrito_final = new DataTable();
 
+        List<EN_zero.datacombo> provincia = new List<EN_zero.datacombo>();
+
         string id_provincia = "";
 
         public frm_distrito()
@@ -69,16 +71,16 @@ namespace Presentacion
         {
             var negocio = new LN_distrito();
             var retorno = new EN_distrito.proc_distrito_mnt_combo();
-            var parametros = new EN_distrito.proc_distrito_mnt_combo_parametro();
+            var parametros = new EN_distrito.proc_distrito_mnt_combo();
             
             Cursor.Current = Cursors.WaitCursor;
-
-            parametros.id_provincia = id_provincia;
-            retorno = negocio.proc_distrito_mnt_combo(parametros);
+            retorno = negocio.proc_distrito_mnt_combo();
             Cursor.Current = Cursors.Default;
             if (Cls_Grid.ExisteError(retorno.informe)) return;
 
-            Cls_Grid.Load_Combo(gridView1, retorno.distrito, "id_distrito", true);
+            Cls_Grid.Load_Combo_GridLookUpEdit(cbo_departamento, retorno.departamento, false);
+            provincia = retorno.provincia;
+
         }
 
 
@@ -94,6 +96,7 @@ namespace Presentacion
                 var retorno = new EN_distrito.proc_distrito_mnt_retorno();
 
                 parametro.id_usuario = id_usuario;
+                parametro.id_provincia = id_provincia;
                 parametro.t_distrito = t_distrito;
 
                 Cursor.Current = Cursors.WaitCursor;
@@ -156,6 +159,9 @@ namespace Presentacion
                     this.Text = Cls_Grid.info_columnas(this, gridView1);
 
 
+                if (valida_combo() == true) return;
+
+
                 DialogResult dialogResult = DialogResult.Yes;
                 if (Cls_Global.mostrar_msg_demora)
                 {
@@ -163,7 +169,10 @@ namespace Presentacion
                 }
 
                 if (dialogResult == DialogResult.Yes)
+                    id_provincia= cbo_provincia.EditValue.ToString();
                     mnt_datos("");
+                    dt_t_distrito_grid.Columns["id_provincia"].DefaultValue = id_provincia;
+
                 e.Handled = true;
 
             }
@@ -172,8 +181,14 @@ namespace Presentacion
 
             if (e.Button.ButtonType == NavigatorButtonType.Append)
             {
+                e.Handled = true;
 
-                // dt_t_distrito_grid.Clear();
+                if (valida_combo() == true) return; 
+
+                dt_t_distrito_grid.Columns["id_provincia"].DefaultValue = cbo_provincia.EditValue.ToString();
+
+                e.Handled = false;
+
                 gridView1.FocusedColumn = gridView1.VisibleColumns[0];
 
             }
@@ -205,8 +220,38 @@ namespace Presentacion
             }
         }
 
+        private void cbo_departamento_EditValueChanged(object sender, EventArgs e)
+        {
+            dt_t_distrito_grid.Clear();
+           
+            string id2 = cbo_departamento.EditValue.ToString();
+            var filtro_provincia = (from Lista in provincia.Where(w => w.id2 == id2) select Lista).ToList();
+            Cls_Grid.Load_Combo_GridLookUpEdit(cbo_provincia, filtro_provincia, false);
+        }
+
+        private void cbo_provincia_EditValueChanged(object sender, EventArgs e)
+        {
+            dt_t_distrito_grid.Clear();
+        }
 
 
+        private bool valida_combo()
+        {
+            if (cbo_departamento.EditValue == null || cbo_departamento.Text == "")
+            {
+                DevExpress.XtraEditors.XtraMessageBox.Show("Seleccion el valor Departamento", Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                return true;
+            }
+
+            if (cbo_provincia.EditValue == null || cbo_provincia.Text == "")
+            {
+                DevExpress.XtraEditors.XtraMessageBox.Show("Seleccion el valor Provincia", Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                return true;
+            }
+
+
+            return false;
+        }
 
 
     }

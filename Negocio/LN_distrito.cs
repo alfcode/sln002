@@ -4,12 +4,12 @@ namespace Negocio
 {
     public class LN_distrito
     {
-        public EN_distrito.proc_distrito_mnt_combo proc_distrito_mnt_combo(EN_distrito.proc_distrito_mnt_combo_parametro parametros)
+        public EN_distrito.proc_distrito_mnt_combo proc_distrito_mnt_combo()
         {
             var retorno = new EN_distrito.proc_distrito_mnt_combo();
             var datos = new DAO_distrito();
 
-            retorno = datos.proc_distrito_mnt_combo(parametros);
+            retorno = datos.proc_distrito_mnt_combo();
 
             return retorno;
         }

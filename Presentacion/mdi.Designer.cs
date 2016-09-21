@@ -48,13 +48,13 @@
             this.conta_tipo_cambio = new DevExpress.XtraBars.BarButtonItem();
             this.conta_estado = new DevExpress.XtraBars.BarButtonItem();
             this.barSubItem3 = new DevExpress.XtraBars.BarSubItem();
-            this.inve_articulo = new DevExpress.XtraBars.BarButtonItem();
             this.inve_unidad = new DevExpress.XtraBars.BarButtonItem();
             this.inve_grupo1 = new DevExpress.XtraBars.BarButtonItem();
             this.inve_grupo2 = new DevExpress.XtraBars.BarButtonItem();
             this.inve_grupo3 = new DevExpress.XtraBars.BarButtonItem();
             this.inve_grupo4 = new DevExpress.XtraBars.BarButtonItem();
             this.inve_grupo5 = new DevExpress.XtraBars.BarButtonItem();
+            this.inve_articulo = new DevExpress.XtraBars.BarButtonItem();
             this.inve_proveedor = new DevExpress.XtraBars.BarButtonItem();
             this.inve_formapago = new DevExpress.XtraBars.BarButtonItem();
             this.inve_almacen = new DevExpress.XtraBars.BarButtonItem();
@@ -122,17 +122,17 @@
             this.barSubItem1.Caption = "rrhh";
             this.barSubItem1.Id = 7;
             this.barSubItem1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_usuario),
-            new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_area),
-            new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_cargo),
-            new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_rol),
-            new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_rol_usuario),
-            new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_zona),
-            new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_postal),
             new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_departamento),
             new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_provincia),
             new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_distrito),
-            new DevExpress.XtraBars.LinkPersistInfo(this.conta_tdocu_personal)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_postal),
+            new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_zona),
+            new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_rol),
+            new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_area),
+            new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_cargo),
+            new DevExpress.XtraBars.LinkPersistInfo(this.conta_tdocu_personal),
+            new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_usuario),
+            new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_rol_usuario)});
             this.barSubItem1.Name = "barSubItem1";
             // 
             // rrhh_usuario
@@ -220,8 +220,8 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.conta_empresa),
             new DevExpress.XtraBars.LinkPersistInfo(this.conta_tdocu_sunat),
             new DevExpress.XtraBars.LinkPersistInfo(this.conta_moneda),
-            new DevExpress.XtraBars.LinkPersistInfo(this.conta_tipo_cambio),
-            new DevExpress.XtraBars.LinkPersistInfo(this.conta_estado)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.conta_estado),
+            new DevExpress.XtraBars.LinkPersistInfo(this.conta_tipo_cambio)});
             this.barSubItem2.Name = "barSubItem2";
             // 
             // conta_empresa
@@ -264,29 +264,22 @@
             this.barSubItem3.Caption = "inve";
             this.barSubItem3.Id = 9;
             this.barSubItem3.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.inve_unidad),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_grupo1),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_grupo2),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_grupo3),
+            new DevExpress.XtraBars.LinkPersistInfo(this.inve_unidad),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_grupo4),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_grupo5),
-            new DevExpress.XtraBars.LinkPersistInfo(this.inve_articulo),
-            new DevExpress.XtraBars.LinkPersistInfo(this.inve_proveedor),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_formapago),
+            new DevExpress.XtraBars.LinkPersistInfo(this.inve_gironegocio),
+            new DevExpress.XtraBars.LinkPersistInfo(this.inve_proveedor),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_almacen),
+            new DevExpress.XtraBars.LinkPersistInfo(this.inve_articulo),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_almacen_articulo),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_proveedor_articulo),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_tipoingreso),
-            new DevExpress.XtraBars.LinkPersistInfo(this.inve_tiposalida),
-            new DevExpress.XtraBars.LinkPersistInfo(this.inve_gironegocio)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.inve_tiposalida)});
             this.barSubItem3.Name = "barSubItem3";
-            // 
-            // inve_articulo
-            // 
-            this.inve_articulo.Caption = "Articulo";
-            this.inve_articulo.Id = 25;
-            this.inve_articulo.Name = "inve_articulo";
-            this.inve_articulo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_articulo_ItemClick);
             // 
             // inve_unidad
             // 
@@ -330,6 +323,13 @@
             this.inve_grupo5.Name = "inve_grupo5";
             this.inve_grupo5.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_grupo5_ItemClick);
             // 
+            // inve_articulo
+            // 
+            this.inve_articulo.Caption = "Articulo";
+            this.inve_articulo.Id = 25;
+            this.inve_articulo.Name = "inve_articulo";
+            this.inve_articulo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_articulo_ItemClick);
+            // 
             // inve_proveedor
             // 
             this.inve_proveedor.Caption = "Proveedor";
@@ -339,7 +339,7 @@
             // 
             // inve_formapago
             // 
-            this.inve_formapago.Caption = "Forma Pago";
+            this.inve_formapago.Caption = "Proveedor Forma Pago";
             this.inve_formapago.Id = 33;
             this.inve_formapago.Name = "inve_formapago";
             this.inve_formapago.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_formapago_ItemClick);
@@ -360,7 +360,7 @@
             // 
             // inve_proveedor_articulo
             // 
-            this.inve_proveedor_articulo.Caption = "Proveedor Articulo";
+            this.inve_proveedor_articulo.Caption = "Proveedor - Articulo";
             this.inve_proveedor_articulo.Id = 36;
             this.inve_proveedor_articulo.Name = "inve_proveedor_articulo";
             this.inve_proveedor_articulo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_proveedor_articulo_ItemClick);
@@ -381,7 +381,7 @@
             // 
             // inve_gironegocio
             // 
-            this.inve_gironegocio.Caption = "Giro de Negocio";
+            this.inve_gironegocio.Caption = "Proveedor Giro de Negocio";
             this.inve_gironegocio.Id = 39;
             this.inve_gironegocio.Name = "inve_gironegocio";
             this.inve_gironegocio.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_gironegocio_ItemClick);

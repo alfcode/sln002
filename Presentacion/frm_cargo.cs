@@ -35,11 +35,18 @@ namespace Presentacion
 
             labelControl1.Text = "Cargos";
 
-            this.Width = 420;
+            this.Width = 424;
             this.Height = 400;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             int positionfinal = this.Width - this.labelControl1.Size.Width - 15;
             this.labelControl1.Location = new System.Drawing.Point(positionfinal, 5);
+
+            gridControl1.Width = this.Width-4;
+            gridControl1.Height = this.Height-panel1.Height-30;
+            gridControl1.Left = 1;
+             
+
+
 
         }
 
@@ -55,12 +62,23 @@ namespace Presentacion
             dt_t_cargo_final = Cls_Grid.ListToTable(t_cargo);
 
             gridControl1.DataSource = dt_t_cargo_grid;
-          
+            cargar_combo();
             Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_cargo_grid);
 
         }
 
+        private void cargar_combo()
+        {
+            var negocio = new LN_cargo();
+            var retorno = new EN_cargo.proc_cargo_mnt_combo();
 
+            Cursor.Current = Cursors.WaitCursor;
+            retorno = negocio.proc_cargo_mnt_combo();
+            Cursor.Current = Cursors.Default;
+            if (Cls_Grid.ExisteError(retorno.informe)) return;
+
+            Cls_Grid.Load_Combo_GridLookUpEdit(cbo_area, retorno.area, false);
+        }
 
 
 
@@ -76,6 +94,7 @@ namespace Presentacion
                 var retorno = new EN_cargo.proc_cargo_mnt_retorno();
 
                 parametro.id_usuario = id_usuario;
+                parametro.id_area = cbo_area.EditValue.ToString();
                 parametro.t_cargo = t_cargo;
 
                 Cursor.Current = Cursors.WaitCursor;
@@ -137,6 +156,13 @@ namespace Presentacion
                 if (Cls_Global.mostrar_ancho_xgrid)
                     this.Text = Cls_Grid.info_columnas(this, gridView1);
 
+                if (cbo_area.EditValue == null)
+                {
+                    DevExpress.XtraEditors.XtraMessageBox.Show("Seleccion el valor Area", Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    return;
+                }
+
+
                 DialogResult dialogResult = DialogResult.Yes;
                 if (Cls_Global.mostrar_msg_demora)
                 {
@@ -145,6 +171,8 @@ namespace Presentacion
 
                 if (dialogResult == DialogResult.Yes)
                     mnt_datos("");
+                    dt_t_cargo_grid.Columns["id_area"].DefaultValue = cbo_area.EditValue.ToString();
+
                 e.Handled = true;
 
             }
@@ -153,8 +181,18 @@ namespace Presentacion
 
             if (e.Button.ButtonType == NavigatorButtonType.Append)
             {
+                e.Handled = true;
+                if (cbo_area.EditValue == null)
+                {
+                    DevExpress.XtraEditors.XtraMessageBox.Show("Seleccion el valor Area", Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
 
-                // dt_t_cargo_grid.Clear();
+                    return;
+                   
+                }
+
+                dt_t_cargo_grid.Columns["id_area"].DefaultValue = cbo_area.EditValue.ToString();
+                e.Handled = false;
+
                 gridView1.FocusedColumn = gridView1.VisibleColumns[0];
 
             }
@@ -186,9 +224,9 @@ namespace Presentacion
             }
         }
 
-
-
-
-
+        private void cbo_area_EditValueChanged(object sender, EventArgs e)
+        {
+            dt_t_cargo_grid.Clear();
+        }
     }
 }

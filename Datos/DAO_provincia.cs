@@ -10,7 +10,7 @@ namespace Datos
     public class DAO_provincia
     {
 
-        public EN_provincia.proc_provincia_mnt_combo proc_provincia_mnt_combo(EN_provincia.proc_provincia_mnt_combo_parametro parametros)
+        public EN_provincia.proc_provincia_mnt_combo proc_provincia_mnt_combo()
         {
             var retorno = new EN_provincia.proc_provincia_mnt_combo();
             var cmd = new SqlCommand();
@@ -24,8 +24,6 @@ namespace Datos
             {
                 cmd.CommandText = "rrhh.proc_provincia_mnt_combo";
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@id_departamento", parametros.id_departamento);
                 da.SelectCommand = cmd;
                 da.Fill(ds);
 
@@ -40,7 +38,7 @@ namespace Datos
                 if (Error.Equals("1")) return retorno;
 
 
-                retorno.provincia = ds.Tables["provincia"].DataTableToList<EN_zero.datacombo>().ToList();
+                retorno.departamento= ds.Tables["departamento"].DataTableToList<EN_zero.datacombo>().ToList();
                 return retorno;
 
             }
@@ -82,6 +80,7 @@ namespace Datos
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@id_usuario", parametros.id_usuario);
+                cmd.Parameters.AddWithValue("@id_departamento", parametros.id_departamento);
                 cmd.Parameters.AddWithValue("@tdp_param1", SqlDbType.Structured).Value = dt;
 
                 da.SelectCommand = cmd;

@@ -19,6 +19,7 @@ namespace Presentacion
         List<EN_provincia.t_provincia> t_provincia = new List<EN_provincia.t_provincia>();
         DataTable dt_t_provincia_grid = new DataTable();
         DataTable dt_t_provincia_final = new DataTable();
+
         string id_departamento = "";
 
         public frm_provincia()
@@ -42,6 +43,9 @@ namespace Presentacion
             int positionfinal = this.Width - this.labelControl1.Size.Width - 15;
             this.labelControl1.Location = new System.Drawing.Point(positionfinal, 5);
 
+            gridControl1.Width = this.Width - 4;
+            gridControl1.Height = this.Height - panel1.Height - 30;
+            gridControl1.Left = 1;
 
         }
 
@@ -68,16 +72,14 @@ namespace Presentacion
         {
             var negocio = new LN_provincia();
             var retorno = new EN_provincia.proc_provincia_mnt_combo();
-            var parametros = new EN_provincia.proc_provincia_mnt_combo_parametro();
+            var parametros = new EN_provincia.proc_provincia_mnt_combo();
             Cursor.Current = Cursors.WaitCursor;
-
-            parametros.id_departamento = id_departamento;
-
-            retorno = negocio.proc_provincia_mnt_combo(parametros);
+          
+            retorno = negocio.proc_provincia_mnt_combo();
             Cursor.Current = Cursors.Default;
             if (Cls_Grid.ExisteError(retorno.informe)) return;
 
-            Cls_Grid.Load_Combo(gridView1, retorno.provincia, "id_provincia", true);
+            Cls_Grid.Load_Combo_GridLookUpEdit(cbo_departamento, retorno.departamento, false);
         }
 
 
@@ -93,6 +95,7 @@ namespace Presentacion
                 var retorno = new EN_provincia.proc_provincia_mnt_retorno();
 
                 parametro.id_usuario = id_usuario;
+                parametro.id_departamento = id_departamento;
                 parametro.t_provincia = t_provincia;
 
                 Cursor.Current = Cursors.WaitCursor;
@@ -154,6 +157,14 @@ namespace Presentacion
                 if (Cls_Global.mostrar_ancho_xgrid)
                     this.Text = Cls_Grid.info_columnas(this, gridView1);
 
+                if (cbo_departamento.EditValue == null)
+                {
+                    DevExpress.XtraEditors.XtraMessageBox.Show("Seleccion el valor Departamento", Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    return;
+                }
+
+
+
                 DialogResult dialogResult = DialogResult.Yes;
                 if (Cls_Global.mostrar_msg_demora)
                 {
@@ -161,7 +172,10 @@ namespace Presentacion
                 }
 
                 if (dialogResult == DialogResult.Yes)
-                    mnt_datos("");
+                id_departamento = cbo_departamento.EditValue.ToString();
+                mnt_datos("");
+                dt_t_provincia_grid.Columns["id_departamento"].DefaultValue = id_departamento;
+
                 e.Handled = true;
 
             }
@@ -170,8 +184,15 @@ namespace Presentacion
 
             if (e.Button.ButtonType == NavigatorButtonType.Append)
             {
+                e.Handled = true;
+                if (cbo_departamento.EditValue == null)
+                {
+                    DevExpress.XtraEditors.XtraMessageBox.Show("Seleccion el valor Departamento", Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    return;
+                }
+                dt_t_provincia_grid.Columns["id_departamento"].DefaultValue = cbo_departamento.EditValue.ToString();
+                e.Handled = false;
 
-                // dt_t_provincia_grid.Clear();
                 gridView1.FocusedColumn = gridView1.VisibleColumns[0];
 
             }
@@ -203,9 +224,9 @@ namespace Presentacion
             }
         }
 
-
-
-
-
+        private void cbo_departamento_EditValueChanged(object sender, EventArgs e)
+        {
+            dt_t_provincia_grid.Clear();
+        }
     }
 }

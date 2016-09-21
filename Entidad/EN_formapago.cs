@@ -19,7 +19,7 @@ namespace Entidad
             public string id_formapago { get; set; }
 
             [Display(Description = "Forma de pago")]
-            [Column(Order = 200)]
+            [Column(Order = 285)]
             [Required]
             [MaxLength(100)]
             public string nombre { get; set; }
@@ -28,8 +28,8 @@ namespace Entidad
             [Column(Order = 100)]
             public decimal plazo { get; set; }
 
-            [Display(Description = "Vencimiento")]
-            [Column(Order = 85)]
+            [Display(Description = "",Prompt = "01/01/2001")]
+            [Column(Order = 0)]
             public DateTime fecha_vcto { get; set; }
 
             [Display(Description = "Activo", Prompt = "1")]

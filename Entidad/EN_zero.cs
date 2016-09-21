@@ -84,10 +84,13 @@ namespace Entidad
 
         public class datacombo
         {
-
             public string id { get; set; }
             public string nombre1 { get; set; }
             public string nombre2 { get; set; }
+            public string id2 { get; set; }
+            public string id3 { get; set; }
+            public string id4 { get; set; }
+            public string id5 { get; set; }
         }
 
 

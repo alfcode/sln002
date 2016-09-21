@@ -173,7 +173,102 @@ namespace Presentacion
             gridView1.BestFitColumns();
 
         }
+        
+        public void Load_Combo_LookUpEdit(DevExpress.XtraEditors.LookUpEdit riLookup,  List<EN_zero.datacombo> lista, string ValueMember, bool registra_nombre2)
+        {
+            riLookup.Properties.DataSource = lista;
+            riLookup.Properties.ValueMember = "id";
 
+            riLookup.Properties.DisplayMember = "nombre1";
+            //  riLookup.Columns.Add(new LookUpColumnInfo("id_grupo1", "Còdigo"));
+            riLookup.Properties.Columns.Add(new LookUpColumnInfo("nombre1", "Nombre"));
+
+            if (registra_nombre2 == true)
+            {
+                riLookup.Properties.Columns.Add(new LookUpColumnInfo("nombre2", "Descripción"));
+            }
+
+            riLookup.Properties.NullText = "-seleccione-";
+
+            riLookup.Properties.ImmediatePopup = true;
+            riLookup.Properties.TextEditStyle = TextEditStyles.Standard;
+            riLookup.Properties.BestFitMode = BestFitMode.BestFitResizePopup;
+            riLookup.Properties.DropDownRows = lista.Count;
+            riLookup.Properties.SearchMode = SearchMode.AutoFilter;
+            riLookup.Properties.AutoSearchColumnIndex = 0;
+
+
+           // riLookup.Properties.ShowHeader = false;
+            //riLookup.Properties.ShowFooter = false;
+           /// riLookup.Properties.NullText = string.Empty;
+
+
+        }
+
+ 
+        public void Load_Combo_GridLookUpEdit<T>(DevExpress.XtraEditors.GridLookUpEdit riLookup, IList<T> lista, bool registra_nombre2)
+        {
+           
+
+            riLookup.Properties.DataSource = lista;
+            riLookup.Properties.ValueMember = "id";
+            riLookup.Properties.DisplayMember = "nombre1";
+
+            int count= riLookup.Properties.View.Columns.Count;
+
+            PropertyInfo[] propiedades = typeof(T).GetProperties();
+            int i = 0;
+
+            if (count == 0)
+            {
+
+           
+                        foreach (PropertyInfo p in propiedades)
+                        {
+                            DevExpress.XtraGrid.Columns.GridColumn col11 = riLookup.Properties.View.Columns.AddField(p.Name);
+                            col11.VisibleIndex = i;
+                            if (i == 0) col11.Visible = false;
+                            if (i == 1) col11.Visible = true; //nombre1
+                            if (i == 2) col11.Visible = false; //nombre2
+
+                            //id_ocultos
+                            if (i == 3) col11.Visible = false;
+                            if (i == 4) col11.Visible = false;
+                            if (i == 5) col11.Visible = false;
+                            if (i == 6) col11.Visible = false;
+
+                            if (i == 1) {
+                                col11.Caption = "Descripción";
+                            }
+
+                   
+               
+                            if (registra_nombre2 == true)
+                            {
+                                 col11.Visible = true;
+                                 col11.Caption = "Mas datos";
+                            }
+                   
+                            i++;
+                        }
+
+
+                riLookup.Properties.NullText = "-seleccione-";
+
+                riLookup.Properties.ImmediatePopup = true;
+                riLookup.Properties.TextEditStyle = TextEditStyles.Standard;
+                riLookup.Properties.BestFitMode = BestFitMode.BestFitResizePopup;
+                riLookup.Properties.PopupFilterMode = PopupFilterMode.Contains;
+                riLookup.Properties.ImmediatePopup = true;
+
+                riLookup.Properties.View.BestFitColumns();
+            }
+
+          
+           
+            // Specify the total dropdown width.
+            // riLookup.Properties.PopupFormWidth = 300;
+        }
 
         private void Visible_Columns(GridView gridView1,DataTable dt_param1 )
         {

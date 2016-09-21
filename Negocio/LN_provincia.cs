@@ -4,12 +4,12 @@ namespace Negocio
 {
     public class LN_provincia
     {
-        public EN_provincia.proc_provincia_mnt_combo proc_provincia_mnt_combo(EN_provincia.proc_provincia_mnt_combo_parametro parametros)
+        public EN_provincia.proc_provincia_mnt_combo proc_provincia_mnt_combo()
         {
             var retorno = new EN_provincia.proc_provincia_mnt_combo();
             var datos = new DAO_provincia();
 
-            retorno = datos.proc_provincia_mnt_combo(parametros);
+            retorno = datos.proc_provincia_mnt_combo();
 
             return retorno;
         }

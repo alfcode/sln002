@@ -10,7 +10,7 @@ namespace Datos
     public class DAO_distrito
     {
 
-        public EN_distrito.proc_distrito_mnt_combo proc_distrito_mnt_combo(EN_distrito.proc_distrito_mnt_combo_parametro parametros )
+        public EN_distrito.proc_distrito_mnt_combo proc_distrito_mnt_combo()
         {
             var retorno = new EN_distrito.proc_distrito_mnt_combo();
             var cmd = new SqlCommand();
@@ -25,16 +25,14 @@ namespace Datos
                 cmd.CommandText = "rrhh.proc_distrito_mnt_combo";
 
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@id_provincia", parametros.id_provincia);
-
                 da.SelectCommand = cmd;
                 da.Fill(ds);
 
                 for (int i = 0; i < ds.Tables.Count; i++)
                 {
                     if (ds.Tables[i].Columns[0].ColumnName == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "distrito") { ds.Tables[i].TableName = "distrito"; }
+                    if (ds.Tables[i].Columns[0].ColumnName == "departamento") { ds.Tables[i].TableName = "departamento"; }
+                    if (ds.Tables[i].Columns[0].ColumnName == "provincia") { ds.Tables[i].TableName = "provincia"; }
 
                 }
 
@@ -43,8 +41,9 @@ namespace Datos
                 if (Error.Equals("1")) return retorno;
 
 
-                retorno.distrito = ds.Tables["distrito"].DataTableToList<EN_zero.datacombo>().ToList();
-                
+                retorno.departamento= ds.Tables["departamento"].DataTableToList<EN_zero.datacombo>().ToList();
+                retorno.provincia = ds.Tables["provincia"].DataTableToList<EN_zero.datacombo>().ToList();
+
 
                 return retorno;
 
@@ -87,6 +86,7 @@ namespace Datos
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@id_usuario", parametros.id_usuario);
+                cmd.Parameters.AddWithValue("@id_provincia", parametros.id_provincia);
                 cmd.Parameters.AddWithValue("@tdp_param1", SqlDbType.Structured).Value = dt;
 
                 da.SelectCommand = cmd;

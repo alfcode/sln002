@@ -18,11 +18,18 @@ namespace Entidad
             [MaxLength(10)]
             public string id_cargo { get; set; }
 
+            [Key]
             [Display(Description = "Cargo")]
             [Column(Order = 340)]
             [Required]
             [MaxLength(100)]
             public string nombre { get; set; }
+
+            [Display(Description = "")]
+            [Column(Order = 0)]
+            [Required]
+            [MaxLength(10)]
+            public string id_area { get; set; }
 
             [Display(Description = "Activo", Prompt = "1")]
             [Column(Order = 40)]
@@ -57,6 +64,7 @@ namespace Entidad
         public class proc_cargo_mnt
         {
             public string id_usuario { get; set; }
+            public string id_area{ get; set; }
             public List<t_cargo> t_cargo { get; set; }
         }
 
@@ -65,6 +73,14 @@ namespace Entidad
             public List<EN_zero.informe> informe { get; set; }
             public List<t_cargo> t_cargo { get; set; }
         }
+
+
+        public class proc_cargo_mnt_combo
+        {
+            public List<EN_zero.informe> informe { get; set; }
+            public List<EN_zero.datacombo> area { get; set; }
+        }
+
 
 
     }

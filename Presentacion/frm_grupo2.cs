@@ -34,8 +34,8 @@ namespace Presentacion
             this.MaximizeBox = false;
             labelControl1.Text = "Familia";
 
-            this.Width = 442;
-            this.Height = 400;
+            this.Width = 440;
+            this.Height = 390;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             int positionfinal = this.Width - this.labelControl1.Size.Width - 15;
             this.labelControl1.Location = new System.Drawing.Point(positionfinal, 5);
@@ -56,7 +56,7 @@ namespace Presentacion
             gridControl1.DataSource = dt_t_grupo2_grid;
 
             Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_grupo2_grid);
-
+            
         }
 
 
@@ -135,6 +135,9 @@ namespace Presentacion
                 if (Cls_Global.mostrar_ancho_xgrid)
                     this.Text = Cls_Grid.info_columnas(this, gridView1);
 
+
+
+
                 DialogResult dialogResult = DialogResult.Yes;
                 if (Cls_Global.mostrar_msg_demora)
                 {
@@ -151,6 +154,7 @@ namespace Presentacion
 
             if (e.Button.ButtonType == NavigatorButtonType.Append)
             {
+
 
                 // dt_t_grupo2_grid.Clear();
                 gridView1.FocusedColumn = gridView1.VisibleColumns[0];

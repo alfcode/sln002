@@ -34,8 +34,8 @@ namespace Presentacion
             this.MaximizeBox = false;
             labelControl1.Text = "Categoria";
 
-            this.Width = 442;
-            this.Height = 400;
+            this.Width = 446;
+            this.Height = 368;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             int positionfinal = this.Width - this.labelControl1.Size.Width - 15;
             this.labelControl1.Location = new System.Drawing.Point(positionfinal, 5);
