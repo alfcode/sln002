@@ -31,16 +31,16 @@ namespace Datos
 
                 for (int i = 0; i < ds.Tables.Count; i++)
                 {
-                    if (ds.Tables[i].Columns[0].ColumnName == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "area") { ds.Tables[i].TableName = "area"; }
-
+                    string name = ds.Tables[i].Columns[0].ColumnName;
+                    if (name == "informe") { ds.Tables[i].TableName = "informe"; }
+                    if (name == "area") { ds.Tables[i].TableName = "area"; }
+                    ds.Tables[i].Columns.RemoveAt(0);
                 }
 
                 retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
                 string Error = (from item in retorno.informe select item.Error).First().ToString();
                 if (Error.Equals("1")) return retorno;
-
-
+                
                 retorno.area = ds.Tables["area"].DataTableToList<EN_zero.datacombo>().ToList();
 
                 return retorno;
@@ -89,8 +89,10 @@ namespace Datos
 
                 for (int i = 0; i < ds.Tables.Count; i++)
                 {
-                    if (ds.Tables[i].Columns[0].ColumnName == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "cargo") { ds.Tables[i].TableName = "cargo"; }
+                    string name = ds.Tables[i].Columns[0].ColumnName;
+                    if (name == "informe") { ds.Tables[i].TableName = "informe"; }
+                    if (name == "cargo") { ds.Tables[i].TableName = "cargo"; }
+                    ds.Tables[i].Columns.RemoveAt(0);
                 }
 
                 retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();

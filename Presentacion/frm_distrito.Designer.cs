@@ -32,19 +32,19 @@
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.cbo_departamento = new DevExpress.XtraEditors.GridLookUpEdit();
-            this.gridLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.label1 = new System.Windows.Forms.Label();
             this.cbo_provincia = new DevExpress.XtraEditors.GridLookUpEdit();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.label2 = new System.Windows.Forms.Label();
+            this.cbo_departamento = new DevExpress.XtraEditors.GridLookUpEdit();
+            this.gridLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cbo_departamento.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridLookUpEdit1View)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbo_provincia.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbo_departamento.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridLookUpEdit1View)).BeginInit();
             this.SuspendLayout();
             // 
             // labelControl1
@@ -85,36 +85,6 @@
             this.panel1.Size = new System.Drawing.Size(300, 68);
             this.panel1.TabIndex = 18;
             // 
-            // cbo_departamento
-            // 
-            this.cbo_departamento.Location = new System.Drawing.Point(97, 7);
-            this.cbo_departamento.Name = "cbo_departamento";
-            this.cbo_departamento.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbo_departamento.Properties.View = this.gridLookUpEdit1View;
-            this.cbo_departamento.Size = new System.Drawing.Size(199, 20);
-            this.cbo_departamento.TabIndex = 16;
-            this.cbo_departamento.EditValueChanged += new System.EventHandler(this.cbo_departamento_EditValueChanged);
-            // 
-            // gridLookUpEdit1View
-            // 
-            this.gridLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            this.gridLookUpEdit1View.Name = "gridLookUpEdit1View";
-            this.gridLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
-            this.gridLookUpEdit1View.OptionsView.ShowGroupPanel = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.LightGray;
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 9.25F);
-            this.label1.Location = new System.Drawing.Point(4, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 18);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Departamento";
-            // 
             // cbo_provincia
             // 
             this.cbo_provincia.Location = new System.Drawing.Point(97, 34);
@@ -145,6 +115,36 @@
             this.label2.TabIndex = 17;
             this.label2.Text = "Provincia       ";
             // 
+            // cbo_departamento
+            // 
+            this.cbo_departamento.Location = new System.Drawing.Point(97, 7);
+            this.cbo_departamento.Name = "cbo_departamento";
+            this.cbo_departamento.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbo_departamento.Properties.View = this.gridLookUpEdit1View;
+            this.cbo_departamento.Size = new System.Drawing.Size(199, 20);
+            this.cbo_departamento.TabIndex = 16;
+            this.cbo_departamento.EditValueChanged += new System.EventHandler(this.cbo_departamento_EditValueChanged);
+            // 
+            // gridLookUpEdit1View
+            // 
+            this.gridLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridLookUpEdit1View.Name = "gridLookUpEdit1View";
+            this.gridLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridLookUpEdit1View.OptionsView.ShowGroupPanel = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.LightGray;
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 9.25F);
+            this.label1.Location = new System.Drawing.Point(4, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 18);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Departamento";
+            // 
             // frm_distrito
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -159,10 +159,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cbo_departamento.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridLookUpEdit1View)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbo_provincia.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbo_departamento.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridLookUpEdit1View)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

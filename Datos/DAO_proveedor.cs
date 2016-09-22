@@ -30,13 +30,15 @@ namespace Datos
 
                 for (int i = 0; i < ds.Tables.Count; i++)
                 {
-                    if (ds.Tables[i].Columns[0].ColumnName == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "gironegocio") { ds.Tables[i].TableName = "gironegocio"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "formapago") { ds.Tables[i].TableName = "formapago"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "pais") { ds.Tables[i].TableName = "pais"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "departamento") { ds.Tables[i].TableName = "departamento"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "zona ") { ds.Tables[i].TableName = "zona"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "postal") { ds.Tables[i].TableName = "postal"; }
+                    string name = ds.Tables[i].Columns[0].ColumnName;
+                    if (name == "informe") { ds.Tables[i].TableName = "informe"; }
+                    if (name == "gironegocio") { ds.Tables[i].TableName = "gironegocio"; }
+                    if (name == "formapago") { ds.Tables[i].TableName = "formapago"; }
+                    if (name == "pais") { ds.Tables[i].TableName = "pais"; }
+                    if (name == "departamento") { ds.Tables[i].TableName = "departamento"; }
+                    if (name == "zona ") { ds.Tables[i].TableName = "zona"; }
+                    if (name == "postal") { ds.Tables[i].TableName = "postal"; }
+                    ds.Tables[i].Columns.RemoveAt(0);
 
                 }
 
@@ -100,8 +102,10 @@ namespace Datos
 
                 for (int i = 0; i < ds.Tables.Count; i++)
                 {
-                    if (ds.Tables[i].Columns[0].ColumnName == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "proveedor") { ds.Tables[i].TableName = "proveedor"; }
+                    string name = ds.Tables[i].Columns[0].ColumnName;
+                    if (name == "informe") { ds.Tables[i].TableName = "informe"; }
+                    if (name == "proveedor") { ds.Tables[i].TableName = "proveedor"; }
+                    ds.Tables[i].Columns.RemoveAt(0);
                 }
 
                 retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();

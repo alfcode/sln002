@@ -30,17 +30,16 @@ namespace Datos
 
                 for (int i = 0; i < ds.Tables.Count; i++)
                 {
-                    if (ds.Tables[i].Columns[0].ColumnName == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "empresa") { ds.Tables[i].TableName = "empresa"; }
-
-
+                    string name = ds.Tables[i].Columns[0].ColumnName;
+                    if (name == "informe") { ds.Tables[i].TableName = "informe"; }
+                    if (name == "empresa") { ds.Tables[i].TableName = "empresa";  }
+                    ds.Tables[i].Columns.RemoveAt(0);
                 }
 
                 retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
                 string Error = (from item in retorno.informe select item.Error).First().ToString();
                 if (Error.Equals("1")) return retorno;
-
-
+                
                 retorno.empresa= ds.Tables["empresa"].DataTableToList<EN_zero.datacombo>().ToList();
                 return retorno;
 
@@ -90,14 +89,17 @@ namespace Datos
 
                 for (int i = 0; i < ds.Tables.Count; i++)
                 {
-                    if (ds.Tables[i].Columns[0].ColumnName == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "almacen") { ds.Tables[i].TableName = "almacen"; }
+                    string name = ds.Tables[i].Columns[0].ColumnName;
+                    if (name == "informe") { ds.Tables[i].TableName = "informe";}
+                    if (name == "almacen") { ds.Tables[i].TableName = "almacen";}
+                    ds.Tables[i].Columns.RemoveAt(0);
                 }
 
                 retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
                 string Error = (from item in retorno.informe select item.Id).First().ToString();
                 if (Error.Equals("1")) return retorno;
 
+               
                 retorno.t_almacen = ds.Tables["almacen"].DataTableToList<EN_almacen.t_almacen>().ToList();
 
                 return retorno;

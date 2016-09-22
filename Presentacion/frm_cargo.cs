@@ -77,7 +77,7 @@ namespace Presentacion
             Cursor.Current = Cursors.Default;
             if (Cls_Grid.ExisteError(retorno.informe)) return;
 
-            Cls_Grid.Load_Combo_GridLookUpEdit(cbo_area, retorno.area, false);
+            Cls_Grid.Load_Combo_GridLookUpEdit(cbo_area, retorno.area, false, cbo_area.Width,100);
         }
 
 

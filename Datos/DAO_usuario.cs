@@ -30,26 +30,28 @@ namespace Datos
 
                 for (int i = 0; i < ds.Tables.Count; i++)
                 {
-                    if (ds.Tables[i].Columns[0].ColumnName == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "tipodocu_personal ") { ds.Tables[i].TableName = "tipodocu_personal "; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "area") { ds.Tables[i].TableName = "area"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "cargo") { ds.Tables[i].TableName = "cargo"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "departamento") { ds.Tables[i].TableName = "departamento"; }
-
+                    string name = ds.Tables[i].Columns[0].ColumnName;
+                    if (name == "informe") { ds.Tables[i].TableName = "informe"; }
+                    if (name == "tipodocu_personal") { ds.Tables[i].TableName = "tipodocu_personal"; }
+                    if (name == "area") { ds.Tables[i].TableName = "area";  }
+                    if (name == "cargo") { ds.Tables[i].TableName = "cargo";  }
+                    if (name == "departamento") { ds.Tables[i].TableName = "departamento";}
+                    if (name == "provincia") { ds.Tables[i].TableName = "provincia";  }
+                    if (name == "distrito") { ds.Tables[i].TableName = "distrito";  }
+                    ds.Tables[i].Columns.RemoveAt(0);
                 }
+
 
                 retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
                 string Error = (from item in retorno.informe select item.Error).First().ToString();
                 if (Error.Equals("1")) return retorno;
 
-
-                retorno.tipodocu_personal = ds.Tables["tipodocu_personal "].DataTableToList<EN_zero.datacombo>().ToList();
+                retorno.tipodocu_personal = ds.Tables["tipodocu_personal"].DataTableToList<EN_zero.datacombo>().ToList();
                 retorno.area = ds.Tables["area"].DataTableToList<EN_zero.datacombo>().ToList();
                 retorno.cargo = ds.Tables["cargo"].DataTableToList<EN_zero.datacombo>().ToList();
                 retorno.departamento = ds.Tables["departamento"].DataTableToList<EN_zero.datacombo>().ToList();
-
-                
-
+                retorno.provincia = ds.Tables["provincia"].DataTableToList<EN_zero.datacombo>().ToList();
+                retorno.distrito= ds.Tables["distrito"].DataTableToList<EN_zero.datacombo>().ToList();
 
                 return retorno;
 
@@ -99,14 +101,16 @@ namespace Datos
 
                 for (int i = 0; i < ds.Tables.Count; i++)
                 {
-                    if (ds.Tables[i].Columns[0].ColumnName == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "usuario") { ds.Tables[i].TableName = "usuario"; }
+                    string name = ds.Tables[i].Columns[0].ColumnName;
+                    if (name == "informe") { ds.Tables[i].TableName = "informe";  }
+                    if (name == "usuario") { ds.Tables[i].TableName = "usuario"; }
+                    ds.Tables[i].Columns.RemoveAt(0);
                 }
-
                 retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
                 string Error = (from item in retorno.informe select item.Id).First().ToString();
                 if (Error.Equals("1")) return retorno;
 
+               
                 retorno.t_usuario = ds.Tables["usuario"].DataTableToList<EN_usuario.t_usuario>().ToList();
 
                 return retorno;

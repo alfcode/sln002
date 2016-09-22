@@ -20,6 +20,11 @@ namespace Presentacion
         DataTable dt_t_usuario_grid = new DataTable();
         DataTable dt_t_usuario_final = new DataTable();
 
+        List<EN_zero.datacombo> lista_cargo = new List<EN_zero.datacombo>();
+        List<EN_zero.datacombo> lista_provincia = new List<EN_zero.datacombo>();
+        List<EN_zero.datacombo> lista_distrito = new List<EN_zero.datacombo>();
+
+
         public frm_usuario()
         {
             DevExpress.UserSkins.BonusSkins.Register();
@@ -29,6 +34,8 @@ namespace Presentacion
             InitializeComponent();
             gridControl1.EmbeddedNavigator.ButtonClick += new DevExpress.XtraEditors.NavigatorButtonClickEventHandler(this.gridControl1_EmbeddedNavigator_ButtonClick);
             this.Load += new System.EventHandler(this.frm_usuario_Load);
+            this.gridView1.ShowingEditor += new System.ComponentModel.CancelEventHandler(this.gridView1_ShowingEditor);
+
             this.Icon = Properties.Resources.empresa;
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
@@ -57,8 +64,8 @@ namespace Presentacion
             dt_t_usuario_final = Cls_Grid.ListToTable(t_usuario);
 
             gridControl1.DataSource = dt_t_usuario_grid;
-            cargar_combo();
             Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_usuario_grid);
+            cargar_combo();
 
         }
 
@@ -69,16 +76,25 @@ namespace Presentacion
             var negocio = new LN_usuario();
             var retorno = new EN_usuario.proc_usuario_mnt_combo();
 
+            Application.DoEvents();
             Cursor.Current = Cursors.WaitCursor;
             retorno = negocio.proc_usuario_mnt_combo();
             Cursor.Current = Cursors.Default;
             if (Cls_Grid.ExisteError(retorno.informe)) return;
 
-            Cls_Grid.Load_Combo(gridView1, retorno.area, "id_area", false);
-            Cls_Grid.Load_Combo(gridView1, retorno.cargo, "id_cargo", false);
-            Cls_Grid.Load_Combo(gridView1, retorno.departamento, "id_departamento", false);
-            Cls_Grid.Load_Combo(gridView1, retorno.tipodocu_personal, "id_tipodocu_personal", false);
-           
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.area, "id_area", false,300,150);
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.departamento, "id_departamento", false, 300, 150);
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.tipodocu_personal, "id_tipodocu_personal", false, 300, 150);
+            lista_cargo = retorno.cargo;
+            lista_provincia = retorno.provincia;
+            lista_distrito = retorno.distrito;
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, lista_cargo, "id_cargo", false, 300, 150);
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, lista_provincia, "id_provincia", false, 300, 150);
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, lista_distrito, "id_distrito", false, 300, 150);
+
+
+          
+
         }
 
 
@@ -204,9 +220,36 @@ namespace Presentacion
             }
         }
 
+        private void gridView1_ShowingEditor(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+            GridView gv = sender as GridView;
+            
+               
+            if (gv.FocusedColumn.FieldName == "id_provincia")
+            {
+                string id2 = gv.GetRowCellValue(gv.FocusedRowHandle, gv.Columns["id_departamento"]).ToString();
+                var filtro_provincia = (from Lista in lista_provincia.Where(w => w.id2 == id2) select Lista).ToList();
+                Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, filtro_provincia, "id_provincia", false, 300, 150);
 
 
+            }
+
+            if (gv.FocusedColumn.FieldName == "id_distrito")
+            {
+                string id2 = gv.GetRowCellValue(gv.FocusedRowHandle, gv.Columns["id_provincia"]).ToString();
+                var filtro_distrito = (from Lista in lista_distrito.Where(w => w.id2 == id2) select Lista).ToList();
+                Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, filtro_distrito, "id_distrito", false, 300, 150);
+            }
 
 
+            if (gv.FocusedColumn.FieldName == "id_cargo")
+            {
+                string id2 = gv.GetRowCellValue(gv.FocusedRowHandle, gv.Columns["id_area"]).ToString();
+                var filtro_cargo = (from Lista in lista_cargo.Where(w => w.id2 == id2) select Lista).ToList();
+                Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, filtro_cargo, "id_cargo", false, 300, 150);
+            }
+
+        }
     }
 }

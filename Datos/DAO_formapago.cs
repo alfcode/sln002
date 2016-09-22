@@ -37,8 +37,10 @@ namespace Datos
 
                 for (int i = 0; i < ds.Tables.Count; i++)
                 {
-                    if (ds.Tables[i].Columns[0].ColumnName == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "formapago") { ds.Tables[i].TableName = "formapago"; }
+                    string name = ds.Tables[i].Columns[0].ColumnName;
+                    if (name == "informe") { ds.Tables[i].TableName = "informe"; }
+                    if (name == "formapago") { ds.Tables[i].TableName = "formapago"; }
+                    ds.Tables[i].Columns.RemoveAt(0);
                 }
 
                 retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();

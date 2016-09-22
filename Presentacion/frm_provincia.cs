@@ -31,6 +31,7 @@ namespace Presentacion
             InitializeComponent();
             gridControl1.EmbeddedNavigator.ButtonClick += new DevExpress.XtraEditors.NavigatorButtonClickEventHandler(this.gridControl1_EmbeddedNavigator_ButtonClick);
             this.Load += new System.EventHandler(this.frm_provincia_Load);
+            this.Activated += new System.EventHandler(this.frm_distrito_Activated);
             this.Icon = Properties.Resources.empresa;
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
@@ -53,16 +54,23 @@ namespace Presentacion
         {
 
             inicio();
+          
+        }
+
+        private void frm_distrito_Activated(object sender, EventArgs e)
+        {
+            
         }
 
         private void inicio()
         {
             dt_t_provincia_grid = Cls_Grid.ListToTable(t_provincia);
             dt_t_provincia_final = Cls_Grid.ListToTable(t_provincia);
-
+           
             gridControl1.DataSource = dt_t_provincia_grid;
-            cargar_combo();
             Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_provincia_grid);
+
+            cargar_combo();
 
         }
 
@@ -73,13 +81,15 @@ namespace Presentacion
             var negocio = new LN_provincia();
             var retorno = new EN_provincia.proc_provincia_mnt_combo();
             var parametros = new EN_provincia.proc_provincia_mnt_combo();
+           
+            Application.DoEvents();
             Cursor.Current = Cursors.WaitCursor;
-          
             retorno = negocio.proc_provincia_mnt_combo();
+
             Cursor.Current = Cursors.Default;
             if (Cls_Grid.ExisteError(retorno.informe)) return;
 
-            Cls_Grid.Load_Combo_GridLookUpEdit(cbo_departamento, retorno.departamento, false);
+            Cls_Grid.Load_Combo_GridLookUpEdit(cbo_departamento, retorno.departamento, false, cbo_departamento.Width, 100);
         }
 
 

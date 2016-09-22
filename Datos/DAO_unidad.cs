@@ -40,8 +40,10 @@ namespace Datos
 
                 for (int i = 0; i < ds.Tables.Count; i++)
                 {
-                    if (ds.Tables[i].Columns[0].ColumnName == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (ds.Tables[i].Columns[0].ColumnName == "unidad") { ds.Tables[i].TableName = "unidad"; }
+                    string name = ds.Tables[i].Columns[0].ColumnName;
+                    if (name == "informe") { ds.Tables[i].TableName = "informe"; }
+                    if (name == "unidad") { ds.Tables[i].TableName = "unidad"; }
+                    ds.Tables[i].Columns.RemoveAt(0);
                 }
 
                 retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
@@ -49,6 +51,8 @@ namespace Datos
                 if (Error.Equals("1")) return retorno;
 
                 retorno.t_unidad = ds.Tables["unidad"].DataTableToList<EN_unidad.t_unidad>().ToList();
+
+
 
                 return retorno;
 

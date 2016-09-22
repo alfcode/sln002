@@ -12,6 +12,29 @@ namespace Datos
    public class DAO_zero
     {
 
+        public List<EN_zero.datacombo>datacombo_5id(DataTable table)
+        {
+            var lista = new List<EN_zero.datacombo>();
+
+            int num_col = table.Columns.Count-1;
+             foreach (DataRow row in table.Rows) // Loop over the rows.
+            {
+                var item = new EN_zero.datacombo();
+                if(num_col >= 1) item.id = row[1].ToString();
+                if (num_col >= 2) item.nombre1 = row[2].ToString(); 
+                if (num_col >= 3) item.nombre2 = row[3].ToString(); 
+                if (num_col >= 4) item.id2 = row[4].ToString(); 
+                //if (num_col >= 5) item.id3 = row[5].ToString(); 
+                //if (num_col >= 6) item.id4 = row[6].ToString(); 
+            
+                lista.Add(item);
+            }
+
+            return lista;
+        }
+
+
+
         public List<EN_zero.informe> msg_exception (Exception ex)
         {
             var informe = new List<EN_zero.informe>();

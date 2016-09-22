@@ -20,7 +20,7 @@ namespace Presentacion
         DataTable dt_t_distrito_grid = new DataTable();
         DataTable dt_t_distrito_final = new DataTable();
 
-        List<EN_zero.datacombo> provincia = new List<EN_zero.datacombo>();
+        List<EN_zero.datacombo> lista_provincia = new List<EN_zero.datacombo>();
 
         string id_provincia = "";
 
@@ -37,7 +37,7 @@ namespace Presentacion
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
 
-            labelControl1.Text = " distritos";
+            labelControl1.Text = "Distritos";
 
             this.Width = 422;
             this.Height = 400;
@@ -45,12 +45,14 @@ namespace Presentacion
             int positionfinal = this.Width - this.labelControl1.Size.Width - 15;
             this.labelControl1.Location = new System.Drawing.Point(positionfinal, 5);
 
+            gridControl1.Width = this.Width - 4;
+            gridControl1.Height = this.Height - panel1.Height - 30;
+            gridControl1.Left = 1;
 
         }
 
         private void frm_distrito_Load(object sender, EventArgs e)
         {
-
             inicio();
         }
 
@@ -58,11 +60,9 @@ namespace Presentacion
         {
             dt_t_distrito_grid = Cls_Grid.ListToTable(t_distrito);
             dt_t_distrito_final = Cls_Grid.ListToTable(t_distrito);
-
             gridControl1.DataSource = dt_t_distrito_grid;
-            cargar_combo();
             Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_distrito_grid);
-
+            cargar_combo();
         }
 
 
@@ -72,14 +72,15 @@ namespace Presentacion
             var negocio = new LN_distrito();
             var retorno = new EN_distrito.proc_distrito_mnt_combo();
             var parametros = new EN_distrito.proc_distrito_mnt_combo();
-            
+
+            Application.DoEvents();
             Cursor.Current = Cursors.WaitCursor;
             retorno = negocio.proc_distrito_mnt_combo();
             Cursor.Current = Cursors.Default;
             if (Cls_Grid.ExisteError(retorno.informe)) return;
 
-            Cls_Grid.Load_Combo_GridLookUpEdit(cbo_departamento, retorno.departamento, false);
-            provincia = retorno.provincia;
+            Cls_Grid.Load_Combo_GridLookUpEdit(cbo_departamento, retorno.departamento, false, cbo_departamento.Width, 100);
+            lista_provincia = retorno.provincia;
 
         }
 
@@ -225,8 +226,9 @@ namespace Presentacion
             dt_t_distrito_grid.Clear();
            
             string id2 = cbo_departamento.EditValue.ToString();
-            var filtro_provincia = (from Lista in provincia.Where(w => w.id2 == id2) select Lista).ToList();
-            Cls_Grid.Load_Combo_GridLookUpEdit(cbo_provincia, filtro_provincia, false);
+            var filtro_provincia = (from Lista in lista_provincia.Where(w => w.id2 == id2) select Lista).ToList();
+            Cls_Grid.Load_Combo_GridLookUpEdit(cbo_provincia, filtro_provincia, false, cbo_provincia.Width,100);
+           
         }
 
         private void cbo_provincia_EditValueChanged(object sender, EventArgs e)
@@ -253,6 +255,6 @@ namespace Presentacion
             return false;
         }
 
-
+       
     }
 }

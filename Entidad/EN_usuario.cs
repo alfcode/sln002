@@ -19,7 +19,7 @@ namespace Entidad
             public string id_usuario { get; set; }
 
             [Display(Description = "Nombres")]
-            [Column(Order = 150)]
+            [Column(Order = 250)]
             [Required]
             [MaxLength(200)]
             public string nombre { get; set; }
@@ -36,8 +36,8 @@ namespace Entidad
             [MaxLength(20)]
             public string apemat { get; set; }
 
-            [Display(Description = "Sexo")]
-            [Column(Order = 40)]
+            [Display(Description = "Sexo F/M")]
+            [Column(Order = 50)]
             [Required]
             [MaxLength(1)]
             public string sexo { get; set; }
@@ -57,17 +57,17 @@ namespace Entidad
             public string num_tdocu { get; set; }
 
             [Display(Description = "Departamento")]
-            [Column(Order = 80)]
+            [Column(Order = 120)]
             [MaxLength(10)]
             public string id_departamento { get; set; }
 
             [Display(Description = "Provincia")]
-            [Column(Order = 80)]
+            [Column(Order = 120)]
             [MaxLength(10)]
             public string id_provincia { get; set; }
 
             [Display(Description = "Distrito")]
-            [Column(Order = 145)]
+            [Column(Order = 190)]
             [MaxLength(10)]
             public string id_distrito { get; set; }
 
@@ -92,12 +92,12 @@ namespace Entidad
             public string email { get; set; }
 
             [Display(Description = "Area")]
-            [Column(Order = 150)]
+            [Column(Order = 250)]
             [MaxLength(10)]
             public string id_area { get; set; }
 
             [Display(Description = "Cargo")]
-            [Column(Order = 150)]
+            [Column(Order = 250)]
             [MaxLength(10)]
             public string id_cargo { get; set; }
 
@@ -152,6 +152,8 @@ namespace Entidad
             public List<EN_zero.datacombo> area { get; set; }
             public List<EN_zero.datacombo> cargo { get; set; }
             public List<EN_zero.datacombo> departamento { get; set; }
+            public List<EN_zero.datacombo> provincia { get; set; }
+            public List<EN_zero.datacombo> distrito { get; set; }
         }
 
 

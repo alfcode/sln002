@@ -54,9 +54,9 @@ namespace Presentacion
             dt_t_articulo_final = Cls_Grid.ListToTable(t_articulo);
 
             gridControl1.DataSource = dt_t_articulo_grid;
-            cargar_combo();
-            Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_articulo_grid);
            
+            Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_articulo_grid);
+            cargar_combo();
         }
 
 
@@ -71,11 +71,11 @@ namespace Presentacion
             Cursor.Current = Cursors.Default;
             if (Cls_Grid.ExisteError(retorno.informe)) return;
 
-            Cls_Grid.Load_Combo(gridView1, retorno.unidad, "id_unidad1", true);
-            Cls_Grid.Load_Combo(gridView1, retorno.unidad, "id_unidad2", true);
-            Cls_Grid.Load_Combo(gridView1, retorno.grupo1, "id_grupo1", false);
-            Cls_Grid.Load_Combo(gridView1, retorno.grupo2, "id_grupo2", false);
-            Cls_Grid.Load_Combo(gridView1, retorno.grupo3, "id_grupo3", false);
+            ///Cls_Grid.Load_Combo7(gridView1, retorno.unidad, "id_unidad1", true,300,100);
+            //Cls_Grid.Load_Combo(gridView1, retorno.unidad, "id_unidad2", true);
+            //Cls_Grid.Load_Combo(gridView1, retorno.grupo1, "id_grupo1", false);
+            //Cls_Grid.Load_Combo(gridView1, retorno.grupo2, "id_grupo2", false);
+            //Cls_Grid.Load_Combo(gridView1, retorno.grupo3, "id_grupo3", false);
         }
 
 
