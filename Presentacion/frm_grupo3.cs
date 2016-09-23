@@ -20,6 +20,10 @@ namespace Presentacion
         DataTable dt_t_grupo3_grid = new DataTable();
         DataTable dt_t_grupo3_final = new DataTable();
 
+        List<EN_zero.datacombo> lista_grupo2 = new List<EN_zero.datacombo>();
+
+        string id_cbo_A = "";
+
         public frm_grupo3()
         {
             DevExpress.UserSkins.BonusSkins.Register();
@@ -29,22 +33,28 @@ namespace Presentacion
             InitializeComponent();
             gridControl1.EmbeddedNavigator.ButtonClick += new DevExpress.XtraEditors.NavigatorButtonClickEventHandler(this.gridControl1_EmbeddedNavigator_ButtonClick);
             this.Load += new System.EventHandler(this.frm_grupo3_Load);
+            this.cbo_1.EditValueChanged += new System.EventHandler(this.cbo_departamento_EditValueChanged);
+            this.cbo_2.EditValueChanged += new System.EventHandler(this.cbo_provincia_EditValueChanged);
             this.Icon = Properties.Resources.empresa;
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
-            labelControl1.Text = "Categoria";
 
-            this.Width = 446;
-            this.Height = 368;
+            labelControl1.Text = "Catálogo-Categoría";
+
+            this.Width = 422;
+            this.Height = 400;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             int positionfinal = this.Width - this.labelControl1.Size.Width - 15;
             this.labelControl1.Location = new System.Drawing.Point(positionfinal, 5);
+
+            gridControl1.Width = this.Width - 4;
+            gridControl1.Height = this.Height - panel1.Height - 30;
+            gridControl1.Left = 1;
 
         }
 
         private void frm_grupo3_Load(object sender, EventArgs e)
         {
-
             inicio();
         }
 
@@ -52,14 +62,29 @@ namespace Presentacion
         {
             dt_t_grupo3_grid = Cls_Grid.ListToTable(t_grupo3);
             dt_t_grupo3_final = Cls_Grid.ListToTable(t_grupo3);
-
             gridControl1.DataSource = dt_t_grupo3_grid;
-
             Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_grupo3_grid);
-
+            cargar_combo();
         }
 
 
+
+        private void cargar_combo()
+        {
+            var negocio = new LN_grupo3();
+            var retorno = new EN_grupo3.proc_grupo3_mnt_combo();
+            var parametros = new EN_grupo3.proc_grupo3_mnt_combo();
+
+            Application.DoEvents();
+            Cursor.Current = Cursors.WaitCursor;
+            retorno = negocio.proc_grupo3_mnt_combo();
+            Cursor.Current = Cursors.Default;
+            if (Cls_Grid.ExisteError(retorno.informe)) return;
+
+            Cls_Grid.Load_Combo_GridLookUpEdit(cbo_1, retorno.grupo1, false, cbo_1.Width, 300);
+            lista_grupo2 = retorno.grupo2;
+
+        }
 
 
         private void mnt_datos(string id_usuario)
@@ -74,6 +99,7 @@ namespace Presentacion
                 var retorno = new EN_grupo3.proc_grupo3_mnt_retorno();
 
                 parametro.id_usuario = id_usuario;
+                parametro.id_grupo2 = id_cbo_A;
                 parametro.t_grupo3 = t_grupo3;
 
                 Cursor.Current = Cursors.WaitCursor;
@@ -135,6 +161,10 @@ namespace Presentacion
                 if (Cls_Global.mostrar_ancho_xgrid)
                     this.Text = Cls_Grid.info_columnas(this, gridView1);
 
+
+                if (valida_combo() == true) return;
+
+
                 DialogResult dialogResult = DialogResult.Yes;
                 if (Cls_Global.mostrar_msg_demora)
                 {
@@ -142,7 +172,10 @@ namespace Presentacion
                 }
 
                 if (dialogResult == DialogResult.Yes)
-                    mnt_datos("");
+                    id_cbo_A = cbo_2.EditValue.ToString();
+                mnt_datos("");
+                dt_t_grupo3_grid.Columns["id_grupo2"].DefaultValue = id_cbo_A;
+
                 e.Handled = true;
 
             }
@@ -151,8 +184,14 @@ namespace Presentacion
 
             if (e.Button.ButtonType == NavigatorButtonType.Append)
             {
+                e.Handled = true;
 
-                // dt_t_grupo3_grid.Clear();
+                if (valida_combo() == true) return;
+
+                dt_t_grupo3_grid.Columns["id_grupo2"].DefaultValue = cbo_2.EditValue.ToString();
+
+                e.Handled = false;
+
                 gridView1.FocusedColumn = gridView1.VisibleColumns[0];
 
             }
@@ -184,8 +223,39 @@ namespace Presentacion
             }
         }
 
+        private void cbo_departamento_EditValueChanged(object sender, EventArgs e)
+        {
+            dt_t_grupo3_grid.Clear();
+
+            string id2 = cbo_1.EditValue.ToString();
+            var filtro = (from Lista in lista_grupo2.Where(w => w.id2 == id2) select Lista).ToList();
+            Cls_Grid.Load_Combo_GridLookUpEdit(cbo_2, filtro, false, cbo_2.Width, 100);
+
+        }
+
+        private void cbo_provincia_EditValueChanged(object sender, EventArgs e)
+        {
+            dt_t_grupo3_grid.Clear();
+        }
 
 
+        private bool valida_combo()
+        {
+            if (cbo_1.EditValue == null || cbo_1.Text == "")
+            {
+                DevExpress.XtraEditors.XtraMessageBox.Show("Seleccion el valor Linea", Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                return true;
+            }
+
+            if (cbo_2.EditValue == null || cbo_2.Text == "")
+            {
+                DevExpress.XtraEditors.XtraMessageBox.Show("Seleccion el valor Familia", Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                return true;
+            }
+
+
+            return false;
+        }
 
 
     }

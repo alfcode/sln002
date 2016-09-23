@@ -18,31 +18,56 @@ namespace Entidad
             [MaxLength(10)]
             public string id_proveedor { get; set; }
 
-            [Display(Description = "Proveedor")]
+            [Display(Description = "Razón Social")]
             [Column(Order = 230)]
             [Required]
             [MaxLength(100)]
             public string nombre { get; set; }
 
-            [Display(Description = "ruc")]
+            [Key]
+            [Display(Description = "Ruc")]
             [Column(Order = 80)]
+            [Required]
             [MaxLength(11)]
             public string ruc { get; set; }
 
-            [Display(Description = "Giro de Negocio")]
-            [Column(Order = 120)]
-            [MaxLength(10)]
-            public string id_gironegocio { get; set; }
+            [Display(Description = "Contacto")]
+            [Column(Order = 165)]
+            [MaxLength(100)]
+            public string contacto { get; set; }
+
+            [Display(Description = "Linea de crédito")]
+            [Column(Order = 85)]
+            public decimal linea_credito { get; set; }
 
             [Display(Description = "Forma de pago")]
             [Column(Order = 85)]
             [MaxLength(10)]
             public string id_formapago { get; set; }
 
-            [Display(Description = "Contacto")]
-            [Column(Order = 165)]
-            [MaxLength(100)]
-            public string contacto { get; set; }
+         
+
+            [Display(Description = "País")]
+            [Column(Order = 96)]
+            [MaxLength(10)]
+            public string id_pais { get; set; }
+
+            [Display(Description = "Departamento")]
+            [Column(Order = 102)]
+            [MaxLength(10)]
+            public string id_departamento { get; set; }
+
+            [Display(Description = "Provincia")]
+            [Column(Order = 97)]
+            [MaxLength(10)]
+            public string id_provincia { get; set; }
+
+            [Display(Description = "Distrito")]
+            [Column(Order = 127)]
+            [MaxLength(10)]
+            public string id_distrito { get; set; }
+
+
 
             [Display(Description = "Dirección")]
             [Column(Order = 193)]
@@ -70,48 +95,16 @@ namespace Entidad
             public string web { get; set; }
 
             [Display(Description = "Comentario")]
-            [Column(Order =164)]
+            [Column(Order = 164)]
             [MaxLength(8000)]
             public string comentario { get; set; }
+            
 
-            [Display(Description = "Linea de crédito")]
-            [Column(Order = 85)]
-            public decimal linea_credito { get; set; }
-
-            [Display(Description = "Dias de atención")]
-            [Column(Order = 124)]
-            [MaxLength(100)]
-            public string dias_atencion { get; set; }
-
-            [Display(Description = "País")]
-            [Column(Order = 96)]
+            [Display(Description = "Giro de Negocio")]
+            [Column(Order = 120)]
             [MaxLength(10)]
-            public string id_pais { get; set; }
+            public string id_gironegocio { get; set; }
 
-            [Display(Description = "Departamento")]
-            [Column(Order = 102)]
-            [MaxLength(10)]
-            public string id_departamento { get; set; }
-
-            [Display(Description = "Provincia")]
-            [Column(Order = 97)]
-            [MaxLength(10)]
-            public string id_provincia { get; set; }
-
-            [Display(Description = "Distrito")]
-            [Column(Order = 127)]
-            [MaxLength(10)]
-            public string id_distrito { get; set; }
-
-            [Display(Description = "Zona")]
-            [Column(Order = 76)]
-            [MaxLength(10)]
-            public string id_zona { get; set; }
-
-            [Display(Description = "Postal")]
-            [Column(Order = 67)]
-            [MaxLength(10)]
-            public string id_postal { get; set; }
 
             [Display(Description = "Activo", Prompt = "1")]
             [Column(Order = 40)]
@@ -150,8 +143,8 @@ namespace Entidad
             public List<EN_zero.datacombo> formapago { get; set; }
             public List<EN_zero.datacombo> pais { get; set; }
             public List<EN_zero.datacombo> departamento { get; set; }
-            public List<EN_zero.datacombo> zona{ get; set; }
-            public List<EN_zero.datacombo> postal{ get; set; }
+            public List<EN_zero.datacombo> provincia { get; set; }
+            public List<EN_zero.datacombo> distrito { get; set; }
 
             
         }

@@ -189,6 +189,7 @@ namespace Presentacion
 
                 riLookup.ImmediatePopup = true;
                 riLookup.TextEditStyle = TextEditStyles.Standard;
+       
                // riLookup.BestFitMode = BestFitMode.BestFitResizePopup;
                 riLookup.PopupFilterMode = PopupFilterMode.Contains;
 
@@ -199,6 +200,56 @@ namespace Presentacion
            
             gridView1.Columns[ValueMember].ColumnEdit = riLookup;
             gridView1.BestFitColumns();
+
+        }
+
+
+        public RepositoryItemGridLookUpEdit Load_Combo_GridLookUpEdit_In_Grid_Filter<T>(IList<T> lista, bool ver_descripcion_2, int Width, int Height)
+        {
+            RepositoryItemGridLookUpEdit riLookup = new RepositoryItemGridLookUpEdit();
+
+          
+            /// 
+            riLookup.DataSource = lista;
+            int count = riLookup.View.Columns.Count;
+            if (count == 0)
+            {
+                riLookup.ValueMember = "id";
+                riLookup.DisplayMember = "nombre1";
+                PropertyInfo[] propiedades = typeof(T).GetProperties();
+                int i = 0;
+                foreach (PropertyInfo p in propiedades)
+                {
+                    DevExpress.XtraGrid.Columns.GridColumn col11 = riLookup.View.Columns.AddField(p.Name);
+                    col11.VisibleIndex = i;
+                    if (i == 0) col11.Visible = false;
+                    if (i == 1) col11.Visible = true; //nombre1
+                    if (i == 2) col11.Visible = false; //nombre2
+
+                    //id_ocultos
+                    if (i == 3) col11.Visible = false;
+                    if (i == 1)
+                    {
+                        col11.Caption = "Descripción";
+                    }
+
+                    if (ver_descripcion_2 == true)
+                    {
+                        col11.Visible = true;
+                        col11.Caption = "Mas datos";
+                    }
+
+                    i++;
+                }
+                riLookup.NullText = "-seleccione-";
+
+                riLookup.ImmediatePopup = true;
+                riLookup.TextEditStyle = TextEditStyles.Standard;
+                riLookup.PopupFilterMode = PopupFilterMode.Contains;
+                riLookup.PopupFormSize = new Size(Width, Height);
+            }
+
+            return riLookup;
 
         }
 
@@ -314,12 +365,16 @@ namespace Presentacion
 
                 riLookup.Properties.View.BestFitColumns();
                 // Specify the total dropdown width.
-               // riLookup.Properties.PopupFormWidth = 50;
-                riLookup.Properties.PopupFormSize = new Size(Width, Height);
+                riLookup.Properties.PopupFormMinSize = new Size(Width, Height);
+                // riLookup.Properties.PopupFormSize = new Size(Width, Height);
             }
             
              
         }
+
+
+
+
 
         private void Visible_Columns(GridView gridView1,DataTable dt_param1 )
         {

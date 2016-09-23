@@ -32,6 +32,7 @@ namespace Presentacion
             gridControl1.EmbeddedNavigator.ButtonClick += new DevExpress.XtraEditors.NavigatorButtonClickEventHandler(this.gridControl1_EmbeddedNavigator_ButtonClick);
             this.Load += new System.EventHandler(this.frm_provincia_Load);
             this.Activated += new System.EventHandler(this.frm_distrito_Activated);
+            this.cbo_departamento.EditValueChanged += new System.EventHandler(this.cbo_departamento_EditValueChanged);
             this.Icon = Properties.Resources.empresa;
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;

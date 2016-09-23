@@ -36,8 +36,9 @@ namespace Datos
                     if (name == "formapago") { ds.Tables[i].TableName = "formapago"; }
                     if (name == "pais") { ds.Tables[i].TableName = "pais"; }
                     if (name == "departamento") { ds.Tables[i].TableName = "departamento"; }
-                    if (name == "zona ") { ds.Tables[i].TableName = "zona"; }
-                    if (name == "postal") { ds.Tables[i].TableName = "postal"; }
+                    if (name == "provincia") { ds.Tables[i].TableName = "provincia"; }
+                    if (name == "distrito") { ds.Tables[i].TableName = "distrito"; }
+
                     ds.Tables[i].Columns.RemoveAt(0);
 
                 }
@@ -51,8 +52,8 @@ namespace Datos
                 retorno.formapago = ds.Tables["formapago"].DataTableToList<EN_zero.datacombo>().ToList();
                 retorno.pais= ds.Tables["pais"].DataTableToList<EN_zero.datacombo>().ToList();
                 retorno.departamento = ds.Tables["departamento"].DataTableToList<EN_zero.datacombo>().ToList();
-                retorno.zona = ds.Tables["zona"].DataTableToList<EN_zero.datacombo>().ToList();
-                retorno.postal = ds.Tables["postal"].DataTableToList<EN_zero.datacombo>().ToList();
+                retorno.provincia = ds.Tables["provincia"].DataTableToList<EN_zero.datacombo>().ToList();
+                retorno.distrito = ds.Tables["distrito"].DataTableToList<EN_zero.datacombo>().ToList();
 
                 return retorno;
 

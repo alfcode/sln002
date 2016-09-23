@@ -30,39 +30,39 @@
         {
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
-            this.rrhh_usuario = new DevExpress.XtraBars.BarButtonItem();
-            this.rrhh_area = new DevExpress.XtraBars.BarButtonItem();
-            this.rrhh_cargo = new DevExpress.XtraBars.BarButtonItem();
-            this.rrhh_rol = new DevExpress.XtraBars.BarButtonItem();
-            this.rrhh_rol_usuario = new DevExpress.XtraBars.BarButtonItem();
-            this.rrhh_zona = new DevExpress.XtraBars.BarButtonItem();
-            this.rrhh_postal = new DevExpress.XtraBars.BarButtonItem();
             this.rrhh_departamento = new DevExpress.XtraBars.BarButtonItem();
             this.rrhh_provincia = new DevExpress.XtraBars.BarButtonItem();
             this.rrhh_distrito = new DevExpress.XtraBars.BarButtonItem();
+            this.rrhh_postal = new DevExpress.XtraBars.BarButtonItem();
+            this.rrhh_zona = new DevExpress.XtraBars.BarButtonItem();
+            this.rrhh_rol = new DevExpress.XtraBars.BarButtonItem();
+            this.rrhh_area = new DevExpress.XtraBars.BarButtonItem();
+            this.rrhh_cargo = new DevExpress.XtraBars.BarButtonItem();
             this.conta_tdocu_personal = new DevExpress.XtraBars.BarButtonItem();
+            this.rrhh_usuario = new DevExpress.XtraBars.BarButtonItem();
+            this.rrhh_rol_usuario = new DevExpress.XtraBars.BarButtonItem();
             this.barSubItem2 = new DevExpress.XtraBars.BarSubItem();
             this.conta_empresa = new DevExpress.XtraBars.BarButtonItem();
             this.conta_tdocu_sunat = new DevExpress.XtraBars.BarButtonItem();
             this.conta_moneda = new DevExpress.XtraBars.BarButtonItem();
-            this.conta_tipo_cambio = new DevExpress.XtraBars.BarButtonItem();
             this.conta_estado = new DevExpress.XtraBars.BarButtonItem();
+            this.conta_tipo_cambio = new DevExpress.XtraBars.BarButtonItem();
             this.barSubItem3 = new DevExpress.XtraBars.BarSubItem();
-            this.inve_unidad = new DevExpress.XtraBars.BarButtonItem();
             this.inve_grupo1 = new DevExpress.XtraBars.BarButtonItem();
             this.inve_grupo2 = new DevExpress.XtraBars.BarButtonItem();
             this.inve_grupo3 = new DevExpress.XtraBars.BarButtonItem();
+            this.inve_unidad = new DevExpress.XtraBars.BarButtonItem();
             this.inve_grupo4 = new DevExpress.XtraBars.BarButtonItem();
             this.inve_grupo5 = new DevExpress.XtraBars.BarButtonItem();
-            this.inve_articulo = new DevExpress.XtraBars.BarButtonItem();
-            this.inve_proveedor = new DevExpress.XtraBars.BarButtonItem();
             this.inve_formapago = new DevExpress.XtraBars.BarButtonItem();
+            this.inve_gironegocio = new DevExpress.XtraBars.BarButtonItem();
+            this.inve_proveedor = new DevExpress.XtraBars.BarButtonItem();
             this.inve_almacen = new DevExpress.XtraBars.BarButtonItem();
+            this.inve_articulo = new DevExpress.XtraBars.BarButtonItem();
             this.inve_almacen_articulo = new DevExpress.XtraBars.BarButtonItem();
             this.inve_proveedor_articulo = new DevExpress.XtraBars.BarButtonItem();
             this.inve_tipoingreso = new DevExpress.XtraBars.BarButtonItem();
             this.inve_tiposalida = new DevExpress.XtraBars.BarButtonItem();
-            this.inve_gironegocio = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
@@ -135,55 +135,6 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.rrhh_rol_usuario)});
             this.barSubItem1.Name = "barSubItem1";
             // 
-            // rrhh_usuario
-            // 
-            this.rrhh_usuario.Caption = "Usuario";
-            this.rrhh_usuario.Id = 12;
-            this.rrhh_usuario.Name = "rrhh_usuario";
-            this.rrhh_usuario.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rrhh_usuario_ItemClick);
-            // 
-            // rrhh_area
-            // 
-            this.rrhh_area.Caption = "Area";
-            this.rrhh_area.Id = 10;
-            this.rrhh_area.Name = "rrhh_area";
-            this.rrhh_area.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rrhh_area_ItemClick);
-            // 
-            // rrhh_cargo
-            // 
-            this.rrhh_cargo.Caption = "Cargo";
-            this.rrhh_cargo.Id = 11;
-            this.rrhh_cargo.Name = "rrhh_cargo";
-            this.rrhh_cargo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rrhh_cargo_ItemClick);
-            // 
-            // rrhh_rol
-            // 
-            this.rrhh_rol.Caption = "Rol";
-            this.rrhh_rol.Id = 13;
-            this.rrhh_rol.Name = "rrhh_rol";
-            this.rrhh_rol.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rrhh_rol_ItemClick);
-            // 
-            // rrhh_rol_usuario
-            // 
-            this.rrhh_rol_usuario.Caption = "Rol - Usuario";
-            this.rrhh_rol_usuario.Id = 19;
-            this.rrhh_rol_usuario.Name = "rrhh_rol_usuario";
-            this.rrhh_rol_usuario.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rrhh_rol_usuario_ItemClick);
-            // 
-            // rrhh_zona
-            // 
-            this.rrhh_zona.Caption = "Zona";
-            this.rrhh_zona.Id = 14;
-            this.rrhh_zona.Name = "rrhh_zona";
-            this.rrhh_zona.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rrhh_zona_ItemClick);
-            // 
-            // rrhh_postal
-            // 
-            this.rrhh_postal.Caption = "Postal";
-            this.rrhh_postal.Id = 15;
-            this.rrhh_postal.Name = "rrhh_postal";
-            this.rrhh_postal.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rrhh_postal_ItemClick);
-            // 
             // rrhh_departamento
             // 
             this.rrhh_departamento.Caption = "Departamento";
@@ -205,12 +156,61 @@
             this.rrhh_distrito.Name = "rrhh_distrito";
             this.rrhh_distrito.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rrhh_distrito_ItemClick);
             // 
+            // rrhh_postal
+            // 
+            this.rrhh_postal.Caption = "Postal";
+            this.rrhh_postal.Id = 15;
+            this.rrhh_postal.Name = "rrhh_postal";
+            this.rrhh_postal.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rrhh_postal_ItemClick);
+            // 
+            // rrhh_zona
+            // 
+            this.rrhh_zona.Caption = "Zona";
+            this.rrhh_zona.Id = 14;
+            this.rrhh_zona.Name = "rrhh_zona";
+            this.rrhh_zona.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rrhh_zona_ItemClick);
+            // 
+            // rrhh_rol
+            // 
+            this.rrhh_rol.Caption = "Rol";
+            this.rrhh_rol.Id = 13;
+            this.rrhh_rol.Name = "rrhh_rol";
+            this.rrhh_rol.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rrhh_rol_ItemClick);
+            // 
+            // rrhh_area
+            // 
+            this.rrhh_area.Caption = "Area";
+            this.rrhh_area.Id = 10;
+            this.rrhh_area.Name = "rrhh_area";
+            this.rrhh_area.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rrhh_area_ItemClick);
+            // 
+            // rrhh_cargo
+            // 
+            this.rrhh_cargo.Caption = "Cargo";
+            this.rrhh_cargo.Id = 11;
+            this.rrhh_cargo.Name = "rrhh_cargo";
+            this.rrhh_cargo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rrhh_cargo_ItemClick);
+            // 
             // conta_tdocu_personal
             // 
             this.conta_tdocu_personal.Caption = "Tipo Documento Usuario";
             this.conta_tdocu_personal.Id = 40;
             this.conta_tdocu_personal.Name = "conta_tdocu_personal";
             this.conta_tdocu_personal.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.conta_tdocu_personal_ItemClick);
+            // 
+            // rrhh_usuario
+            // 
+            this.rrhh_usuario.Caption = "Usuario";
+            this.rrhh_usuario.Id = 12;
+            this.rrhh_usuario.Name = "rrhh_usuario";
+            this.rrhh_usuario.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rrhh_usuario_ItemClick);
+            // 
+            // rrhh_rol_usuario
+            // 
+            this.rrhh_rol_usuario.Caption = "Rol - Usuario";
+            this.rrhh_rol_usuario.Id = 19;
+            this.rrhh_rol_usuario.Name = "rrhh_rol_usuario";
+            this.rrhh_rol_usuario.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.rrhh_rol_usuario_ItemClick);
             // 
             // barSubItem2
             // 
@@ -245,19 +245,19 @@
             this.conta_moneda.Name = "conta_moneda";
             this.conta_moneda.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.conta_moneda_ItemClick);
             // 
-            // conta_tipo_cambio
-            // 
-            this.conta_tipo_cambio.Caption = "Tipo Cambio";
-            this.conta_tipo_cambio.Id = 24;
-            this.conta_tipo_cambio.Name = "conta_tipo_cambio";
-            this.conta_tipo_cambio.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.conta_tipo_cambio_ItemClick);
-            // 
             // conta_estado
             // 
             this.conta_estado.Caption = "Estado";
             this.conta_estado.Id = 23;
             this.conta_estado.Name = "conta_estado";
             this.conta_estado.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.conta_estado_ItemClick);
+            // 
+            // conta_tipo_cambio
+            // 
+            this.conta_tipo_cambio.Caption = "Tipo Cambio";
+            this.conta_tipo_cambio.Id = 24;
+            this.conta_tipo_cambio.Name = "conta_tipo_cambio";
+            this.conta_tipo_cambio.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.conta_tipo_cambio_ItemClick);
             // 
             // barSubItem3
             // 
@@ -268,8 +268,8 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_grupo2),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_grupo3),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_unidad),
-            new DevExpress.XtraBars.LinkPersistInfo(this.inve_grupo4),
-            new DevExpress.XtraBars.LinkPersistInfo(this.inve_grupo5),
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.None, false, this.inve_grupo4, false),
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.None, false, this.inve_grupo5, false),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_formapago),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_gironegocio),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_proveedor),
@@ -280,13 +280,6 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_tipoingreso),
             new DevExpress.XtraBars.LinkPersistInfo(this.inve_tiposalida)});
             this.barSubItem3.Name = "barSubItem3";
-            // 
-            // inve_unidad
-            // 
-            this.inve_unidad.Caption = "Unidad";
-            this.inve_unidad.Id = 26;
-            this.inve_unidad.Name = "inve_unidad";
-            this.inve_unidad.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_unidad_ItemClick);
             // 
             // inve_grupo1
             // 
@@ -309,6 +302,13 @@
             this.inve_grupo3.Name = "inve_grupo3";
             this.inve_grupo3.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_grupo3_ItemClick);
             // 
+            // inve_unidad
+            // 
+            this.inve_unidad.Caption = "Unidad";
+            this.inve_unidad.Id = 26;
+            this.inve_unidad.Name = "inve_unidad";
+            this.inve_unidad.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_unidad_ItemClick);
+            // 
             // inve_grupo4
             // 
             this.inve_grupo4.Caption = "Grupo 4";
@@ -323,12 +323,19 @@
             this.inve_grupo5.Name = "inve_grupo5";
             this.inve_grupo5.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_grupo5_ItemClick);
             // 
-            // inve_articulo
+            // inve_formapago
             // 
-            this.inve_articulo.Caption = "Articulo";
-            this.inve_articulo.Id = 25;
-            this.inve_articulo.Name = "inve_articulo";
-            this.inve_articulo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_articulo_ItemClick);
+            this.inve_formapago.Caption = "Proveedor Forma Pago";
+            this.inve_formapago.Id = 33;
+            this.inve_formapago.Name = "inve_formapago";
+            this.inve_formapago.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_formapago_ItemClick);
+            // 
+            // inve_gironegocio
+            // 
+            this.inve_gironegocio.Caption = "Proveedor Giro de Negocio";
+            this.inve_gironegocio.Id = 39;
+            this.inve_gironegocio.Name = "inve_gironegocio";
+            this.inve_gironegocio.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_gironegocio_ItemClick);
             // 
             // inve_proveedor
             // 
@@ -337,19 +344,19 @@
             this.inve_proveedor.Name = "inve_proveedor";
             this.inve_proveedor.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_proveedor_ItemClick);
             // 
-            // inve_formapago
-            // 
-            this.inve_formapago.Caption = "Proveedor Forma Pago";
-            this.inve_formapago.Id = 33;
-            this.inve_formapago.Name = "inve_formapago";
-            this.inve_formapago.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_formapago_ItemClick);
-            // 
             // inve_almacen
             // 
             this.inve_almacen.Caption = "Almacen";
             this.inve_almacen.Id = 34;
             this.inve_almacen.Name = "inve_almacen";
             this.inve_almacen.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_almacen_ItemClick);
+            // 
+            // inve_articulo
+            // 
+            this.inve_articulo.Caption = "Articulo";
+            this.inve_articulo.Id = 25;
+            this.inve_articulo.Name = "inve_articulo";
+            this.inve_articulo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_articulo_ItemClick);
             // 
             // inve_almacen_articulo
             // 
@@ -378,13 +385,6 @@
             this.inve_tiposalida.Id = 37;
             this.inve_tiposalida.Name = "inve_tiposalida";
             this.inve_tiposalida.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_tiposalida_ItemClick);
-            // 
-            // inve_gironegocio
-            // 
-            this.inve_gironegocio.Caption = "Proveedor Giro de Negocio";
-            this.inve_gironegocio.Id = 39;
-            this.inve_gironegocio.Name = "inve_gironegocio";
-            this.inve_gironegocio.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_gironegocio_ItemClick);
             // 
             // ribbonPage1
             // 

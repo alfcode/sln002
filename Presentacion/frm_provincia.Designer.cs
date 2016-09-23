@@ -87,7 +87,7 @@
             this.cbo_departamento.Properties.View = this.gridLookUpEdit1View;
             this.cbo_departamento.Size = new System.Drawing.Size(243, 20);
             this.cbo_departamento.TabIndex = 16;
-            this.cbo_departamento.EditValueChanged += new System.EventHandler(this.cbo_departamento_EditValueChanged);
+ 
             // 
             // gridLookUpEdit1View
             // 

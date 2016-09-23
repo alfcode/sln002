@@ -20,6 +20,10 @@ namespace Presentacion
         DataTable dt_t_rol_usuario_grid = new DataTable();
         DataTable dt_t_rol_usuario_final = new DataTable();
 
+
+
+        List<EN_zero.datacombo> lista_usuario = new List<EN_zero.datacombo>();
+ 
         public frm_rol_usuario()
         {
             DevExpress.UserSkins.BonusSkins.Register();
@@ -29,13 +33,16 @@ namespace Presentacion
             InitializeComponent();
             gridControl1.EmbeddedNavigator.ButtonClick += new DevExpress.XtraEditors.NavigatorButtonClickEventHandler(this.gridControl1_EmbeddedNavigator_ButtonClick);
             this.Load += new System.EventHandler(this.frm_rol_usuario_Load);
+            this.gridView1.CustomRowCellEditForEditing += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.gridView1_CustomRowCellEditForEditing);
+            this.gridView1.CellValueChanging += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridView1_CellValueChanging);
+
             this.Icon = Properties.Resources.empresa;
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
 
             labelControl1.Text = "Rol_- Usuarios - Acceso";
 
-            this.Width = 620;
+            this.Width = 760;
             this.Height = 400;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             int positionfinal = this.Width - this.labelControl1.Size.Width - 15;
@@ -56,11 +63,28 @@ namespace Presentacion
             dt_t_rol_usuario_final = Cls_Grid.ListToTable(t_rol_usuario);
 
             gridControl1.DataSource = dt_t_rol_usuario_grid;
-      
             Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_rol_usuario_grid);
-
+            cargar_combo();
         }
 
+
+        private void cargar_combo()
+        {
+            var negocio = new LN_rol_usuario();
+            var retorno = new EN_rol_usuario.proc_rol_usuario_mnt_combo();
+
+            Application.DoEvents();
+            Cursor.Current = Cursors.WaitCursor;
+            retorno = negocio.proc_rol_usuario_mnt_combo();
+            Cursor.Current = Cursors.Default;
+            if (Cls_Grid.ExisteError(retorno.informe)) return;
+
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.area, "id_area", false, 300, 150);
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.rol, "id_rol", false, 300, 150);
+            lista_usuario= retorno.usuario;
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.usuario, "id_usuario", false, 300, 150);
+
+        }
 
 
         private void mnt_datos(string id_usuario)
@@ -186,7 +210,33 @@ namespace Presentacion
             }
         }
 
+        private void gridView1_CustomRowCellEditForEditing(object sender, CustomRowCellEditEventArgs e)
+        {
+            GridView gv = sender as GridView;
+            bool ingreso = false;
+            string id2;
+            List<EN_zero.datacombo> filtro = new List<EN_zero.datacombo>();
+            string name = gv.FocusedColumn.FieldName;
 
+            if (name == "id_usuario")
+            {
+                id2 = gv.GetRowCellValue(gv.FocusedRowHandle, gv.Columns["id_area"]).ToString();
+                filtro = (from Lista in lista_usuario.Where(w => w.id2 == id2) select Lista).ToList();
+                ingreso = true;
+            }
+
+            if (ingreso == true) e.RepositoryItem = Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid_Filter(filtro, false, 300, 100);
+
+        }
+
+
+
+        private void gridView1_CellValueChanging(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        {
+            GridView gv = sender as GridView;
+            if (gv.FocusedColumn.FieldName == "id_area") gv.SetRowCellValue(gv.FocusedRowHandle, "id_usuario", "");
+
+        }
 
 
 

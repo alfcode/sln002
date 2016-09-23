@@ -62,7 +62,7 @@
             // 
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
-            // 
+                      // 
             // frm_usuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

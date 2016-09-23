@@ -8,6 +8,7 @@ using DevExpress.XtraEditors;
 using Negocio;
 using Entidad;
 using _ExtensionMethods;
+using DevExpress.XtraEditors.Repository;
 
 namespace Presentacion
 {
@@ -34,7 +35,9 @@ namespace Presentacion
             InitializeComponent();
             gridControl1.EmbeddedNavigator.ButtonClick += new DevExpress.XtraEditors.NavigatorButtonClickEventHandler(this.gridControl1_EmbeddedNavigator_ButtonClick);
             this.Load += new System.EventHandler(this.frm_usuario_Load);
-            this.gridView1.ShowingEditor += new System.ComponentModel.CancelEventHandler(this.gridView1_ShowingEditor);
+            this.gridView1.CustomRowCellEditForEditing += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.gridView1_CustomRowCellEditForEditing);
+            this.gridView1.CellValueChanging += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridView1_CellValueChanging);
+
 
             this.Icon = Properties.Resources.empresa;
             this.Text = Cls_Global.empresa;
@@ -66,7 +69,6 @@ namespace Presentacion
             gridControl1.DataSource = dt_t_usuario_grid;
             Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_usuario_grid);
             cargar_combo();
-
         }
 
 
@@ -91,19 +93,13 @@ namespace Presentacion
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, lista_cargo, "id_cargo", false, 300, 150);
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, lista_provincia, "id_provincia", false, 300, 150);
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, lista_distrito, "id_distrito", false, 300, 150);
-
-
-          
-
         }
 
 
         private void mnt_datos(string id_usuario)
         {
-
             try
             {
-
                 t_usuario = dt_t_usuario_final.DataTableToList<EN_usuario.t_usuario>().ToList();
                 var negocio = new LN_usuario();
                 var parametro = new EN_usuario.proc_usuario_mnt();
@@ -140,24 +136,17 @@ namespace Presentacion
             {
                 string error = ex.TargetSite.Name + ", " + ex.Message + " - " + Cls_Mensajes.error_sistema;
                 DevExpress.XtraEditors.XtraMessageBox.Show(error, Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-
             }
-
-
         }
-
 
 
         private void gridControl1_EmbeddedNavigator_ButtonClick(object sender, NavigatorButtonClickEventArgs e)
         {
-
-
             if ("Limpiar".Equals(e.Button.Tag))
             {
                 dt_t_usuario_grid.Clear();
                 gridControl1.DataSource = dt_t_usuario_grid;
                 e.Handled = true;
-
             }
 
             if ("Salir".Equals(e.Button.Tag))
@@ -168,87 +157,78 @@ namespace Presentacion
 
             if ("Folder".Equals(e.Button.Tag))
             {
-                if (Cls_Global.mostrar_ancho_xgrid)
-                    this.Text = Cls_Grid.info_columnas(this, gridView1);
+                if (Cls_Global.mostrar_ancho_xgrid) this.Text = Cls_Grid.info_columnas(this, gridView1);
 
                 DialogResult dialogResult = DialogResult.Yes;
-                if (Cls_Global.mostrar_msg_demora)
-                {
-                    dialogResult = DevExpress.XtraEditors.XtraMessageBox.Show(Cls_Mensajes.titulo_todos, Cls_Mensajes.titulo_ventana, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                }
+                if (Cls_Global.mostrar_msg_demora)  dialogResult = DevExpress.XtraEditors.XtraMessageBox.Show(Cls_Mensajes.titulo_todos, Cls_Mensajes.titulo_ventana, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
-                if (dialogResult == DialogResult.Yes)
-                    mnt_datos("");
+                if (dialogResult == DialogResult.Yes)  mnt_datos("");
                 e.Handled = true;
 
             }
 
-
-
-            if (e.Button.ButtonType == NavigatorButtonType.Append)
-            {
-
-                // dt_t_usuario_grid.Clear();
-                gridView1.FocusedColumn = gridView1.VisibleColumns[0];
-
-            }
-
-            if (e.Button.ButtonType == NavigatorButtonType.Remove)
-            {
-                Cls_Grid.EmbeddedNavigator(gridView1, e, dt_t_usuario_grid);
-            }
-
+            if (e.Button.ButtonType == NavigatorButtonType.Append) gridView1.FocusedColumn = gridView1.VisibleColumns[0];
+            if (e.Button.ButtonType == NavigatorButtonType.Remove) Cls_Grid.EmbeddedNavigator(gridView1, e, dt_t_usuario_grid);
 
             if (e.Button.ButtonType == NavigatorButtonType.EndEdit)
             {
-
                 dt_t_usuario_final = Cls_Grid.EmbeddedNavigator(gridView1, e, dt_t_usuario_grid);
 
                 int count = dt_t_usuario_final.Rows.Count;
-                if (count == 0)
-                {
-                    return;
-                }
-
+                if (count == 0) return;
 
                 DialogResult dialogResult = DevExpress.XtraEditors.XtraMessageBox.Show(Cls_Mensajes.titulo_previo, Cls_Mensajes.titulo_ventana, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    mnt_datos(id_usuario);
-                }
+                if (dialogResult == DialogResult.Yes) mnt_datos(id_usuario);
 
             }
         }
 
-        private void gridView1_ShowingEditor(object sender, System.ComponentModel.CancelEventArgs e)
+
+        private void gridView1_CustomRowCellEditForEditing(object sender, CustomRowCellEditEventArgs e)
         {
-
             GridView gv = sender as GridView;
-            
-               
-            if (gv.FocusedColumn.FieldName == "id_provincia")
+            bool ingreso = false;
+            string id2;
+            List<EN_zero.datacombo> filtro=new List<EN_zero.datacombo> ();
+            string name = gv.FocusedColumn.FieldName;
+
+            if (name == "id_provincia")
             {
-                string id2 = gv.GetRowCellValue(gv.FocusedRowHandle, gv.Columns["id_departamento"]).ToString();
-                var filtro_provincia = (from Lista in lista_provincia.Where(w => w.id2 == id2) select Lista).ToList();
-                Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, filtro_provincia, "id_provincia", false, 300, 150);
-
-
+                id2 = gv.GetRowCellValue(gv.FocusedRowHandle, gv.Columns["id_departamento"]).ToString();
+                filtro = (from Lista in lista_provincia.Where(w => w.id2 == id2) select Lista).ToList();
+                ingreso = true;
             }
 
-            if (gv.FocusedColumn.FieldName == "id_distrito")
+            if (name == "id_distrito")
             {
-                string id2 = gv.GetRowCellValue(gv.FocusedRowHandle, gv.Columns["id_provincia"]).ToString();
-                var filtro_distrito = (from Lista in lista_distrito.Where(w => w.id2 == id2) select Lista).ToList();
-                Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, filtro_distrito, "id_distrito", false, 300, 150);
+                id2 = gv.GetRowCellValue(gv.FocusedRowHandle, gv.Columns["id_provincia"]).ToString();
+                filtro = (from Lista in lista_distrito.Where(w => w.id2 == id2) select Lista).ToList();
+                ingreso = true;
             }
 
-
-            if (gv.FocusedColumn.FieldName == "id_cargo")
+            if (name == "id_cargo")
             {
-                string id2 = gv.GetRowCellValue(gv.FocusedRowHandle, gv.Columns["id_area"]).ToString();
-                var filtro_cargo = (from Lista in lista_cargo.Where(w => w.id2 == id2) select Lista).ToList();
-                Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, filtro_cargo, "id_cargo", false, 300, 150);
+                id2 = gv.GetRowCellValue(gv.FocusedRowHandle, gv.Columns["id_area"]).ToString();
+                filtro = (from Lista in lista_cargo.Where(w => w.id2 == id2) select Lista).ToList();
+                ingreso = true;
             }
+
+           if (ingreso==true) e.RepositoryItem = Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid_Filter(filtro, false, 300, 100);
+
+        }
+
+  
+
+        private void gridView1_CellValueChanging(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        {
+            GridView gv = sender as GridView;
+            if (gv.FocusedColumn.FieldName == "id_departamento")
+            {
+                gv.SetRowCellValue(gv.FocusedRowHandle, "id_provincia", "");
+                gv.SetRowCellValue(gv.FocusedRowHandle, "id_distrito", "");
+            }
+            if (gv.FocusedColumn.FieldName == "id_provincia") gv.SetRowCellValue(gv.FocusedRowHandle, "id_distrito", "");
+            if (gv.FocusedColumn.FieldName == "id_area") gv.SetRowCellValue(gv.FocusedRowHandle, "id_cargo", "");
 
         }
     }

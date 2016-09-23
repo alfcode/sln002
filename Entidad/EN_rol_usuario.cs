@@ -11,27 +11,38 @@ namespace Entidad
         {
             /// [Key]   para columnas cuyo valor es unico en la grilla
             /// [Display(Prompt = "GRU0000001")]   valor por defecto
-
-            [Display(Description = "Rol")]
-            [Column(Order = 200)]
+            [Display(Description = "")]
+            [Column(Order = 0)]
             [Required]
             [MaxLength(10)]
-            public string id_rol { get; set; }
+            public string id_rol_usuario { get; set; }
+
+            [Display(Description = "Area")]
+            [Column(Order = 170)]
+            [Required]
+            [MaxLength(10)]
+            public string id_area { get; set; }
 
             [Display(Description = "Usuario")]
-            [Column(Order = 200)]
+            [Column(Order = 170)]
             [Required]
             [MaxLength(10)]
             public string id_usuario { get; set; }
 
+            [Display(Description = "Rol")]
+            [Column(Order = 170)]
+            [Required]
+            [MaxLength(10)]
+            public string id_rol { get; set; }   
+
             [Display(Description = "Login")]
-            [Column(Order = 70)]
+            [Column(Order = 78)]
             [Required]
             [MaxLength(20)]
             public string login { get; set; }
 
             [Display(Description = "Password")]
-            [Column(Order = 70)]
+            [Column(Order = 78)]
             [Required]
             [MaxLength(20)]
             public string password { get; set; }
@@ -62,6 +73,16 @@ namespace Entidad
             [Column(Order = 0)]
             [Required]
             public DateTime fecha_ultimo { get; set; }
+
+        }
+
+        public class proc_rol_usuario_mnt_combo
+        {
+            public List<EN_zero.informe> informe { get; set; }
+            public List<EN_zero.datacombo> area { get; set; }
+            public List<EN_zero.datacombo> usuario { get; set; }
+            public List<EN_zero.datacombo> rol { get; set; }
+
 
         }
 

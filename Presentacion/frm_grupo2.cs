@@ -20,6 +20,8 @@ namespace Presentacion
         DataTable dt_t_grupo2_grid = new DataTable();
         DataTable dt_t_grupo2_final = new DataTable();
 
+        string id_grupo1= "";
+
         public frm_grupo2()
         {
             DevExpress.UserSkins.BonusSkins.Register();
@@ -29,16 +31,23 @@ namespace Presentacion
             InitializeComponent();
             gridControl1.EmbeddedNavigator.ButtonClick += new DevExpress.XtraEditors.NavigatorButtonClickEventHandler(this.gridControl1_EmbeddedNavigator_ButtonClick);
             this.Load += new System.EventHandler(this.frm_grupo2_Load);
+            this.Activated += new System.EventHandler(this.frm_distrito_Activated);
+            this.cbo_grupo1.EditValueChanged += new System.EventHandler(this.cbo_departamento_EditValueChanged);
             this.Icon = Properties.Resources.empresa;
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
+
             labelControl1.Text = "Familia";
 
-            this.Width = 440;
-            this.Height = 390;
+            this.Width = 422;
+            this.Height = 400;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             int positionfinal = this.Width - this.labelControl1.Size.Width - 15;
             this.labelControl1.Location = new System.Drawing.Point(positionfinal, 5);
+
+            gridControl1.Width = this.Width - 4;
+            gridControl1.Height = this.Height - panel1.Height - 30;
+            gridControl1.Left = 1;
 
         }
 
@@ -46,6 +55,12 @@ namespace Presentacion
         {
 
             inicio();
+
+        }
+
+        private void frm_distrito_Activated(object sender, EventArgs e)
+        {
+
         }
 
         private void inicio()
@@ -54,12 +69,29 @@ namespace Presentacion
             dt_t_grupo2_final = Cls_Grid.ListToTable(t_grupo2);
 
             gridControl1.DataSource = dt_t_grupo2_grid;
-
             Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_grupo2_grid);
-            
+
+            cargar_combo();
+
         }
 
 
+
+        private void cargar_combo()
+        {
+            var negocio = new LN_grupo2();
+            var retorno = new EN_grupo2.proc_grupo2_mnt_combo();
+            var parametros = new EN_grupo2.proc_grupo2_mnt_combo();
+
+            Application.DoEvents();
+            Cursor.Current = Cursors.WaitCursor;
+            retorno = negocio.proc_grupo2_mnt_combo();
+
+            Cursor.Current = Cursors.Default;
+            if (Cls_Grid.ExisteError(retorno.informe)) return;
+
+            Cls_Grid.Load_Combo_GridLookUpEdit(cbo_grupo1, retorno.grupo1, false, cbo_grupo1.Width, 300);
+        }
 
 
         private void mnt_datos(string id_usuario)
@@ -74,6 +106,7 @@ namespace Presentacion
                 var retorno = new EN_grupo2.proc_grupo2_mnt_retorno();
 
                 parametro.id_usuario = id_usuario;
+                parametro.id_grupo1 = id_grupo1;
                 parametro.t_grupo2 = t_grupo2;
 
                 Cursor.Current = Cursors.WaitCursor;
@@ -135,6 +168,11 @@ namespace Presentacion
                 if (Cls_Global.mostrar_ancho_xgrid)
                     this.Text = Cls_Grid.info_columnas(this, gridView1);
 
+                if (cbo_grupo1.EditValue == null)
+                {
+                    DevExpress.XtraEditors.XtraMessageBox.Show("Seleccion el valor Linea", Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    return;
+                }
 
 
 
@@ -145,7 +183,10 @@ namespace Presentacion
                 }
 
                 if (dialogResult == DialogResult.Yes)
-                    mnt_datos("");
+                    id_grupo1 = cbo_grupo1.EditValue.ToString();
+                mnt_datos("");
+                dt_t_grupo2_grid.Columns["id_grupo1"].DefaultValue = id_grupo1;
+
                 e.Handled = true;
 
             }
@@ -154,9 +195,15 @@ namespace Presentacion
 
             if (e.Button.ButtonType == NavigatorButtonType.Append)
             {
+                e.Handled = true;
+                if (cbo_grupo1.EditValue == null)
+                {
+                    DevExpress.XtraEditors.XtraMessageBox.Show("Seleccion el valor Linea", Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    return;
+                }
+                dt_t_grupo2_grid.Columns["id_grupo1"].DefaultValue = cbo_grupo1.EditValue.ToString();
+                e.Handled = false;
 
-
-                // dt_t_grupo2_grid.Clear();
                 gridView1.FocusedColumn = gridView1.VisibleColumns[0];
 
             }
@@ -188,9 +235,9 @@ namespace Presentacion
             }
         }
 
-
-
-
-
+        private void cbo_departamento_EditValueChanged(object sender, EventArgs e)
+        {
+            dt_t_grupo2_grid.Clear();
+        }
     }
 }

@@ -24,6 +24,13 @@ namespace Entidad
             [MaxLength(50)]
             public string nombre { get; set; }
 
+            [Display(Description = "")]
+            [Column(Order = 0)]
+            [Required]
+            [MaxLength(10)]
+            public string id_grupo1 { get; set; }
+
+
             [Display(Description = "CC")]
             [Column(Order = 60)]
             [MaxLength(10)]
@@ -61,8 +68,16 @@ namespace Entidad
         public class proc_grupo2_mnt
         {
             public string id_usuario { get; set; }
+            public string id_grupo1 { get; set; }
             public List<t_grupo2> t_grupo2 { get; set; }
         }
+
+        public class proc_grupo2_mnt_combo
+        {
+            public List<EN_zero.informe> informe { get; set; }
+            public List<EN_zero.datacombo> grupo1 { get; set; }
+        }
+
 
         public class proc_grupo2_mnt_retorno
         {

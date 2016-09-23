@@ -94,7 +94,6 @@
             this.cbo_provincia.Properties.View = this.gridView2;
             this.cbo_provincia.Size = new System.Drawing.Size(199, 20);
             this.cbo_provincia.TabIndex = 18;
-            this.cbo_provincia.EditValueChanged += new System.EventHandler(this.cbo_provincia_EditValueChanged);
             // 
             // gridView2
             // 
@@ -124,7 +123,6 @@
             this.cbo_departamento.Properties.View = this.gridLookUpEdit1View;
             this.cbo_departamento.Size = new System.Drawing.Size(199, 20);
             this.cbo_departamento.TabIndex = 16;
-            this.cbo_departamento.EditValueChanged += new System.EventHandler(this.cbo_departamento_EditValueChanged);
             // 
             // gridLookUpEdit1View
             // 
