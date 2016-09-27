@@ -14,7 +14,8 @@ namespace Presentacion
         [STAThread]
         static void Main()
         {
-            Cls_Global.mostrar_ancho_xgrid = false;
+            Cls_Global.id_nivel = "1";
+            Cls_Global.mostrar_ancho_xgrid = true;
             Cls_Global.mostrar_msg_demora = false;
             Cls_Global.id_usuario = "USU0000001";
             Cls_Global.skinName = "McSkin";

@@ -19,7 +19,7 @@ namespace Entidad
             public string id_formapago { get; set; }
 
             [Display(Description = "Forma de pago")]
-            [Column(Order = 285)]
+            [Column(Order = 317)]
             [Required]
             [MaxLength(100)]
             public string nombre { get; set; }

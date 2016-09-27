@@ -19,7 +19,7 @@ namespace Entidad
             public string id_estado { get; set; }
 
             [Display(Description = "Tipo de estado")]
-            [Column(Order = 340)]
+            [Column(Order = 415)]
             [Required]
             [MaxLength(50)]
             public string nombre { get; set; }

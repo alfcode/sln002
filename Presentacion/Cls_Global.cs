@@ -9,7 +9,23 @@ namespace Presentacion
 {
    public static class Cls_Global
     {
-            static string _id_usuario;
+
+        static string _id_nivel;
+        public static string id_nivel
+        {
+            get
+            {
+                return _id_nivel;
+            }
+            set
+            {
+                _id_nivel = value;
+            }
+        }
+
+
+
+        static string _id_usuario;
             public static  string id_usuario
         {
             get

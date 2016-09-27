@@ -5,6 +5,9 @@ using _ExtensionMethods;
 using Entidad;
 using System.Data.SqlClient;
 using System.Data;
+using System.Collections.Generic;
+using System.Reflection;
+
 namespace Datos
 {
     public class DAO_proveedor
@@ -14,9 +17,7 @@ namespace Datos
         {
             var retorno = new EN_proveedor.proc_proveedor_mnt_combo();
             var cmd = new SqlCommand();
-            var ds = new DataSet();
-            var da = new SqlDataAdapter();
-
+            SqlDataReader dr = null;
 
             cmd.Connection = AdoConn.Conn();
             cmd.Connection.Open();
@@ -24,39 +25,22 @@ namespace Datos
             {
                 cmd.CommandText = "inve.proc_proveedor_mnt_combo";
                 cmd.CommandType = CommandType.StoredProcedure;
+                dr = cmd.ExecuteReader();
 
-                da.SelectCommand = cmd;
-                da.Fill(ds);
-
-                for (int i = 0; i < ds.Tables.Count; i++)
+                var Result = true;
+                while (Result)
                 {
-                    string name = ds.Tables[i].Columns[0].ColumnName;
-                    if (name == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (name == "gironegocio") { ds.Tables[i].TableName = "gironegocio"; }
-                    if (name == "formapago") { ds.Tables[i].TableName = "formapago"; }
-                    if (name == "pais") { ds.Tables[i].TableName = "pais"; }
-                    if (name == "departamento") { ds.Tables[i].TableName = "departamento"; }
-                    if (name == "provincia") { ds.Tables[i].TableName = "provincia"; }
-                    if (name == "distrito") { ds.Tables[i].TableName = "distrito"; }
-
-                    ds.Tables[i].Columns.RemoveAt(0);
-
+                        var  name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
+                        if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
+                        if (name == "gironegocio") retorno.gironegocio = dr.MapData<EN_zero.datacombo>().ToList(); 
+                        if (name == "formapago") retorno.formapago = dr.MapData<EN_zero.datacombo>().ToList();
+                        if (name == "pais") retorno.pais = dr.MapData<EN_zero.datacombo>().ToList(); 
+                        if (name == "departamento") retorno.departamento=dr.MapData<EN_zero.datacombo>().ToList();
+                        if (name == "provincia") retorno.provincia = dr.MapData<EN_zero.datacombo>().ToList(); 
+                        if (name == "distrito") retorno.distrito = dr.MapData<EN_zero.datacombo>().ToList(); 
+                        Result = dr.NextResult();
                 }
-
-                retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
-                string Error = (from item in retorno.informe select item.Error).First().ToString();
-                if (Error.Equals("1")) return retorno;
-
-
-                retorno.gironegocio = ds.Tables["gironegocio"].DataTableToList<EN_zero.datacombo>().ToList();
-                retorno.formapago = ds.Tables["formapago"].DataTableToList<EN_zero.datacombo>().ToList();
-                retorno.pais= ds.Tables["pais"].DataTableToList<EN_zero.datacombo>().ToList();
-                retorno.departamento = ds.Tables["departamento"].DataTableToList<EN_zero.datacombo>().ToList();
-                retorno.provincia = ds.Tables["provincia"].DataTableToList<EN_zero.datacombo>().ToList();
-                retorno.distrito = ds.Tables["distrito"].DataTableToList<EN_zero.datacombo>().ToList();
-
                 return retorno;
-
             }
 
             catch (Exception ex)
@@ -67,6 +51,7 @@ namespace Datos
             }
             finally
             {
+                dr.Close();
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }
@@ -75,18 +60,14 @@ namespace Datos
 
 
 
-
-
+        
         public EN_proveedor.proc_proveedor_mnt_retorno proc_proveedor_mnt(EN_proveedor.proc_proveedor_mnt parametros)
         {
             var retorno = new EN_proveedor.proc_proveedor_mnt_retorno();
             var cmd = new SqlCommand();
-            var ds = new DataSet();
-            var da = new SqlDataAdapter();
-
+            SqlDataReader dr = null;
 
             DataTable dt = DAO_zero.ListToData(parametros.t_proveedor);
-
 
             cmd.Connection = AdoConn.Conn();
             cmd.Connection.Open();
@@ -97,26 +78,23 @@ namespace Datos
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@id_usuario", parametros.id_usuario);
                 cmd.Parameters.AddWithValue("@tdp_param1", SqlDbType.Structured).Value = dt;
+                dr= cmd.ExecuteReader();
 
-                da.SelectCommand = cmd;
-                da.Fill(ds);
-
-                for (int i = 0; i < ds.Tables.Count; i++)
+                System.DateTime start = DateTime.Now;
+                var Result = true;
+                while (Result)
                 {
-                    string name = ds.Tables[i].Columns[0].ColumnName;
-                    if (name == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (name == "proveedor") { ds.Tables[i].TableName = "proveedor"; }
-                    ds.Tables[i].Columns.RemoveAt(0);
+                    var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
+                    if (name == "informe")  retorno.informe = dr.MapData<EN_zero.informe>().ToList();
+                    if (name == "proveedor") retorno.t_proveedor = dr.MapData<EN_proveedor.t_proveedor>().ToList();
+                    Result = dr.NextResult();
                 }
-
-                retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
-                string Error = (from item in retorno.informe select item.Id).First().ToString();
-                if (Error.Equals("1")) return retorno;
-
-                retorno.t_proveedor = ds.Tables["proveedor"].DataTableToList<EN_proveedor.t_proveedor>().ToList();
+                
+                System.DateTime stop = DateTime.Now;
+                System.TimeSpan ts = new TimeSpan(stop.Ticks - start.Ticks);
+                string tiempo= "Finished in " + ts.TotalMilliseconds + " milliseconds";
 
                 return retorno;
-
             }
 
             catch (Exception ex)
@@ -128,6 +106,7 @@ namespace Datos
             }
             finally
             {
+                dr.Close();
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }

@@ -35,7 +35,7 @@ namespace Presentacion
 
             labelControl1.Text = "Cargos";
 
-            this.Width = 424;
+            this.Width = 500;
             this.Height = 400;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             int positionfinal = this.Width - this.labelControl1.Size.Width - 15;
@@ -135,7 +135,11 @@ namespace Presentacion
 
         private void gridControl1_EmbeddedNavigator_ButtonClick(object sender, NavigatorButtonClickEventArgs e)
         {
-
+            if ("Bloqueo".Equals(e.Button.Tag))
+            {
+                Cls_Grid.editable_grid(gridControl1, gridView1, true);
+                e.Handled = true;
+            }
 
             if ("Limpiar".Equals(e.Button.Tag))
             {
@@ -169,10 +173,11 @@ namespace Presentacion
                     dialogResult = DevExpress.XtraEditors.XtraMessageBox.Show(Cls_Mensajes.titulo_todos, Cls_Mensajes.titulo_ventana, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 }
 
-                if (dialogResult == DialogResult.Yes)
-                    mnt_datos("");
-                    dt_t_cargo_grid.Columns["id_area"].DefaultValue = cbo_area.EditValue.ToString();
+                if (dialogResult == DialogResult.Yes) mnt_datos("");
 
+                dt_t_cargo_grid.Columns["id_area"].DefaultValue = cbo_area.EditValue.ToString();
+
+                Cls_Grid.editable_grid(gridControl1, gridView1, false);
                 e.Handled = true;
 
             }

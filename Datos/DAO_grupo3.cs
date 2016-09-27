@@ -14,9 +14,7 @@ namespace Datos
         {
             var retorno = new EN_grupo3.proc_grupo3_mnt_combo();
             var cmd = new SqlCommand();
-            var ds = new DataSet();
-            var da = new SqlDataAdapter();
-
+            SqlDataReader dr = null;
 
             cmd.Connection = AdoConn.Conn();
             cmd.Connection.Open();
@@ -24,26 +22,18 @@ namespace Datos
             {
                 cmd.CommandText = "inve.proc_grupo3_mnt_combo";
                 cmd.CommandType = CommandType.StoredProcedure;
-                da.SelectCommand = cmd;
-                da.Fill(ds);
+                dr = cmd.ExecuteReader();
 
-                for (int i = 0; i < ds.Tables.Count; i++)
+                var Result = true;
+                while (Result)
                 {
-                    string name = ds.Tables[i].Columns[0].ColumnName;
-                    if (name == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (name == "grupo1") { ds.Tables[i].TableName = "grupo1"; }
-                    if (name == "grupo2") { ds.Tables[i].TableName = "grupo2"; }
-                    ds.Tables[i].Columns.RemoveAt(0);
+                    var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
+                    if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
+                    if (name == "grupo1") retorno.grupo1 = dr.MapData<EN_zero.datacombo>().ToList();
+                    if (name == "grupo2") retorno.grupo2 = dr.MapData<EN_zero.datacombo>().ToList();
+                    Result = dr.NextResult();
                 }
-
-                retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
-                string Error = (from item in retorno.informe select item.Error).First().ToString();
-                if (Error.Equals("1")) return retorno;
-
-                retorno.grupo1 = ds.Tables["grupo1"].DataTableToList<EN_zero.datacombo>().ToList();
-                retorno.grupo2 = ds.Tables["grupo2"].DataTableToList<EN_zero.datacombo>().ToList();
                 return retorno;
-
             }
 
             catch (Exception ex)
@@ -54,6 +44,7 @@ namespace Datos
             }
             finally
             {
+                dr.Close();
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }
@@ -66,9 +57,7 @@ namespace Datos
         {
             var retorno = new EN_grupo3.proc_grupo3_mnt_retorno();
             var cmd = new SqlCommand();
-            var ds = new DataSet();
-            var da = new SqlDataAdapter();
-
+            SqlDataReader dr = null;
 
             DataTable dt = DAO_zero.ListToData(parametros.t_grupo3);
 
@@ -83,26 +72,17 @@ namespace Datos
                 cmd.Parameters.AddWithValue("@id_usuario", parametros.id_usuario);
                 cmd.Parameters.AddWithValue("@id_grupo2", parametros.id_grupo2);
                 cmd.Parameters.AddWithValue("@tdp_param1", SqlDbType.Structured).Value = dt;
+                dr = cmd.ExecuteReader();
 
-                da.SelectCommand = cmd;
-                da.Fill(ds);
-
-                for (int i = 0; i < ds.Tables.Count; i++)
+                var Result = true;
+                while (Result)
                 {
-                    string name = ds.Tables[i].Columns[0].ColumnName;
-                    if (name == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (name == "grupo3") { ds.Tables[i].TableName = "grupo3"; }
-                    ds.Tables[i].Columns.RemoveAt(0);
+                    var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
+                    if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
+                    if (name == "grupo3") retorno.t_grupo3 = dr.MapData<EN_grupo3.t_grupo3>().ToList();
+                    Result = dr.NextResult();
                 }
- 
-                retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
-                string Error = (from item in retorno.informe select item.Id).First().ToString();
-                if (Error.Equals("1")) return retorno;
-
-                retorno.t_grupo3 = ds.Tables["grupo3"].DataTableToList<EN_grupo3.t_grupo3>().ToList();
-
                 return retorno;
-
             }
 
             catch (Exception ex)
@@ -114,6 +94,7 @@ namespace Datos
             }
             finally
             {
+                dr.Close();
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }

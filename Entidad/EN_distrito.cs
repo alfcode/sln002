@@ -20,7 +20,7 @@ namespace Entidad
 
             [Key]
             [Display(Description = "Distrito")]
-            [Column(Order = 340)]
+            [Column(Order = 415)]
             [Required]
             [MaxLength(100)]
             public string nombre { get; set; }

@@ -114,7 +114,11 @@ namespace Presentacion
         private void gridControl1_EmbeddedNavigator_ButtonClick(object sender, NavigatorButtonClickEventArgs e)
         {
 
-
+            if ("Bloqueo".Equals(e.Button.Tag))
+            {
+                Cls_Grid.editable_grid(gridControl1, gridView1, true);
+                e.Handled = true;
+            }
             if ("Limpiar".Equals(e.Button.Tag))
             {
                 dt_t_empresa_grid.Clear();
@@ -140,8 +144,9 @@ namespace Presentacion
                     dialogResult = DevExpress.XtraEditors.XtraMessageBox.Show(Cls_Mensajes.titulo_todos, Cls_Mensajes.titulo_ventana, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 }
 
-                if (dialogResult == DialogResult.Yes)
-                    mnt_datos("");
+                if (dialogResult == DialogResult.Yes)   mnt_datos("");
+
+                Cls_Grid.editable_grid(gridControl1, gridView1, false);
                 e.Handled = true;
 
             }

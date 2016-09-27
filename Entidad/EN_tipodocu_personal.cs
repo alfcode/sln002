@@ -20,7 +20,7 @@ namespace Entidad
             public string id_tipodocu_personal { get; set; }
 
             [Display(Description = "Tipo Documento Personal")]
-            [Column(Order = 344)]
+            [Column(Order = 414)]
             [Required]
             [MaxLength(50)]
             public string nombre { get; set; }

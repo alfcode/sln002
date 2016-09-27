@@ -19,7 +19,7 @@ namespace Entidad
             public string id_grupo3 { get; set; }
 
             [Display(Description = "Categoria")]
-            [Column(Order = 300)]
+            [Column(Order = 354)]
             [Required]
             [MaxLength(50)]
             public string nombre { get; set; }

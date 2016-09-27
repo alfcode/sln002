@@ -15,44 +15,28 @@ namespace Datos
         {
             var retorno = new EN_rol_usuario.proc_rol_usuario_mnt_combo();
             var cmd = new SqlCommand();
-            var ds = new DataSet();
-            var da = new SqlDataAdapter();
-
+            SqlDataReader dr = null;
 
             cmd.Connection = AdoConn.Conn();
             cmd.Connection.Open();
+
             try
             {
                 cmd.CommandText = "rrhh.proc_rol_usuario_mnt_combo";
-
                 cmd.CommandType = CommandType.StoredProcedure;
-                da.SelectCommand = cmd;
-                da.Fill(ds);
+                dr = cmd.ExecuteReader();
 
-                for (int i = 0; i < ds.Tables.Count; i++)
+                var Result = true;
+                while (Result)
                 {
-                    string name = ds.Tables[i].Columns[0].ColumnName;
-                    if (name == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (name == "area") { ds.Tables[i].TableName = "area"; }
-                    if (name == "usuario") { ds.Tables[i].TableName = "usuario"; }
-                    if (name == "rol") { ds.Tables[i].TableName = "rol"; }
-
-                    ds.Tables[i].Columns.RemoveAt(0);
-
+                    var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
+                    if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
+                    if (name == "area") retorno.area = dr.MapData<EN_zero.datacombo>().ToList();
+                    if (name == "usuario") retorno.usuario = dr.MapData<EN_zero.datacombo>().ToList();
+                    if (name == "rol") retorno.rol = dr.MapData<EN_zero.datacombo>().ToList();
+                    Result = dr.NextResult();
                 }
-
-                retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
-                string Error = (from item in retorno.informe select item.Error).First().ToString();
-                if (Error.Equals("1")) return retorno;
-
-
-                retorno.area = ds.Tables["area"].DataTableToList<EN_zero.datacombo>().ToList();
-                retorno.usuario = ds.Tables["usuario"].DataTableToList<EN_zero.datacombo>().ToList();
-                retorno.rol = ds.Tables["rol"].DataTableToList<EN_zero.datacombo>().ToList();
-
-
                 return retorno;
-
             }
 
             catch (Exception ex)
@@ -63,6 +47,7 @@ namespace Datos
             }
             finally
             {
+                dr.Close();
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }
@@ -77,9 +62,7 @@ namespace Datos
         {
             var retorno = new EN_rol_usuario.proc_rol_usuario_mnt_retorno();
             var cmd = new SqlCommand();
-            var ds = new DataSet();
-            var da = new SqlDataAdapter();
-
+            SqlDataReader dr = null;
 
             DataTable dt = DAO_zero.ListToData(parametros.t_rol_usuario);
                         dt.Columns.Remove("id_area");
@@ -94,26 +77,17 @@ namespace Datos
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@id_usuario", parametros.id_usuario);
                 cmd.Parameters.AddWithValue("@tdp_param1", SqlDbType.Structured).Value = dt;
+                dr = cmd.ExecuteReader();
 
-                da.SelectCommand = cmd;
-                da.Fill(ds);
-
-                for (int i = 0; i < ds.Tables.Count; i++)
+                var Result = true;
+                while (Result)
                 {
-                    string name = ds.Tables[i].Columns[0].ColumnName;
-                    if (name == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (name == "rol_usuario") { ds.Tables[i].TableName = "rol_usuario"; }
-                    ds.Tables[i].Columns.RemoveAt(0);
+                    var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
+                    if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
+                    if (name == "rol_usuario") retorno.t_rol_usuario = dr.MapData<EN_rol_usuario.t_rol_usuario>().ToList();
+                    Result = dr.NextResult();
                 }
-
-                retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
-                string Error = (from item in retorno.informe select item.Id).First().ToString();
-                if (Error.Equals("1")) return retorno;
-
-                retorno.t_rol_usuario = ds.Tables["rol_usuario"].DataTableToList<EN_rol_usuario.t_rol_usuario>().ToList();
-
                 return retorno;
-
             }
 
             catch (Exception ex)
@@ -125,6 +99,7 @@ namespace Datos
             }
             finally
             {
+                dr.Close();
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }

@@ -67,10 +67,10 @@ namespace Presentacion
             imageList1.Images.Add(Properties.Resources.folder64);
             imageList1.Images.Add(Properties.Resources.salir64);
             imageList1.Images.Add(Properties.Resources.limpiar64);
+            imageList1.Images.Add(Properties.Resources.bloqueo);
 
 
-
-            imageList1.ImageSize = new Size(22, 22);
+            imageList1.ImageSize = new Size(24, 24);
 
             gridControl1.UseEmbeddedNavigator = true;
             DevExpress.XtraEditors.ControlNavigatorButtons buttons = gridControl1.EmbeddedNavigator.Buttons;
@@ -106,6 +106,15 @@ namespace Presentacion
             button_limpiar.Tag = "Limpiar";
             button_limpiar.Hint = "Limpiar";
             button_limpiar.ImageIndex = 9;
+
+            //Añadiendo nuevos botones,
+            DevExpress.XtraEditors.NavigatorCustomButton button_bloqueo;
+            button_bloqueo = gridControl1.EmbeddedNavigator.Buttons.CustomButtons.Add();
+            button_bloqueo.Tag = "Bloqueo";
+            button_bloqueo.Hint = "Bloqueo";
+            button_bloqueo.ImageIndex = 10;
+          //  button_bloqueo.Enabled = true;
+
             //Añadiendo nuevos botones,
             DevExpress.XtraEditors.NavigatorCustomButton button_folder;
             button_folder = gridControl1.EmbeddedNavigator.Buttons.CustomButtons.Add();
@@ -131,6 +140,33 @@ namespace Presentacion
 
             new GridNewRowHelper(gridView1); /// inserta nueva linea grid
             Visible_Columns(gridView1,dt_param1);
+
+            string id_nivel = Cls_Global.id_nivel;
+ 
+            if (id_nivel.Equals("1"))
+            {
+                gridControl1.EmbeddedNavigator.Buttons.Append.Enabled = true;
+                gridControl1.EmbeddedNavigator.Buttons.Remove.Enabled = true;
+                gridControl1.EmbeddedNavigator.Buttons.EndEdit.Enabled = true;
+                button_bloqueo.Enabled = true;
+                button_limpiar.Enabled = true;
+                gridView1.OptionsBehavior.ReadOnly = false;
+
+            }
+
+            if (id_nivel.Equals("2"))
+            {
+                gridControl1.EmbeddedNavigator.Buttons.Append.Enabled = false;
+                gridControl1.EmbeddedNavigator.Buttons.Remove.Enabled = false;
+                gridControl1.EmbeddedNavigator.Buttons.EndEdit.Enabled = false;
+                button_bloqueo.Enabled = false;
+                button_limpiar.Enabled = false;
+                gridView1.OptionsBehavior.ReadOnly = true;
+
+            }
+
+
+
         }
 
 
@@ -140,6 +176,23 @@ namespace Presentacion
             {
                 ap.Font = font;
             }
+        }
+
+
+
+        public void editable_grid(DevExpress.XtraGrid.GridControl gridControl1, GridView gridView1,bool habilita)
+        {
+
+            string id_nivel = Cls_Global.id_nivel;
+
+            if (id_nivel.Equals("1"))
+            {
+                 gridControl1.EmbeddedNavigator.Buttons.Append.Enabled = habilita;
+                gridControl1.EmbeddedNavigator.Buttons.Remove.Enabled = habilita;
+                gridControl1.EmbeddedNavigator.Buttons.EndEdit.Enabled = habilita;
+                gridView1.OptionsBehavior.ReadOnly =!habilita;
+            }
+               
         }
 
 

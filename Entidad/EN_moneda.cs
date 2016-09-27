@@ -19,7 +19,7 @@ namespace Entidad
             public string id_moneda { get; set; }
 
             [Display(Description = "Moneda")]
-            [Column(Order = 200)]
+            [Column(Order = 270)]
             [Required]
             [MaxLength(50)]
             public string nombre { get; set; }

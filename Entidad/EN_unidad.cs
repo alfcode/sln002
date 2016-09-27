@@ -20,7 +20,7 @@ namespace Entidad
 
             [Key]
             [Display(Description = "Unidad de Medida")]
-            [Column(Order = 200)]
+            [Column(Order = 251)]
             [MaxLength(50)]
             public string nombre { get; set; }
 

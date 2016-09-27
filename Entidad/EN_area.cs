@@ -19,7 +19,7 @@ namespace Entidad
             public string id_area { get; set; }
 
             [Display(Description = "Area")]
-            [Column(Order = 370)]
+            [Column(Order = 418)]
             [Required]
             [MaxLength(50)]
             public string nombre { get; set; }

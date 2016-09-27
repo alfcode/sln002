@@ -14,9 +14,7 @@ namespace Datos
         {
             var retorno = new EN_tdocu_sunat.proc_tdocu_sunat_mnt_retorno();
             var cmd = new SqlCommand();
-            var ds = new DataSet();
-            var da = new SqlDataAdapter();
-
+            SqlDataReader dr = null;
 
             DataTable dt = DAO_zero.ListToData(parametros.t_tdocu_sunat);
 
@@ -30,26 +28,17 @@ namespace Datos
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@id_usuario", parametros.id_usuario);
                 cmd.Parameters.AddWithValue("@tdp_param1", SqlDbType.Structured).Value = dt;
+                dr = cmd.ExecuteReader();
 
-                da.SelectCommand = cmd;
-                da.Fill(ds);
-
-                for (int i = 0; i < ds.Tables.Count; i++)
+                var Result = true;
+                while (Result)
                 {
-                    string name = ds.Tables[i].Columns[0].ColumnName;
-                    if (name == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (name == "tdocu_sunat") { ds.Tables[i].TableName = "tdocu_sunat"; }
-                    ds.Tables[i].Columns.RemoveAt(0);
+                    var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
+                    if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
+                    if (name == "tdocu_sunat") retorno.t_tdocu_sunat = dr.MapData<EN_tdocu_sunat.t_tdocu_sunat>().ToList();
+                    Result = dr.NextResult();
                 }
-
-                retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
-                string Error = (from item in retorno.informe select item.Id).First().ToString();
-                if (Error.Equals("1")) return retorno;
-
-                retorno.t_tdocu_sunat = ds.Tables["tdocu_sunat"].DataTableToList<EN_tdocu_sunat.t_tdocu_sunat>().ToList();
-
                 return retorno;
-
             }
 
             catch (Exception ex)
@@ -61,6 +50,7 @@ namespace Datos
             }
             finally
             {
+                dr.Close();
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }

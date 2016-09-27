@@ -19,7 +19,7 @@ namespace Entidad
             public string id_gironegocio { get; set; }
 
             [Display(Description = "Giro de Negocio")]
-            [Column(Order = 247)]
+            [Column(Order = 300)]
             [Required]
             [MaxLength(100)]
             public string nombre { get; set; }

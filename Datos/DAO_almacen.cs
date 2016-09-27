@@ -14,8 +14,7 @@ namespace Datos
         {
             var retorno = new EN_almacen.proc_almacen_mnt_combo();
             var cmd = new SqlCommand();
-            var ds = new DataSet();
-            var da = new SqlDataAdapter();
+            SqlDataReader dr = null;
 
 
             cmd.Connection = AdoConn.Conn();
@@ -24,25 +23,17 @@ namespace Datos
             {
                 cmd.CommandText = "inve.proc_almacen_mnt_combo";
                 cmd.CommandType = CommandType.StoredProcedure;
+                dr = cmd.ExecuteReader();
 
-                da.SelectCommand = cmd;
-                da.Fill(ds);
-
-                for (int i = 0; i < ds.Tables.Count; i++)
+                var Result = true;
+                while (Result)
                 {
-                    string name = ds.Tables[i].Columns[0].ColumnName;
-                    if (name == "informe") { ds.Tables[i].TableName = "informe"; }
-                    if (name == "empresa") { ds.Tables[i].TableName = "empresa";  }
-                    ds.Tables[i].Columns.RemoveAt(0);
+                    var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
+                    if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
+                    if (name == "empresa") retorno.empresa = dr.MapData<EN_zero.datacombo>().ToList();
+                    Result = dr.NextResult();
                 }
-
-                retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
-                string Error = (from item in retorno.informe select item.Error).First().ToString();
-                if (Error.Equals("1")) return retorno;
-                
-                retorno.empresa= ds.Tables["empresa"].DataTableToList<EN_zero.datacombo>().ToList();
                 return retorno;
-
             }
 
             catch (Exception ex)
@@ -53,6 +44,7 @@ namespace Datos
             }
             finally
             {
+                dr.Close();
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }
@@ -67,8 +59,7 @@ namespace Datos
         {
             var retorno = new EN_almacen.proc_almacen_mnt_retorno();
             var cmd = new SqlCommand();
-            var ds = new DataSet();
-            var da = new SqlDataAdapter();
+            SqlDataReader dr = null;
 
 
             DataTable dt = DAO_zero.ListToData(parametros.t_almacen);
@@ -83,27 +74,17 @@ namespace Datos
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@id_usuario", parametros.id_usuario);
                 cmd.Parameters.AddWithValue("@tdp_param1", SqlDbType.Structured).Value = dt;
+                dr = cmd.ExecuteReader();
 
-                da.SelectCommand = cmd;
-                da.Fill(ds);
-
-                for (int i = 0; i < ds.Tables.Count; i++)
+                var Result = true;
+                while (Result)
                 {
-                    string name = ds.Tables[i].Columns[0].ColumnName;
-                    if (name == "informe") { ds.Tables[i].TableName = "informe";}
-                    if (name == "almacen") { ds.Tables[i].TableName = "almacen";}
-                    ds.Tables[i].Columns.RemoveAt(0);
+                    var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
+                    if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
+                     if (name == "almacen") retorno.t_almacen = dr.MapData<EN_almacen.t_almacen>().ToList();
+                    Result = dr.NextResult();
                 }
-
-                retorno.informe = ds.Tables["informe"].DataTableToList<EN_zero.informe>().ToList();
-                string Error = (from item in retorno.informe select item.Id).First().ToString();
-                if (Error.Equals("1")) return retorno;
-
-               
-                retorno.t_almacen = ds.Tables["almacen"].DataTableToList<EN_almacen.t_almacen>().ToList();
-
                 return retorno;
-
             }
 
             catch (Exception ex)
@@ -115,6 +96,7 @@ namespace Datos
             }
             finally
             {
+                dr.Close();
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }
