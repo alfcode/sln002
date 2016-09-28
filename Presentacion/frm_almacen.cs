@@ -68,10 +68,16 @@ namespace Presentacion
 
             Cursor.Current = Cursors.WaitCursor;
             retorno = negocio.proc_almacen_mnt_combo();
-            Cursor.Current = Cursors.Default;
-            if (Cls_Grid.ExisteError(retorno.informe)) return;
+            if (Cls_Grid.ExisteError(retorno.informe))
+            {
+                Cursor.Current = Cursors.Default;
+                this.Close();
+                return;
+            }
 
             Cls_Grid.Load_Combo(gridView1, retorno.empresa, "id_empresa", true);
+            Application.DoEvents();
+            Cursor.Current = Cursors.Default;
         }
 
 

@@ -87,10 +87,15 @@ namespace Presentacion
             Cursor.Current = Cursors.WaitCursor;
             retorno = negocio.proc_grupo2_mnt_combo();
 
-            Cursor.Current = Cursors.Default;
-            if (Cls_Grid.ExisteError(retorno.informe)) return;
-
+            if (Cls_Grid.ExisteError(retorno.informe))
+            {
+                Cursor.Current = Cursors.Default;
+                this.Close();
+                return;
+            }
             Cls_Grid.Load_Combo_GridLookUpEdit(cbo_grupo1, retorno.grupo1, false, cbo_grupo1.Width, 300);
+            Application.DoEvents();
+            Cursor.Current = Cursors.Default;
         }
 
 

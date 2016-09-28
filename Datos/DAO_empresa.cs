@@ -15,14 +15,28 @@ namespace Datos
             var retorno = new EN_empresa.proc_empresa_mnt_retorno();
             var cmd = new SqlCommand();
             SqlDataReader dr = null;
+            var dt = new DataTable();
 
-            DataTable dt = DAO_zero.ListToData(parametros.t_empresa);
-
-
-            cmd.Connection = AdoConn.Conn();
-            cmd.Connection.Open();
             try
             {
+                cmd.Connection = AdoConn.Conn();
+                cmd.Connection.Open();
+
+                cmd.CommandText = "p_tabla_estructura";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@tabla1", "conta.t_empresa");
+                dr = cmd.ExecuteReader();
+
+                var Result = true;
+                while (Result)
+                {
+                    var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
+                    if (name == "t_empresa") dt = DAO_zero.estructura(dr, parametros.t_empresa);
+                    Result = dr.NextResult();
+                }
+                dr.Close();
+
                 cmd.CommandText = "conta.proc_empresa_mnt";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
@@ -30,14 +44,16 @@ namespace Datos
                 cmd.Parameters.AddWithValue("@tdp_param1", SqlDbType.Structured).Value = dt;
                 dr = cmd.ExecuteReader();
 
-                var Result = true;
+                Result = true;
                 while (Result)
                 {
                     var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
                     if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
-                    if (name == "empresa") retorno.t_empresa = dr.MapData<EN_empresa.t_empresa>().ToList();
+                    if (name == "t_empresa") retorno.t_empresa = dr.MapData<EN_empresa.t_empresa>().ToList();
                     Result = dr.NextResult();
                 }
+
+                dr.Close();
                 return retorno;
             }
 
@@ -50,7 +66,6 @@ namespace Datos
             }
             finally
             {
-                dr.Close();
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }

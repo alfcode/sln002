@@ -20,6 +20,9 @@ namespace Presentacion
         DataTable dt_t_articulo_grid = new DataTable();
         DataTable dt_t_articulo_final = new DataTable();
 
+        List<EN_zero.datacombo> lista_grupo2 = new List<EN_zero.datacombo>();
+        List<EN_zero.datacombo> lista_grupo3 = new List<EN_zero.datacombo>();
+
         public frm_articulo()
         {
             DevExpress.UserSkins.BonusSkins.Register();
@@ -29,12 +32,15 @@ namespace Presentacion
             InitializeComponent();
             gridControl1.EmbeddedNavigator.ButtonClick += new DevExpress.XtraEditors.NavigatorButtonClickEventHandler(this.gridControl1_EmbeddedNavigator_ButtonClick);
             this.Load += new System.EventHandler(this.frm_articulo_Load);
+            this.gridView1.CustomRowCellEditForEditing += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.gridView1_CustomRowCellEditForEditing);
+            this.gridView1.CellValueChanging += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridView1_CellValueChanging);
+
             this.Icon = Properties.Resources.empresa;
             this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
             labelControl1.Text = " Articulos";
 
-            this.Width = 735;
+            this.Width = 950;
             this.Height = 400;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             int positionfinal = this.Width - this.labelControl1.Size.Width - 15;
@@ -68,14 +74,22 @@ namespace Presentacion
 
             Cursor.Current = Cursors.WaitCursor;
             retorno = negocio.proc_articulo_mnt_combo();
-            Cursor.Current = Cursors.Default;
-            if (Cls_Grid.ExisteError(retorno.informe)) return;
+            if (Cls_Grid.ExisteError(retorno.informe))
+            {
+                Cursor.Current = Cursors.Default;
+                this.Close();
+                return;
+            }
 
-            ///Cls_Grid.Load_Combo7(gridView1, retorno.unidad, "id_unidad1", true,300,100);
-            //Cls_Grid.Load_Combo(gridView1, retorno.unidad, "id_unidad2", true);
-            //Cls_Grid.Load_Combo(gridView1, retorno.grupo1, "id_grupo1", false);
-            //Cls_Grid.Load_Combo(gridView1, retorno.grupo2, "id_grupo2", false);
-            //Cls_Grid.Load_Combo(gridView1, retorno.grupo3, "id_grupo3", false);
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.unidad, "id_unidad1", false, 300, 200);
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.unidad, "id_unidad2", false, 300, 200);
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.grupo1, "id_grupo1", false, 300, 200);
+            lista_grupo2 = retorno.grupo2;
+            lista_grupo3 = retorno.grupo3;
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.grupo2, "id_grupo2", false, 300, 200);
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.grupo3, "id_grupo3", false, 300, 200);
+            Application.DoEvents();
+            Cursor.Current = Cursors.Default;
         }
 
 
@@ -204,11 +218,53 @@ namespace Presentacion
                 }
 
             }
+
         }
 
 
-       
 
-   
+
+        private void gridView1_CustomRowCellEditForEditing(object sender, CustomRowCellEditEventArgs e)
+        {
+            GridView gv = sender as GridView;
+            bool ingreso = false;
+            string id2;
+            List<EN_zero.datacombo> filtro = new List<EN_zero.datacombo>();
+            string name = gv.FocusedColumn.FieldName;
+
+            if (name == "id_grupo2")
+            {
+                id2 = gv.GetRowCellValue(gv.FocusedRowHandle, gv.Columns["id_grupo1"]).ToString();
+                filtro = (from Lista in lista_grupo2.Where(w => w.id2 == id2) select Lista).ToList();
+                ingreso = true;
+            }
+
+            if (name == "id_grupo3")
+            {
+                id2 = gv.GetRowCellValue(gv.FocusedRowHandle, gv.Columns["id_grupo2"]).ToString();
+                filtro = (from Lista in lista_grupo3.Where(w => w.id2 == id2) select Lista).ToList();
+                ingreso = true;
+            }
+
+            if (ingreso == true) e.RepositoryItem = Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid_Filter(filtro, false, 300, 200);
+
+        }
+
+
+
+        private void gridView1_CellValueChanging(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        {
+            GridView gv = sender as GridView;
+            if (gv.FocusedColumn.FieldName == "id_grupo1")
+            {
+                gv.SetRowCellValue(gv.FocusedRowHandle, "id_grupo2", "");
+                gv.SetRowCellValue(gv.FocusedRowHandle, "id_grupo3", "");
+            }
+            if (gv.FocusedColumn.FieldName == "id_grupo2") gv.SetRowCellValue(gv.FocusedRowHandle, "id_grupo3", "");
+  
+
+        }
+
+
     }
 }

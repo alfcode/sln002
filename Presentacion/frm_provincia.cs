@@ -86,11 +86,15 @@ namespace Presentacion
             Application.DoEvents();
             Cursor.Current = Cursors.WaitCursor;
             retorno = negocio.proc_provincia_mnt_combo();
-
-            Cursor.Current = Cursors.Default;
-            if (Cls_Grid.ExisteError(retorno.informe)) return;
-
+            if (Cls_Grid.ExisteError(retorno.informe))
+            {
+                Cursor.Current = Cursors.Default;
+                this.Close();
+                return;
+            }
             Cls_Grid.Load_Combo_GridLookUpEdit(cbo_departamento, retorno.departamento, false, cbo_departamento.Width, 100);
+            Application.DoEvents();
+            Cursor.Current = Cursors.Default;
         }
 
 

@@ -1,5 +1,7 @@
 ﻿using Entidad;
 using Datos;
+using System.Collections.Generic;
+
 namespace Negocio
 {
     public class LN_usuario

@@ -89,7 +89,7 @@ namespace Presentacion
 
             buttons.CancelEdit.Visible = false;
             buttons.Edit.Visible = false;
-
+            
            
            
             //  buttons.Prev.Visible = false;

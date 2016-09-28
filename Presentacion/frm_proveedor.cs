@@ -81,9 +81,12 @@ namespace Presentacion
             Application.DoEvents();
             Cursor.Current = Cursors.WaitCursor;
             retorno = negocio.proc_proveedor_mnt_combo();
-            Cursor.Current = Cursors.Default;
-            if (Cls_Grid.ExisteError(retorno.informe)) return;
-
+            if (Cls_Grid.ExisteError(retorno.informe))
+            {
+                Cursor.Current = Cursors.Default;
+                this.Close();
+                return;
+            }
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.gironegocio, "id_gironegocio", false, 300, 150);
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.formapago, "id_formapago", false, 300, 150);
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.pais, "id_pais", false, 300, 150);
@@ -93,7 +96,8 @@ namespace Presentacion
             lista_distrito = retorno.distrito;
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, lista_provincia, "id_provincia", false, 300, 150);
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, lista_distrito, "id_distrito", false, 300, 150);
-
+            Application.DoEvents();
+            Cursor.Current = Cursors.Default;
 
         }
 

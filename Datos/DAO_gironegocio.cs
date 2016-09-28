@@ -14,14 +14,28 @@ namespace Datos
             var retorno = new EN_gironegocio.proc_gironegocio_mnt_retorno();
             var cmd = new SqlCommand();
             SqlDataReader dr = null;
+            var dt = new DataTable();
 
-            DataTable dt = DAO_zero.ListToData(parametros.t_gironegocio);
-
-
-            cmd.Connection = AdoConn.Conn();
-            cmd.Connection.Open();
             try
             {
+                cmd.Connection = AdoConn.Conn();
+                cmd.Connection.Open();
+
+                cmd.CommandText = "p_tabla_estructura";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@tabla1", "inve.t_gironegocio");
+                dr = cmd.ExecuteReader();
+
+                var Result = true;
+                while (Result)
+                {
+                    var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
+                    if (name == "t_gironegocio") dt = DAO_zero.estructura(dr, parametros.t_gironegocio);
+                    Result = dr.NextResult();
+                }
+                dr.Close();
+
                 cmd.CommandText = "inve.proc_gironegocio_mnt";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
@@ -29,14 +43,16 @@ namespace Datos
                 cmd.Parameters.AddWithValue("@tdp_param1", SqlDbType.Structured).Value = dt;
                 dr = cmd.ExecuteReader();
 
-                var Result = true;
+                Result = true;
                 while (Result)
                 {
                     var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
                     if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
-                    if (name == "gironegocio") retorno.t_gironegocio = dr.MapData<EN_gironegocio.t_gironegocio>().ToList();
+                    if (name == "t_gironegocio") retorno.t_gironegocio = dr.MapData<EN_gironegocio.t_gironegocio>().ToList();
                     Result = dr.NextResult();
                 }
+
+                dr.Close();
                 return retorno;
             }
 
@@ -49,7 +65,6 @@ namespace Datos
             }
             finally
             {
-                dr.Close();
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }

@@ -18,11 +18,12 @@ namespace Datos
             var retorno = new EN_proveedor.proc_proveedor_mnt_combo();
             var cmd = new SqlCommand();
             SqlDataReader dr = null;
-
-            cmd.Connection = AdoConn.Conn();
-            cmd.Connection.Open();
+            
             try
             {
+                cmd.Connection = AdoConn.Conn();
+                cmd.Connection.Open();
+
                 cmd.CommandText = "inve.proc_proveedor_mnt_combo";
                 cmd.CommandType = CommandType.StoredProcedure;
                 dr = cmd.ExecuteReader();
@@ -32,14 +33,16 @@ namespace Datos
                 {
                         var  name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
                         if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
-                        if (name == "gironegocio") retorno.gironegocio = dr.MapData<EN_zero.datacombo>().ToList(); 
-                        if (name == "formapago") retorno.formapago = dr.MapData<EN_zero.datacombo>().ToList();
-                        if (name == "pais") retorno.pais = dr.MapData<EN_zero.datacombo>().ToList(); 
-                        if (name == "departamento") retorno.departamento=dr.MapData<EN_zero.datacombo>().ToList();
-                        if (name == "provincia") retorno.provincia = dr.MapData<EN_zero.datacombo>().ToList(); 
-                        if (name == "distrito") retorno.distrito = dr.MapData<EN_zero.datacombo>().ToList(); 
+                        if (name == "t_gironegocio") retorno.gironegocio = dr.MapData<EN_zero.datacombo>().ToList(); 
+                        if (name == "t_formapago") retorno.formapago = dr.MapData<EN_zero.datacombo>().ToList();
+                        if (name == "t_pais") retorno.pais = dr.MapData<EN_zero.datacombo>().ToList(); 
+                        if (name == "t_departamento") retorno.departamento=dr.MapData<EN_zero.datacombo>().ToList();
+                        if (name == "t_provincia") retorno.provincia = dr.MapData<EN_zero.datacombo>().ToList(); 
+                        if (name == "t_distrito") retorno.distrito = dr.MapData<EN_zero.datacombo>().ToList(); 
                         Result = dr.NextResult();
                 }
+
+                dr.Close();
                 return retorno;
             }
 
@@ -51,7 +54,6 @@ namespace Datos
             }
             finally
             {
-                dr.Close();
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }
@@ -66,34 +68,45 @@ namespace Datos
             var retorno = new EN_proveedor.proc_proveedor_mnt_retorno();
             var cmd = new SqlCommand();
             SqlDataReader dr = null;
+            var dt = new DataTable();
 
-            DataTable dt = DAO_zero.ListToData(parametros.t_proveedor);
-
-            cmd.Connection = AdoConn.Conn();
-            cmd.Connection.Open();
             try
             {
+                cmd.Connection = AdoConn.Conn();
+                cmd.Connection.Open();
+
+                cmd.CommandText = "p_tabla_estructura";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@tabla1", "inve.t_proveedor");
+                dr = cmd.ExecuteReader();
+
+                var Result = true;
+                while (Result)
+                {
+                    var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
+                    if (name == "t_proveedor") dt = DAO_zero.estructura(dr, parametros.t_proveedor);
+                    Result = dr.NextResult();
+                }
+                dr.Close();
+
                 cmd.CommandText = "inve.proc_proveedor_mnt";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@id_usuario", parametros.id_usuario);
                 cmd.Parameters.AddWithValue("@tdp_param1", SqlDbType.Structured).Value = dt;
                 dr= cmd.ExecuteReader();
-
-                System.DateTime start = DateTime.Now;
-                var Result = true;
+                
+                Result = true;
                 while (Result)
                 {
                     var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
                     if (name == "informe")  retorno.informe = dr.MapData<EN_zero.informe>().ToList();
-                    if (name == "proveedor") retorno.t_proveedor = dr.MapData<EN_proveedor.t_proveedor>().ToList();
+                    if (name == "t_proveedor") retorno.t_proveedor = dr.MapData<EN_proveedor.t_proveedor>().ToList();
                     Result = dr.NextResult();
                 }
-                
-                System.DateTime stop = DateTime.Now;
-                System.TimeSpan ts = new TimeSpan(stop.Ticks - start.Ticks);
-                string tiempo= "Finished in " + ts.TotalMilliseconds + " milliseconds";
 
+                dr.Close();
                 return retorno;
             }
 
@@ -106,7 +119,6 @@ namespace Datos
             }
             finally
             {
-                dr.Close();
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }

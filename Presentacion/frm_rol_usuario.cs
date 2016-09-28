@@ -76,13 +76,18 @@ namespace Presentacion
             Application.DoEvents();
             Cursor.Current = Cursors.WaitCursor;
             retorno = negocio.proc_rol_usuario_mnt_combo();
-            Cursor.Current = Cursors.Default;
-            if (Cls_Grid.ExisteError(retorno.informe)) return;
-
+            if (Cls_Grid.ExisteError(retorno.informe))
+            {
+                Cursor.Current = Cursors.Default;
+                this.Close();
+                return;
+            }
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.area, "id_area", false, 300, 150);
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.rol, "id_rol", false, 300, 150);
             lista_usuario= retorno.usuario;
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.usuario, "id_usuario", false, 300, 150);
+            Application.DoEvents();
+            Cursor.Current = Cursors.Default;
 
         }
 

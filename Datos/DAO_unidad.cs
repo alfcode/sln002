@@ -19,14 +19,28 @@ namespace Datos
             var retorno = new EN_unidad.proc_unidad_mnt_retorno();
             var cmd = new SqlCommand();
             SqlDataReader dr = null;
-
-            DataTable dt = DAO_zero.ListToData(parametros.t_unidad);
-
-
-            cmd.Connection = AdoConn.Conn();
-            cmd.Connection.Open();
+            var dt = new DataTable();
+ 
             try
             {
+                cmd.Connection = AdoConn.Conn();
+                cmd.Connection.Open();
+
+                cmd.CommandText = "p_tabla_estructura";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@tabla1", "inve.t_unidad");
+                dr = cmd.ExecuteReader();
+
+                var Result = true;
+                while (Result)
+                {
+                    var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
+                    if (name == "t_unidad") dt = DAO_zero.estructura(dr, parametros.t_unidad);
+                    Result = dr.NextResult();
+                }
+                dr.Close();
+
                 cmd.CommandText = "inve.proc_unidad_mnt";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
@@ -34,14 +48,16 @@ namespace Datos
                 cmd.Parameters.AddWithValue("@tdp_param1", SqlDbType.Structured).Value = dt;
                 dr = cmd.ExecuteReader();
 
-                var Result = true;
+                Result = true;
                 while (Result)
                 {
                     var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
                     if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
-                    if (name == "unidad") retorno.t_unidad = dr.MapData<EN_unidad.t_unidad>().ToList();
+                    if (name == "t_unidad") retorno.t_unidad = dr.MapData<EN_unidad.t_unidad>().ToList();
                     Result = dr.NextResult();
                 }
+
+                dr.Close();
                 return retorno;
             }
 
@@ -54,7 +70,6 @@ namespace Datos
             }
             finally
             {
-                dr.Close();
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }

@@ -16,11 +16,11 @@ namespace Datos
             var retorno = new EN_cargo.proc_cargo_mnt_combo();
             var cmd = new SqlCommand();
             SqlDataReader dr = null;
-
-            cmd.Connection = AdoConn.Conn();
-            cmd.Connection.Open();
+            
             try
             {
+                cmd.Connection = AdoConn.Conn();
+                cmd.Connection.Open();
                 cmd.CommandText = "rrhh.proc_cargo_mnt_combo";
                 cmd.CommandType = CommandType.StoredProcedure;
                 dr = cmd.ExecuteReader();
@@ -30,9 +30,11 @@ namespace Datos
                 {
                     var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
                     if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
-                    if (name == "area") retorno.area = dr.MapData<EN_zero.datacombo>().ToList();
+                    if (name == "t_area") retorno.area = dr.MapData<EN_zero.datacombo>().ToList();
                     Result = dr.NextResult();
                 }
+
+                dr.Close();
                 return retorno;
             }
 
@@ -44,7 +46,6 @@ namespace Datos
             }
             finally
             {
-                dr.Close();
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }
@@ -57,14 +58,28 @@ namespace Datos
             var retorno = new EN_cargo.proc_cargo_mnt_retorno();
             var cmd = new SqlCommand();
             SqlDataReader dr = null;
+            var dt = new DataTable();
 
-            DataTable dt = DAO_zero.ListToData(parametros.t_cargo);
-
-
-            cmd.Connection = AdoConn.Conn();
-            cmd.Connection.Open();
             try
             {
+                cmd.Connection = AdoConn.Conn();
+                cmd.Connection.Open();
+
+                cmd.CommandText = "p_tabla_estructura";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@tabla1", "rrhh.t_cargo");
+                dr = cmd.ExecuteReader();
+
+                var Result = true;
+                while (Result)
+                {
+                    var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
+                    if (name == "t_cargo") dt = DAO_zero.estructura(dr, parametros.t_cargo);
+                    Result = dr.NextResult();
+                }
+                dr.Close();
+
                 cmd.CommandText = "rrhh.proc_cargo_mnt";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
@@ -73,14 +88,16 @@ namespace Datos
                 cmd.Parameters.AddWithValue("@tdp_param1", SqlDbType.Structured).Value = dt;
                 dr = cmd.ExecuteReader();
 
-                var Result = true;
+                Result = true;
                 while (Result)
                 {
                     var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
                     if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
-                    if (name == "cargo")retorno.t_cargo = dr.MapData<EN_cargo.t_cargo>().ToList();
+                    if (name == "t_cargo") retorno.t_cargo = dr.MapData<EN_cargo.t_cargo>().ToList();
                     Result = dr.NextResult();
                 }
+
+                dr.Close();
                 return retorno;
             }
 
@@ -93,7 +110,6 @@ namespace Datos
             }
             finally
             {
-                dr.Close();
                 cmd.Connection.Close();
                 cmd.Connection.Dispose();
             }

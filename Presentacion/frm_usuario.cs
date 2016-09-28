@@ -69,6 +69,9 @@ namespace Presentacion
             gridControl1.DataSource = dt_t_usuario_grid;
             Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_usuario_grid);
             cargar_combo();
+            
+
+
         }
 
 
@@ -81,10 +84,15 @@ namespace Presentacion
             Application.DoEvents();
             Cursor.Current = Cursors.WaitCursor;
             retorno = negocio.proc_usuario_mnt_combo();
-            Cursor.Current = Cursors.Default;
-            if (Cls_Grid.ExisteError(retorno.informe)) return;
-
-            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.area, "id_area", false,300,150);
+           
+            if (Cls_Grid.ExisteError(retorno.informe))
+            {
+                Cursor.Current = Cursors.Default;
+                this.Close();
+                return;
+            }
+            
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.area, "id_area", false, 300, 150);
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.departamento, "id_departamento", false, 300, 150);
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.tipodocu_personal, "id_tipodocu_personal", false, 300, 150);
             lista_cargo = retorno.cargo;
@@ -93,6 +101,8 @@ namespace Presentacion
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, lista_cargo, "id_cargo", false, 300, 150);
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, lista_provincia, "id_provincia", false, 300, 150);
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, lista_distrito, "id_distrito", false, 300, 150);
+            Application.DoEvents();
+            Cursor.Current = Cursors.Default;
         }
 
 
@@ -112,11 +122,8 @@ namespace Presentacion
                 retorno = negocio.proc_usuario_mnt(parametro);
                 Cursor.Current = Cursors.Default;
 
-                if (Cls_Grid.ExisteError(retorno.informe))
-                {
-                    return;
-                }
-
+                if (Cls_Grid.ExisteError(retorno.informe)) return;
+         
                 if (id_usuario != "")
                 {
                     dt_t_usuario_grid.Clear();
@@ -128,8 +135,10 @@ namespace Presentacion
                     dt_t_usuario_grid = Cls_Grid.ListToTable(retorno.t_usuario);
 
                     gridControl1.DataSource = dt_t_usuario_grid;
-                    ((GridView)gridControl1.MainView).MoveLast();
+                    ((GridView)gridControl1.MainView).MoveLast();    
                 }
+
+
 
             }
             catch (Exception ex)

@@ -18,6 +18,7 @@ namespace Entidad
             [MaxLength(10)]
             public string id_usuario { get; set; }
 
+
             [Display(Description = "Nombres")]
             [Column(Order = 250)]
             [Required]
@@ -41,6 +42,9 @@ namespace Entidad
             [Required]
             [MaxLength(1)]
             public string sexo { get; set; }
+
+           
+
 
             [Display(Description = "Fecha Nac.")]
             [Column(Order = 70)]
@@ -96,6 +100,7 @@ namespace Entidad
             [MaxLength(10)]
             public string id_area { get; set; }
 
+
             [Display(Description = "Cargo")]
             [Column(Order = 250)]
             [MaxLength(10)]
@@ -114,7 +119,6 @@ namespace Entidad
             [Column(Order = 82)]
             [Required]
             public bool acceso_sistema { get; set; }
-
 
             [Display(Description = "Activo", Prompt = "1")]
             [Column(Order = 50)]
@@ -154,8 +158,8 @@ namespace Entidad
             public List<EN_zero.datacombo> departamento { get; set; }
             public List<EN_zero.datacombo> provincia { get; set; }
             public List<EN_zero.datacombo> distrito { get; set; }
+           
         }
-
 
         public class proc_usuario_mnt
         {
@@ -168,7 +172,5 @@ namespace Entidad
             public List<EN_zero.informe> informe { get; set; }
             public List<t_usuario> t_usuario { get; set; }
         }
-
-
     }
 }

@@ -7,6 +7,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Entidad;
+using System.Collections;
+
 namespace Datos
 {
    public class DAO_zero
@@ -31,6 +33,79 @@ namespace Datos
             }
             return list;
         }
+
+
+
+        public static DataTable estructura<T>(IDataReader dr, List<T> list)
+        {
+            DataTable dt = new DataTable();
+
+            Type businessEntityType = typeof(T);
+            Hashtable hashLista = new Hashtable();
+            Hashtable hashTabla = new Hashtable();
+            PropertyInfo[] properties_Lista = businessEntityType.GetProperties();
+
+            foreach (PropertyInfo info in properties_Lista)
+            {
+                hashLista[info.Name.ToUpper()] = info;
+            }
+
+            int col = 0;
+            for (int index = 0; index < dr.FieldCount; index++)
+            {
+                
+                PropertyInfo info = (PropertyInfo)hashLista[dr.GetName(index).ToUpper()];
+                if ((info != null) && info.CanWrite)
+                {
+                    dt.Columns.Add(info.Name, info.PropertyType);
+                    hashTabla.Add(dt.Columns[col].ColumnName.ToUpper(), col);
+                    col++;
+                }
+            }
+
+           foreach (T item in list)
+            {
+                DataRow row = dt.NewRow();
+                foreach (PropertyInfo p in properties_Lista)
+                {                 
+                        if (hashTabla.Contains (p.Name.ToUpper()))
+                        {
+                            row[p.Name] = p.GetValue(item, null);
+                        }
+                        else
+                        {
+                            string dd = p.Name;
+                        }  
+                }
+                dt.Rows.Add(row);
+            }
+
+            return dt;
+        }
+
+        public static List<T> Tabla<T>(IDataReader dr)
+        {
+            List<T> list = new List<T>();
+            T obj = default(T);
+            while (dr.Read())
+            {
+                obj = Activator.CreateInstance<T>();
+                foreach (PropertyInfo prop in obj.GetType().GetProperties())
+                {
+                    if (!object.Equals(dr[prop.Name], DBNull.Value))
+                    {
+                        prop.SetValue(obj, dr[prop.Name], null);
+                    }
+                }
+                list.Add(obj);
+            }
+            return list;
+        }
+
+
+
+
+
 
         public List<EN_zero.datacombo>datacombo_5id(DataTable table)
         {
