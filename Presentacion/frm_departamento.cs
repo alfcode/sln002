@@ -127,6 +127,7 @@ namespace Presentacion
             {
                 dt_t_departamento_grid.Clear();
                 gridControl1.DataSource = dt_t_departamento_grid;
+                Cls_Grid.editable_grid(gridControl1, gridView1, true);
                 e.Handled = true;
 
             }

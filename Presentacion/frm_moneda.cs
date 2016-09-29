@@ -125,6 +125,7 @@ namespace Presentacion
             {
                 dt_t_moneda_grid.Clear();
                 gridControl1.DataSource = dt_t_moneda_grid;
+                Cls_Grid.editable_grid(gridControl1, gridView1, true);
                 e.Handled = true;
 
             }

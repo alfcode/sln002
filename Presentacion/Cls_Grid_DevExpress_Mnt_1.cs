@@ -70,7 +70,7 @@ namespace Presentacion
             imageList1.Images.Add(Properties.Resources.bloqueo);
 
 
-            imageList1.ImageSize = new Size(24, 24);
+            imageList1.ImageSize = new Size(25, 24);
 
             gridControl1.UseEmbeddedNavigator = true;
             DevExpress.XtraEditors.ControlNavigatorButtons buttons = gridControl1.EmbeddedNavigator.Buttons;
@@ -83,7 +83,7 @@ namespace Presentacion
 
             buttons.Append.ImageIndex =4;
             buttons.Remove.ImageIndex = 5;
-            buttons.Remove.Hint = "Marcar registro para eliminar";
+            buttons.Remove.Hint = "Marcar el registro para eliminar";
             buttons.EndEdit.ImageIndex = 6;
             buttons.EndEdit.Hint = "Grabar registros";
 
@@ -106,12 +106,16 @@ namespace Presentacion
             button_limpiar.Tag = "Limpiar";
             button_limpiar.Hint = "Limpiar";
             button_limpiar.ImageIndex = 9;
-
+            //Añadiendo nuevos botones,
+            DevExpress.XtraEditors.NavigatorCustomButton button_separador4;
+            button_separador4 = gridControl1.EmbeddedNavigator.Buttons.CustomButtons.Add();
+            button_separador4.Hint = "";
+            button_separador4.Enabled = false;
             //Añadiendo nuevos botones,
             DevExpress.XtraEditors.NavigatorCustomButton button_bloqueo;
             button_bloqueo = gridControl1.EmbeddedNavigator.Buttons.CustomButtons.Add();
             button_bloqueo.Tag = "Bloqueo";
-            button_bloqueo.Hint = "Bloqueo";
+            button_bloqueo.Hint = "Editar";
             button_bloqueo.ImageIndex = 10;
           //  button_bloqueo.Enabled = true;
 
@@ -126,11 +130,7 @@ namespace Presentacion
             button_separador3 = gridControl1.EmbeddedNavigator.Buttons.CustomButtons.Add();
             button_separador3.Hint = "";
             button_separador3.Enabled = false;
-            //Añadiendo nuevos botones,
-            DevExpress.XtraEditors.NavigatorCustomButton button_separador4;
-            button_separador4 = gridControl1.EmbeddedNavigator.Buttons.CustomButtons.Add();
-            button_separador4.Hint = "";
-            button_separador4.Enabled = false;
+
             //Añadiendo nuevos botones,
             DevExpress.XtraEditors.NavigatorCustomButton button_salir;
             button_salir = gridControl1.EmbeddedNavigator.Buttons.CustomButtons.Add();

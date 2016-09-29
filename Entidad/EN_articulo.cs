@@ -31,13 +31,13 @@ namespace Entidad
             public string observacion { get; set; }
 
             [Display(Description = "Unidad Base")]
-            [Column(Order = 80)]
+            [Column(Order = 115)]
             [Required]
             [MaxLength(10)]
             public string id_unidad1 { get; set; }
 
             [Display(Description = "Unidad Factor")]
-            [Column(Order = 80)]
+            [Column(Order = 115)]
             [Required]
             [MaxLength(10)]
             public string id_unidad2 { get; set; }
@@ -48,19 +48,19 @@ namespace Entidad
             public decimal factor { get; set; }
 
             [Display(Description = "Linea")]
-            [Column(Order = 120)]
+            [Column(Order = 180)]
             [Required]
             [MaxLength(10)]
             public string id_grupo1 { get; set; }
 
             [Display(Description = "Familia")]
-            [Column(Order = 120)]
+            [Column(Order = 150)]
             [Required]
             [MaxLength(10)]
             public string id_grupo2 { get; set; }
 
             [Display(Description = "Categoria")]
-            [Column(Order = 120)]
+            [Column(Order = 150)]
             [Required]
             [MaxLength(10)]
             public string id_grupo3 { get; set; }
