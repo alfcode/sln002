@@ -14,9 +14,12 @@ namespace Presentacion
     public partial class frm_articulo : DevExpress.XtraEditors.XtraForm
     {
         string id_usuario = Cls_Global.id_usuario;
+      
 
         Cls_Grid_DevExpress_Mnt_1 Cls_Grid = new Cls_Grid_DevExpress_Mnt_1();
         List<EN_articulo.t_articulo> t_articulo = new List<EN_articulo.t_articulo>();
+        //List<EN_articulo.t_tipo_unidad_articulo> t_tipo_unidad_articulo = new List<EN_articulo.t_tipo_unidad_articulo>();
+
         DataTable dt_t_articulo_grid = new DataTable();
         DataTable dt_t_articulo_final = new DataTable();
 
@@ -59,6 +62,82 @@ namespace Presentacion
             dt_t_articulo_grid = Cls_Grid.ListToTable(t_articulo);
             dt_t_articulo_final = Cls_Grid.ListToTable(t_articulo);
 
+            int uni = Cls_Global.tipo_unidad_articulo;
+
+            switch (uni)
+            {
+                case 1:
+                    dt_t_articulo_grid.Columns["id_unidad1"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["id_unidad1"].Namespace = "60";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor1"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["factor1"].Namespace = "0";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor1"].DefaultValue = "1";// valor por defecto cuando es nuevo
+
+                    break;
+                case 2:
+                    dt_t_articulo_grid.Columns["id_unidad1"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["id_unidad1"].Namespace = "60";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor1"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["factor1"].Namespace = "0";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor1"].DefaultValue = "1";// valor por defecto cuando es nuevo
+
+                    dt_t_articulo_grid.Columns["id_unidad2"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["id_unidad2"].Namespace = "60";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor2"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["factor2"].Namespace = "30";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor2"].DefaultValue = "1";// valor por defecto cuando es nuevo
+
+                    break;
+                case 3:
+
+                    dt_t_articulo_grid.Columns["id_unidad1"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["id_unidad1"].Namespace = "60";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor1"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["factor1"].Namespace = "0";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor1"].DefaultValue = "1";// valor por defecto cuando es nuevo
+
+                    dt_t_articulo_grid.Columns["id_unidad2"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["id_unidad2"].Namespace = "60";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor2"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["factor2"].Namespace = "30";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor2"].DefaultValue = "1";// valor por defecto cuando es nuevo
+
+                    dt_t_articulo_grid.Columns["id_unidad3"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["id_unidad3"].Namespace = "60";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor3"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["factor3"].Namespace = "30";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor3"].DefaultValue = "1";// valor por defecto cuando es nuevo
+
+
+                    break;
+                case 4:
+                    dt_t_articulo_grid.Columns["id_unidad1"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["id_unidad1"].Namespace = "60";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor1"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["factor1"].Namespace = "0";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor1"].DefaultValue = "1";// valor por defecto cuando es nuevo
+
+                    dt_t_articulo_grid.Columns["id_unidad2"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["id_unidad2"].Namespace = "60";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor2"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["factor2"].Namespace = "30";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor2"].DefaultValue = "1";// valor por defecto cuando es nuevo
+
+                    dt_t_articulo_grid.Columns["id_unidad3"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["id_unidad3"].Namespace = "60";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor3"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["factor3"].Namespace = "30";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor3"].DefaultValue = "1";// valor por defecto cuando es nuevo
+
+                    dt_t_articulo_grid.Columns["id_unidad4"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["id_unidad4"].Namespace = "60";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor4"].AllowDBNull = false; // obligatorio
+                    dt_t_articulo_grid.Columns["factor4"].Namespace = "30";// ancho de columna
+                    dt_t_articulo_grid.Columns["factor4"].DefaultValue = "1";// valor por defecto cuando es nuevo
+
+                    break;
+            }
+
             gridControl1.DataSource = dt_t_articulo_grid;
            
             Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_articulo_grid);
@@ -83,6 +162,10 @@ namespace Presentacion
 
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.unidad, "id_unidad1", false, 300, 200);
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.unidad, "id_unidad2", false, 300, 200);
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.unidad, "id_unidad3", false, 300, 200);
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.unidad, "id_unidad4", false, 300, 200);
+
+
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.grupo1, "id_grupo1", false, 300, 200);
             lista_grupo2 = retorno.grupo2;
             lista_grupo3 = retorno.grupo3;
@@ -104,12 +187,68 @@ namespace Presentacion
             var parametro = new EN_articulo.proc_articulo_mnt();
             var retorno = new EN_articulo.proc_articulo_mnt_retorno();
 
-            parametro.id_usuario = id_usuario;
-            parametro.t_articulo = t_articulo;
+
+                //int id_tipo_unidad_articulo=0;
+                //int uni = Cls_Global.tipo_unidad_articulo;
+
+                //var filtro = (from Lista in t_articulo.Where(w => w.id_usuario_ultimo =="nuevo" || w.id_usuario_ultimo == "modificar" || w.id_usuario_ultimo == "eliminar") select Lista).ToList();
+
+
+                //foreach (var p in filtro)
+                //{
+
+
+                //    id_tipo_unidad_articulo = 1;
+                //    var uni1 = new EN_articulo.t_tipo_unidad_articulo();
+                //    uni1.id_tipo_unidad = id_tipo_unidad_articulo;
+                //    uni1.id_articulo = p.id_articulo;
+                //    uni1.id_unidad = p.id_unidad1;
+                //    uni1.factor = p.factor1;
+                //    uni1.id_usuario_ultimo = p.id_usuario_ultimo;// estado de trabajo
+                //    t_tipo_unidad_articulo.Add(uni1);
+                //    if (id_tipo_unidad_articulo == uni) break;
+
+
+                //    id_tipo_unidad_articulo = 2;
+                //    var uni2 = new EN_articulo.t_tipo_unidad_articulo();
+                //    uni2.id_tipo_unidad = id_tipo_unidad_articulo;
+                //    uni2.id_articulo = p.id_articulo;
+                //    uni2.id_unidad = p.id_unidad2;
+                //    uni2.factor = p.factor2;
+                //    uni2.id_usuario_ultimo = p.id_usuario_ultimo;// estado de trabajo
+                //    t_tipo_unidad_articulo.Add(uni2);
+                //    if (id_tipo_unidad_articulo == uni) break;
+
+                //    id_tipo_unidad_articulo = 3;
+                //    var uni3 = new EN_articulo.t_tipo_unidad_articulo();
+                //    uni3.id_tipo_unidad = id_tipo_unidad_articulo;
+                //    uni3.id_articulo = p.id_articulo;
+                //    uni3.id_unidad = p.id_unidad3;
+                //    uni3.factor = p.factor3;
+                //    uni3.id_usuario_ultimo = p.id_usuario_ultimo;// estado de trabajo
+                //    t_tipo_unidad_articulo.Add(uni3);
+                //    if (id_tipo_unidad_articulo == uni) break;
+
+                //    id_tipo_unidad_articulo = 4;
+                //    var uni4 = new EN_articulo.t_tipo_unidad_articulo();
+                //    uni4.id_tipo_unidad = id_tipo_unidad_articulo;
+                //    uni4.id_articulo = p.id_articulo;
+                //    uni4.id_unidad = p.id_unidad4;
+                //    uni4.factor = p.factor4;
+                //    uni4.id_usuario_ultimo = p.id_usuario_ultimo;// estado de trabajo
+                //    t_tipo_unidad_articulo.Add(uni4);
+                    
+                //} 
+               
+
+
+
+                parametro.id_usuario = id_usuario;
+                parametro.t_articulo = t_articulo;
 
                 Cursor.Current = Cursors.WaitCursor;
                 retorno = negocio.proc_articulo_mnt(parametro);
-                Cursor.Current = Cursors.Default;
+               
 
             if (Cls_Grid.ExisteError(retorno.informe))
             {
@@ -120,12 +259,34 @@ namespace Presentacion
             {
                     dt_t_articulo_grid.Clear();
                     DevExpress.XtraEditors.XtraMessageBox.Show(Cls_Mensajes.titulo_exito, Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-            }
+                    Cursor.Current = Cursors.Default;
+           }
             else
             {
                 retorno.t_articulo.ToList().ForEach(c => { c.id_usuario_inicia = ""; c.id_usuario_ultimo = "grabado"; });
-                dt_t_articulo_grid = Cls_Grid.ListToTable(retorno.t_articulo);
 
+                 //   int uni = Cls_Global.tipo_unidad_medida;
+                 //   foreach (var c in retorno.t_articulo)
+                 //{
+                 //      // var filtro = (from Lista in retorno.t_tipo_unidad_articulo.Where(w => w.id_articulo == c.id_articulo) select Lista).ToList();
+                 //       foreach (var d in retorno.t_tipo_unidad_articulo)
+                 //       {
+
+                 //           if (d.id_articulo == c.id_articulo) { 
+
+                 //           if (d.id_tipo_unidad == 1) {c.id_unidad1 = d.id_unidad;c.factor1 = d.factor; };
+                 //           if (d.id_tipo_unidad == 2) {c.id_unidad2 = d.id_unidad; c.factor2 = d.factor; };
+                 //           if (d.id_tipo_unidad == 3) { c.id_unidad3 = d.id_unidad; c.factor3 = d.factor; };
+                 //           if (d.id_tipo_unidad == 4) { c.id_unidad4 = d.id_unidad; c.factor4 = d.factor; };
+
+                 //           if(d.id_tipo_unidad==uni)  break;
+
+                 //           }
+                 //       }
+                 //}
+
+                    Cursor.Current = Cursors.Default;
+                dt_t_articulo_grid = Cls_Grid.ListToTable(retorno.t_articulo);
                 gridControl1.DataSource = dt_t_articulo_grid;
                 ((GridView)gridControl1.MainView).MoveLast();
             }
@@ -146,7 +307,7 @@ namespace Presentacion
         private void gridControl1_EmbeddedNavigator_ButtonClick(object sender, NavigatorButtonClickEventArgs e)
         {
 
-            if ("Bloqueo".Equals(e.Button.Tag))
+            if ("Editar".Equals(e.Button.Tag))
             {
                 Cls_Grid.editable_grid(gridControl1, gridView1, true);
                 e.Handled = true;

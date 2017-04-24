@@ -24,8 +24,43 @@ namespace _ExtensionMethods
         /// 
 
 
+        public static List<T> Tabla_a_Lista<T>(this DataTable dt) where T : new()
+        {
+            Type businessEntityType = typeof(T);
+            List<T> entitys = new List<T>();
+            Hashtable hashtable = new Hashtable();
+            PropertyInfo[] properties = businessEntityType.GetProperties();
+            foreach (PropertyInfo info in properties)
+            {
+                hashtable[info.Name.ToUpper()] = info;
+            }
+            // while (dr.Read())
 
-        
+            var aTSource = new T();
+            foreach (DataRow row in dt.Rows)
+            {
+
+                T newObject = new T();
+
+                for (int index = 0; index < dt.Columns.Count; index++)
+                {
+                    PropertyInfo info = (PropertyInfo)
+                                        hashtable[dt.Columns[index].ColumnName.ToUpper()];
+                    if ((info != null) && info.CanWrite)
+                    {
+                        var oo = Convert.ChangeType(row[index], info.PropertyType);
+                        info.SetValue(newObject, Convert.ChangeType(row[index], info.PropertyType), null);
+                    }
+                }
+                entitys.Add(newObject);
+
+
+            }
+
+            return entitys;
+        }
+
+
 
 
         public static List<T> DataTableToList<T>(this DataTable table) where T : class, new()
@@ -63,6 +98,7 @@ namespace _ExtensionMethods
         }
 
 
+
         /// <summary>
         ///  public static List<T> MapDataToBusinessEntityCollection<T>(this IDataReader dr)where T : new()
         public static List<T> MapData<T>(this IDataReader dr)where T : new()
@@ -82,9 +118,41 @@ namespace _ExtensionMethods
                 {
                     PropertyInfo info = (PropertyInfo)
                                         hashtable[dr.GetName(index).ToUpper()];
+                    string e = dr.GetName(index).ToUpper();
                     if ((info != null) && info.CanWrite)
                     {
-                        info.SetValue(newObject, dr.GetValue(index), null);
+
+
+                        var ee = dr.GetDataTypeName(index);
+                        var pp = dr.GetFieldType(index);
+                        Type type = dr.GetFieldType(index);
+
+                        var value = dr.GetValue(index);
+                        switch (type.Name)
+                        {
+                            case "String":
+                                 if (value == DBNull.Value) value = "";
+                                break;
+                            case "Decimal":
+                                if (value == DBNull.Value) value =Convert.ToDecimal(0);
+                                break;
+                                ;
+                            case "Boolean":
+                                if (value == DBNull.Value) value =Convert.ToBoolean(0);
+                                break;
+                            case "DateTime":
+                                if (value == DBNull.Value) value =Convert.ToDateTime("01/01/1999");
+                                break;
+                            case "Double":
+                                if (value == DBNull.Value) value =Convert.ToDouble(0);
+                                break;
+
+                        }
+ 
+                        info.SetValue(newObject, value, null);
+                        
+
+
                     }
                 }
                 entitys.Add(newObject);

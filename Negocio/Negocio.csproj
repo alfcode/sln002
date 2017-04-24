@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LN_almacen.cs" />
+    <Compile Include="LN_almacen_articulo.cs" />
     <Compile Include="LN_area.cs" />
     <Compile Include="LN_cargo.cs" />
     <Compile Include="LN_departamento.cs" />
@@ -54,14 +55,18 @@
     <Compile Include="LN_grupo3.cs" />
     <Compile Include="LN_grupo4.cs" />
     <Compile Include="LN_grupo5.cs" />
+    <Compile Include="LN_ingreso.cs" />
     <Compile Include="LN_moneda.cs" />
+    <Compile Include="LN_orden_compra.cs" />
     <Compile Include="LN_pais.cs" />
     <Compile Include="LN_proveedor.cs" />
+    <Compile Include="LN_prove_articulo.cs" />
     <Compile Include="LN_provincia.cs" />
     <Compile Include="LN_rol_usuario.cs" />
     <Compile Include="LN_articulo.cs" />
     <Compile Include="LN_estado.cs" />
     <Compile Include="LN_rol.cs" />
+    <Compile Include="LN_salida.cs" />
     <Compile Include="LN_tdocu_sunat.cs" />
     <Compile Include="LN_tipodocu_personal.cs" />
     <Compile Include="LN_unidad.cs" />

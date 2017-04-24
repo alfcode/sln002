@@ -9,6 +9,20 @@ namespace Presentacion
 {
    public static class Cls_Global
     {
+        
+        static int _tipo_unidad_articulo;
+        public static int tipo_unidad_articulo
+        {
+            get
+            {
+                return _tipo_unidad_articulo;
+            }
+            set
+            {
+                _tipo_unidad_articulo = value;
+            }
+        }
+
 
         static string _id_nivel;
         public static string id_nivel

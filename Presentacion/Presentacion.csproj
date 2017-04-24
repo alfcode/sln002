@@ -79,6 +79,12 @@
     <Compile Include="Cls_Global.cs" />
     <Compile Include="Cls_Grid_DevExpress_Mnt_1.cs" />
     <Compile Include="Cls_Mensajes.cs" />
+    <Compile Include="frm_almacen_articulo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_almacen_articulo.Designer.cs">
+      <DependentUpon>frm_almacen_articulo.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_articulo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +126,36 @@
     </Compile>
     <Compile Include="frm_grupo5.Designer.cs">
       <DependentUpon>frm_grupo5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_ingreso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_ingreso.Designer.cs">
+      <DependentUpon>frm_ingreso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_orden_compra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_orden_compra.Designer.cs">
+      <DependentUpon>frm_orden_compra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_orden_compra_busca.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_orden_compra_busca.Designer.cs">
+      <DependentUpon>frm_orden_compra_busca.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_prove_articulo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_prove_articulo.Designer.cs">
+      <DependentUpon>frm_prove_articulo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_salida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_salida.Designer.cs">
+      <DependentUpon>frm_salida.cs</DependentUpon>
     </Compile>
     <Compile Include="frm_tdocu_sunat.cs">
       <SubType>Form</SubType>
@@ -246,6 +282,9 @@
     <EmbeddedResource Include="frm_almacen.resx">
       <DependentUpon>frm_almacen.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frm_almacen_articulo.resx">
+      <DependentUpon>frm_almacen_articulo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_area.resx">
       <DependentUpon>frm_area.cs</DependentUpon>
     </EmbeddedResource>
@@ -288,14 +327,26 @@
     <EmbeddedResource Include="frm_grupo5.resx">
       <DependentUpon>frm_grupo5.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frm_ingreso.resx">
+      <DependentUpon>frm_ingreso.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frm_moneda.resx">
       <DependentUpon>frm_moneda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_orden_compra.resx">
+      <DependentUpon>frm_orden_compra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_orden_compra_busca.resx">
+      <DependentUpon>frm_orden_compra_busca.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_pais.resx">
       <DependentUpon>frm_pais.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_proveedor.resx">
       <DependentUpon>frm_proveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_prove_articulo.resx">
+      <DependentUpon>frm_prove_articulo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_provincia.resx">
       <DependentUpon>frm_provincia.cs</DependentUpon>
@@ -305,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm_rol_usuario.resx">
       <DependentUpon>frm_rol_usuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_salida.resx">
+      <DependentUpon>frm_salida.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_tdocu_sunat.resx">
       <DependentUpon>frm_tdocu_sunat.cs</DependentUpon>
@@ -415,6 +469,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ico\bloqueo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ico\salir64_formulario.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

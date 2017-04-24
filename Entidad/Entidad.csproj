@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EN_almacen.cs" />
+    <Compile Include="EN_almacen_articulo.cs" />
     <Compile Include="EN_area.cs" />
     <Compile Include="EN_cargo.cs" />
     <Compile Include="EN_departamento.cs" />
@@ -56,12 +57,16 @@
     <Compile Include="EN_grupo3.cs" />
     <Compile Include="EN_grupo4.cs" />
     <Compile Include="EN_grupo5.cs" />
+    <Compile Include="EN_ingreso.cs" />
     <Compile Include="EN_moneda.cs" />
+    <Compile Include="EN_orden_compra.cs" />
     <Compile Include="EN_pais.cs" />
     <Compile Include="EN_proveedor.cs" />
+    <Compile Include="EN_prove_articulo.cs" />
     <Compile Include="EN_provincia.cs" />
     <Compile Include="EN_rol.cs" />
     <Compile Include="EN_rol_usuario.cs" />
+    <Compile Include="EN_salida.cs" />
     <Compile Include="EN_tdocu_sunat.cs" />
     <Compile Include="EN_tipodocu_personal.cs" />
     <Compile Include="EN_unidad.cs" />

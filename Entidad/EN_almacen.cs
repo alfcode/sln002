@@ -24,6 +24,16 @@ namespace Entidad
             [MaxLength(100)]
             public string nombre { get; set; }
 
+            [Display(Description = "Nivel Tipo Unidad")]
+            [Column(Order = 100)]
+            [Required]
+            public decimal id_tipo_unidad { get; set; }
+
+            [Display(Description = "Ventas?", Prompt = "0")]
+            [Column(Order = 50)]
+            [Required]
+            public bool venta { get; set; }
+
             [Display(Description = "Representante")]
             [Column(Order = 200)]
             [MaxLength(200)]
@@ -75,6 +85,7 @@ namespace Entidad
         {
             public List<EN_zero.informe> informe { get; set; }
             public List<EN_zero.datacombo> empresa { get; set; }
+            public List<EN_zero.datacombo> tipo_unidad { get; set; }
         }
 
         public class proc_almacen_mnt

@@ -76,6 +76,7 @@ namespace Presentacion
             }
 
             Cls_Grid.Load_Combo(gridView1, retorno.empresa, "id_empresa", true);
+            Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid(gridView1, retorno.tipo_unidad, "id_tipo_unidad", false, 300, 150);
             Application.DoEvents();
             Cursor.Current = Cursors.Default;
         }
@@ -133,7 +134,7 @@ namespace Presentacion
 
         private void gridControl1_EmbeddedNavigator_ButtonClick(object sender, NavigatorButtonClickEventArgs e)
         {
-            if ("Bloqueo".Equals(e.Button.Tag))
+            if ("Editar".Equals(e.Button.Tag))
             {
                 Cls_Grid.editable_grid(gridControl1, gridView1, true);
                 e.Handled = true;

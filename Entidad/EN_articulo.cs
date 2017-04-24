@@ -30,23 +30,6 @@ namespace Entidad
             [MaxLength(200)]
             public string observacion { get; set; }
 
-            [Display(Description = "Unidad Base")]
-            [Column(Order = 115)]
-            [Required]
-            [MaxLength(10)]
-            public string id_unidad1 { get; set; }
-
-            [Display(Description = "Unidad Factor")]
-            [Column(Order = 115)]
-            [Required]
-            [MaxLength(10)]
-            public string id_unidad2 { get; set; }
-
-            [Display(Description = "F.UM",Prompt ="1")]
-            [Column(Order = 70)]
-            [Required]
-            public decimal factor { get; set; }
-
             [Display(Description = "Linea")]
             [Column(Order = 180)]
             [Required]
@@ -77,10 +60,70 @@ namespace Entidad
             [MaxLength(10)]
             public string id_grupo5 { get; set; }
 
-            [Display(Description = "")]
+            [Display(Description = "imagen")]
             [Column(Order = 0)]
             [MaxLength(300)]
             public string imagen { get; set; }
+
+
+
+            /// /// inicio maximo 4 unidades de medida
+
+            [Display(Description = "id_tipo_unidad1", Prompt ="1")]
+            [Column(Order = 0)]
+            public decimal id_tipo_unidad1 { get; set; }
+            [Display(Description = "Unidad Medida 1")]
+            [Column(Order = 0)]
+            [MaxLength(10)]
+            public string id_unidad1 { get; set; }
+            [Display(Description = "F.UM.1", Prompt = "1")]
+            [Column(Order = 0)]
+            public decimal factor1 { get; set; }
+
+            [Display(Description = "id_tipo_unidad2", Prompt = "2")]
+            [Column(Order = 0)]
+            public decimal id_tipo_unidad2 { get; set; }
+            [Display(Description = "Unidad Medida 2")]
+            [Column(Order = 0)]
+            [MaxLength(10)]
+            public string id_unidad2 { get; set; }
+            [Display(Description = "F.UM.2", Prompt = "1")]
+            [Column(Order = 0)]
+            public decimal factor2 { get; set; }
+
+            [Display(Description = "id_tipo_unidad3", Prompt = "3")]
+            [Column(Order = 0)]
+            public decimal id_tipo_unidad3 { get; set; }
+            [Display(Description = "Unidad Medida 3")]
+            [Column(Order = 0)]
+            [MaxLength(10)]
+            public string id_unidad3 { get; set; }
+            [Display(Description = "F.UM.3", Prompt = "1")]
+            [Column(Order = 0)]
+            public decimal factor3 { get; set; }
+
+            [Display(Description = "id_tipo_unidad4", Prompt = "4")]
+            [Column(Order = 0)]
+            public decimal id_tipo_unidad4 { get; set; }
+            [Display(Description = "Unidad Medida 4")]
+            [Column(Order = 0)]
+            [MaxLength(10)]
+            public string id_unidad4 { get; set; }
+            [Display(Description = "F.UM.4", Prompt = "1")]
+            [Column(Order = 0)]
+            public decimal factor4 { get; set; }
+
+          /// /// maximo 4 unidades de medida
+
+
+            [Display(Description = "IGV",Prompt ="1")]
+            [Column(Order = 40)]
+            public bool igv { get; set; }
+
+            [Display(Description = "ISC")]
+            [Column(Order = 40)]
+            public bool isc { get; set; }
+
 
             [Display(Description = "Activo", Prompt = "1")]
             [Column(Order = 40)]
@@ -112,6 +155,16 @@ namespace Entidad
         }
 
 
+        //public class t_tipo_unidad_articulo
+        //{
+        //    public decimal id_tipo_unidad { get; set; }
+        //    public string id_articulo { get; set; }
+        //    public string id_unidad { get; set; }
+        //    public decimal factor { get; set; }
+        //    public string id_usuario_ultimo { get; set; }
+        //}
+
+
         public class proc_articulo_mnt_combo
         {
             public List<EN_zero.informe> informe { get; set; }
@@ -131,6 +184,8 @@ namespace Entidad
         {
             public List<EN_zero.informe> informe { get; set; }
             public List<t_articulo> t_articulo { get; set; }
+          ///  public List<t_tipo_unidad_articulo> t_tipo_unidad_articulo { get; set; }
+
         }
 
 

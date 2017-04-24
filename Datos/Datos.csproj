@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO_almacen.cs" />
+    <Compile Include="DAO_almacen_articulo.cs" />
     <Compile Include="DAO_area.cs" />
     <Compile Include="DAO_articulo.cs" />
     <Compile Include="DAO_cargo.cs" />
@@ -55,12 +56,16 @@
     <Compile Include="DAO_grupo3.cs" />
     <Compile Include="DAO_grupo4.cs" />
     <Compile Include="DAO_grupo5.cs" />
+    <Compile Include="DAO_ingreso.cs" />
     <Compile Include="DAO_moneda.cs" />
+    <Compile Include="DAO_orden_compra.cs" />
     <Compile Include="DAO_pais.cs" />
     <Compile Include="DAO_proveedor.cs" />
+    <Compile Include="DAO_prove_articulo.cs" />
     <Compile Include="DAO_provincia.cs" />
     <Compile Include="DAO_rol.cs" />
     <Compile Include="DAO_rol_usuario.cs" />
+    <Compile Include="DAO_salida.cs" />
     <Compile Include="DAO_tdocu_sunat.cs" />
     <Compile Include="DAO_tipodocu_personal.cs" />
     <Compile Include="DAO_unidad.cs" />

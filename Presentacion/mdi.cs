@@ -187,12 +187,14 @@ namespace Presentacion
 
         private void inve_almacen_articulo_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            MessageBox.Show("falta");
+            Form form = new frm_almacen_articulo();
+            form.Show();
         }
 
         private void inve_proveedor_articulo_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            MessageBox.Show("falta");
+            Form form = new frm_prove_articulo();
+            form.Show();
         }
 
         private void inve_tipoingreso_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -214,6 +216,25 @@ namespace Presentacion
         private void conta_tdocu_personal_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             Form form = new frm_tipodocu_personal();
+            form.Show();
+        }
+
+      
+
+        private void inve_salida_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+           
+        }
+
+        private void inve_ingreso_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form form = new frm_ingreso();
+            form.Show();
+        }
+
+        private void inve_orden_compra_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form form = new frm_orden_compra();
             form.Show();
         }
     }

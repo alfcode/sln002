@@ -115,7 +115,7 @@ namespace Presentacion
         private void gridControl1_EmbeddedNavigator_ButtonClick(object sender, NavigatorButtonClickEventArgs e)
         {
 
-            if ("Bloqueo".Equals(e.Button.Tag))
+            if ("Editar".Equals(e.Button.Tag))
             {
                 Cls_Grid.editable_grid(gridControl1, gridView1, true);
                 e.Handled = true;

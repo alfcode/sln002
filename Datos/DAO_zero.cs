@@ -70,7 +70,8 @@ namespace Datos
                 {                 
                         if (hashTabla.Contains (p.Name.ToUpper()))
                         {
-                            row[p.Name] = p.GetValue(item, null);
+                        var ddX = p.GetValue(item, null);
+                        row[p.Name] = p.GetValue(item, null);
                         }
                         else
                         {

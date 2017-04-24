@@ -13,8 +13,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Windows.Forms;
 using System.Drawing;
-using DevExpress.XtraEditors ;
+using DevExpress.XtraEditors;
 using DevExpress.Utils;
+using System.Collections;
 
 namespace Presentacion
 {
@@ -49,8 +50,8 @@ namespace Presentacion
         {
             gridView1.ValidatingEditor += new DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventHandler(this.gridView1_ValidatingEditor);
             gridView1.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.gridView1_RowStyle);
+           
             gridView1.OptionsView.ColumnAutoWidth = false;
-
             SetGridFont(gridView1, new System.Drawing.Font("Tahoma", 8));
 
             ImageList imageList1 = new ImageList();
@@ -114,7 +115,7 @@ namespace Presentacion
             //Añadiendo nuevos botones,
             DevExpress.XtraEditors.NavigatorCustomButton button_bloqueo;
             button_bloqueo = gridControl1.EmbeddedNavigator.Buttons.CustomButtons.Add();
-            button_bloqueo.Tag = "Bloqueo";
+            button_bloqueo.Tag = "Editar";
             button_bloqueo.Hint = "Editar";
             button_bloqueo.ImageIndex = 10;
           //  button_bloqueo.Enabled = true;
@@ -140,6 +141,8 @@ namespace Presentacion
 
             new GridNewRowHelper(gridView1); /// inserta nueva linea grid
             Visible_Columns(gridView1,dt_param1);
+       
+
 
             string id_nivel = Cls_Global.id_nivel;
  
@@ -211,30 +214,25 @@ namespace Presentacion
                 int i = 0;
                 foreach (PropertyInfo p in propiedades)
                 {
-                    DevExpress.XtraGrid.Columns.GridColumn col11 = riLookup.View.Columns.AddField(p.Name);
-                    col11.VisibleIndex = i;
-                    if (i == 0) col11.Visible = false;
-                    if (i == 1) col11.Visible = true; //nombre1
-                    if (i == 2) col11.Visible = false; //nombre2
-
-                    //id_ocultos
-                    if (i == 3) col11.Visible = false;
-                    if (i == 4) col11.Visible = false;
-                    if (i == 5) col11.Visible = false;
-                    if (i == 6) col11.Visible = false;
-
-                    if (i == 1)
+                    DevExpress.XtraGrid.Columns.GridColumn col = riLookup.View.Columns.AddField(p.Name);
+                    col.VisibleIndex = i;
+                    if (p.Name == "id") col.Visible = false;
+                    if (p.Name == "nombre1") //nombre1
                     {
-                        col11.Caption = "Descripción";
+                        col.Visible = true;
+                        col.Caption = "Item";
+                        
                     }
-
-
-
-                    if (ver_descripcion_2 == true)
+                         
+                    if (p.Name == "nombre2")
                     {
-                        col11.Visible = true;
-                        col11.Caption = "Mas datos";
+                        col.Visible = ver_descripcion_2;
+                        col.Caption = "Atributo";
+                        col.Width = 80;
                     }
+                
+                    if (i >= 3) col.Visible = false;//otros ocultos
+                   
 
                     i++;
                 }
@@ -257,6 +255,93 @@ namespace Presentacion
         }
 
 
+        public void Load_Combo_GridLookUpEdit_In_Grid_Simple<T>(GridView gridView1, IList<T> lista, string ValueMember, int Width, int Height)
+        {
+            RepositoryItemGridLookUpEdit riLookup = new RepositoryItemGridLookUpEdit();
+
+            /// 
+            riLookup.DataSource = lista;
+            int count = riLookup.View.Columns.Count;
+            if (count == 0)
+            {
+                riLookup.ValueMember = "id";
+                riLookup.DisplayMember = "nombre1";
+                PropertyInfo[] propiedades = typeof(T).GetProperties();
+                int i = 0;
+                foreach (PropertyInfo p in propiedades)
+                {
+                    DevExpress.XtraGrid.Columns.GridColumn col = riLookup.View.Columns.AddField(p.Name);
+                    col.VisibleIndex = i;
+
+                    if (i == 0) col.Visible = false;
+                    if (i == 1)
+                    {
+                        col.Visible = true;
+                        col.Caption = "Descripción";
+                    }
+                    if (i >= 2) col.Visible = false;
+                    i++;
+                }
+                riLookup.NullText = "-seleccione-";
+
+                riLookup.ImmediatePopup = true;
+                riLookup.TextEditStyle = TextEditStyles.Standard;
+                riLookup.PopupFilterMode = PopupFilterMode.Contains;
+                riLookup.PopupFormSize = new Size(Width, Height);
+            }
+            gridView1.Columns[ValueMember].ColumnEdit = riLookup;
+            gridView1.BestFitColumns();
+
+        }
+
+
+        public void Load_Combo_GridLookUpEdit_In_Grid_Doble<T>(GridView gridView1, IList<T> lista, string ValueMember, int Width, int Height)
+        {
+            RepositoryItemGridLookUpEdit riLookup = new RepositoryItemGridLookUpEdit();
+
+            /// 
+            riLookup.DataSource = lista;
+            int count = riLookup.View.Columns.Count;
+            if (count == 0)
+            {
+                riLookup.ValueMember = "id";
+                riLookup.DisplayMember = "nombre1";
+                PropertyInfo[] propiedades = typeof(T).GetProperties();
+                int i = 0;
+                foreach (PropertyInfo p in propiedades)
+                {
+                    DevExpress.XtraGrid.Columns.GridColumn col = riLookup.View.Columns.AddField(p.Name);
+                    col.VisibleIndex = i;
+
+                    if (i == 0) col.Visible = false;
+                    if (i == 1)
+                    {
+                        col.Visible = true;
+                        col.Caption = "Descripción";
+                    }
+                    if (i == 2)
+                    {
+                        col.Visible = true;
+                        col.Caption = "Atributo";
+                    }
+                    if (i >= 3) col.Visible = false;
+                    i++;
+                }
+                riLookup.NullText = "-seleccione-";
+
+                riLookup.ImmediatePopup = true;
+                riLookup.TextEditStyle = TextEditStyles.Standard;
+                riLookup.PopupFilterMode = PopupFilterMode.Contains;
+                riLookup.PopupFormSize = new Size(Width, Height);
+            }
+
+
+            gridView1.Columns[ValueMember].ColumnEdit = riLookup;
+            gridView1.BestFitColumns();
+
+        }
+
+
         public RepositoryItemGridLookUpEdit Load_Combo_GridLookUpEdit_In_Grid_Filter<T>(IList<T> lista, bool ver_descripcion_2, int Width, int Height)
         {
             RepositoryItemGridLookUpEdit riLookup = new RepositoryItemGridLookUpEdit();
@@ -273,27 +358,106 @@ namespace Presentacion
                 int i = 0;
                 foreach (PropertyInfo p in propiedades)
                 {
-                    DevExpress.XtraGrid.Columns.GridColumn col11 = riLookup.View.Columns.AddField(p.Name);
-                    col11.VisibleIndex = i;
-                    if (i == 0) col11.Visible = false;
-                    if (i == 1) col11.Visible = true; //nombre1
-                    if (i == 2) col11.Visible = false; //nombre2
-
-                    //id_ocultos
-                    if (i == 3) col11.Visible = false;
-                    if (i == 1)
+                    DevExpress.XtraGrid.Columns.GridColumn col = riLookup.View.Columns.AddField(p.Name);
+                    col.VisibleIndex = i;
+                    if (p.Name == "id") col.Visible = false;
+                    if (p.Name == "nombre1") //nombre1
                     {
-                        col11.Caption = "Descripción";
+                        col.Visible = true;
+                        col.Caption = "Descripción";
+
                     }
 
-                    if (ver_descripcion_2 == true)
+                    if (p.Name == "nombre2")
                     {
-                        col11.Visible = true;
-                        col11.Caption = "Mas datos";
+                        col.Visible = ver_descripcion_2;
+                        col.Caption = "Atributo";
+                        
                     }
-
+          
+                    if (i >= 3) col.Visible = false;//otros ocultos
                     i++;
                 }
+                riLookup.NullText = "-seleccione-";
+
+                riLookup.ImmediatePopup = true;
+                riLookup.TextEditStyle = TextEditStyles.Standard;
+                riLookup.PopupFilterMode = PopupFilterMode.Contains;
+                riLookup.PopupFormSize = new Size(Width, Height);
+            }
+
+            return riLookup;
+
+        }
+
+
+        public RepositoryItemGridLookUpEdit Load_Combo_GridLookUpEdit_In_Grid_Filter_Simple<T>(IList<T> lista, int Width, int Height)
+        {
+            RepositoryItemGridLookUpEdit riLookup = new RepositoryItemGridLookUpEdit();
+            riLookup.DataSource = lista;
+            int count = riLookup.View.Columns.Count;
+            if (count == 0)
+            {
+                riLookup.ValueMember = "id";
+                riLookup.DisplayMember = "nombre1";
+                PropertyInfo[] propiedades = typeof(T).GetProperties();
+                int i = 0;
+                foreach (PropertyInfo p in propiedades)
+                {
+                    DevExpress.XtraGrid.Columns.GridColumn col = riLookup.View.Columns.AddField(p.Name);
+                    col.VisibleIndex = i;
+                    if (i == 0) col.Visible = false;
+                    if (i == 1)
+                    {
+                        col.Visible = true;
+                        col.Caption = "Descripción";
+                    }
+                    if (i >= 2) col.Visible = false;
+                    i++;
+                    
+                }
+                riLookup.NullText = "-seleccione-";
+
+                riLookup.ImmediatePopup = true;
+                riLookup.TextEditStyle = TextEditStyles.Standard;
+                riLookup.PopupFilterMode = PopupFilterMode.Contains;
+                riLookup.PopupFormSize = new Size(Width, Height);
+            }
+
+            return riLookup;
+
+        }
+
+        public RepositoryItemGridLookUpEdit Load_Combo_GridLookUpEdit_In_Grid_Filter_Doble<T>(IList<T> lista, int Width, int Height)
+        {
+            RepositoryItemGridLookUpEdit riLookup = new RepositoryItemGridLookUpEdit();
+            riLookup.DataSource = lista;
+            int count = riLookup.View.Columns.Count;
+            if (count == 0)
+            {
+                riLookup.ValueMember = "id";
+                riLookup.DisplayMember = "nombre1";
+                PropertyInfo[] propiedades = typeof(T).GetProperties();
+                int i = 0;
+                foreach (PropertyInfo p in propiedades)
+                {
+                    DevExpress.XtraGrid.Columns.GridColumn col = riLookup.View.Columns.AddField(p.Name);
+                    col.VisibleIndex = i;
+                    if (i == 0) col.Visible = false;
+                    if (i == 1)
+                    {
+                        col.Visible = true;
+                        col.Caption = "Descripción";
+                    }
+                    if (i == 2)
+                    {
+                        col.Visible = true;
+                        col.Caption = "Atributo";
+                    }
+                    if (i >= 3) col.Visible = false;
+                    i++;
+                }
+
                 riLookup.NullText = "-seleccione-";
 
                 riLookup.ImmediatePopup = true;
@@ -426,10 +590,47 @@ namespace Presentacion
         }
 
 
+        public void Load_Combo_GridLookUpEdit_Simple<T>(DevExpress.XtraEditors.GridLookUpEdit riLookup, IList<T> lista, int Width, int Height)
+        {
+            riLookup.Properties.DataSource = lista;
+            int count = riLookup.Properties.View.Columns.Count;
+            if (count == 0)
+            {
+                riLookup.Properties.ValueMember = "id";
+                riLookup.Properties.DisplayMember = "nombre1";
+                PropertyInfo[] propiedades = typeof(T).GetProperties();
+                int i = 0;
+                foreach (PropertyInfo p in propiedades)
+                {
+                    DevExpress.XtraGrid.Columns.GridColumn col = riLookup.Properties.View.Columns.AddField(p.Name);
+                    col.VisibleIndex = i;
+                    if (i == 0) col.Visible = false;
+                    if (i == 1)
+                    {
+                        col.Visible = true;
+                        col.Caption = "Descripción";
+                    }
+                    if (i >= 2) col.Visible = false;
+                    i++;
+                }
+                riLookup.Properties.NullText = "-seleccione-";
+                riLookup.Properties.ImmediatePopup = true;
+                riLookup.Properties.TextEditStyle = TextEditStyles.Standard;
+                riLookup.Properties.BestFitMode = BestFitMode.BestFitResizePopup;
+                riLookup.Properties.PopupFilterMode = PopupFilterMode.Contains;
+                riLookup.Properties.View.BestFitColumns();
+                riLookup.Properties.PopupFormMinSize = new Size(Width, Height);
+            }
+
+
+        }
 
 
 
-        private void Visible_Columns(GridView gridView1,DataTable dt_param1 )
+
+
+
+        public void Visible_Columns(GridView gridView1,DataTable dt_param1 )
         {
             int myCount;
             try { myCount = gridView1.Columns.Count; }
@@ -437,9 +638,8 @@ namespace Presentacion
 
             for (int j = 0; j < myCount; j++)
             {
-
-
-                if (dt_param1.Columns[j].Caption == "")
+                
+                if (dt_param1.Columns[j].Namespace == "0")
                 {
                     gridView1.Columns[j].Visible = false;
 
@@ -701,7 +901,11 @@ namespace Presentacion
                 dc.Caption = pDisplay.Description;
 
                 if(pDisplay.Prompt!=null) dc.DefaultValue = pDisplay.Prompt;
-                if (dc.DataType.FullName.Equals("System.String"))  dc.MaxLength = pMaxLength.Length;
+                if (pMaxLength!= null)
+                {
+                    if (dc.DataType.FullName.Equals("System.String")) dc.MaxLength = pMaxLength.Length;
+                }
+
 
                 dt.Columns.Add(dc);
         
@@ -722,8 +926,7 @@ namespace Presentacion
             return dt;
         }
 
-
-
+       
 
 
 

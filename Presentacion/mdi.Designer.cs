@@ -63,6 +63,12 @@
             this.inve_proveedor_articulo = new DevExpress.XtraBars.BarButtonItem();
             this.inve_tipoingreso = new DevExpress.XtraBars.BarButtonItem();
             this.inve_tiposalida = new DevExpress.XtraBars.BarButtonItem();
+            this.inventario = new DevExpress.XtraBars.BarSubItem();
+            this.inve_orden_compra = new DevExpress.XtraBars.BarButtonItem();
+            this.inve_salida = new DevExpress.XtraBars.BarButtonItem();
+            this.inve_ingreso = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem4 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
@@ -106,15 +112,22 @@
             this.inve_tiposalida,
             this.inve_tipoingreso,
             this.inve_gironegocio,
-            this.conta_tdocu_personal});
+            this.conta_tdocu_personal,
+            this.inventario,
+            this.barButtonItem2,
+            this.inve_salida,
+            this.barButtonItem4,
+            this.inve_ingreso,
+            this.inve_orden_compra});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 41;
+            this.ribbonControl1.MaxItemId = 49;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
             this.ribbonControl1.QuickToolbarItemLinks.Add(this.barSubItem1);
             this.ribbonControl1.QuickToolbarItemLinks.Add(this.barSubItem2);
             this.ribbonControl1.QuickToolbarItemLinks.Add(this.barSubItem3);
+            this.ribbonControl1.QuickToolbarItemLinks.Add(this.inventario, true);
             this.ribbonControl1.Size = new System.Drawing.Size(803, 141);
             // 
             // barSubItem1
@@ -386,6 +399,48 @@
             this.inve_tiposalida.Name = "inve_tiposalida";
             this.inve_tiposalida.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_tiposalida_ItemClick);
             // 
+            // inventario
+            // 
+            this.inventario.Caption = "inventario";
+            this.inventario.Id = 42;
+            this.inventario.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.inve_orden_compra),
+            new DevExpress.XtraBars.LinkPersistInfo(this.inve_ingreso),
+            new DevExpress.XtraBars.LinkPersistInfo(this.inve_salida)});
+            this.inventario.Name = "inventario";
+            // 
+            // inve_orden_compra
+            // 
+            this.inve_orden_compra.Caption = "Orden de Compra";
+            this.inve_orden_compra.Id = 47;
+            this.inve_orden_compra.Name = "inve_orden_compra";
+            this.inve_orden_compra.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_orden_compra_ItemClick);
+            // 
+            // inve_salida
+            // 
+            this.inve_salida.Caption = "Salidas";
+            this.inve_salida.Id = 44;
+            this.inve_salida.Name = "inve_salida";
+            this.inve_salida.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_salida_ItemClick);
+            // 
+            // inve_ingreso
+            // 
+            this.inve_ingreso.Caption = "Ingreso";
+            this.inve_ingreso.Id = 46;
+            this.inve_ingreso.Name = "inve_ingreso";
+            this.inve_ingreso.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.inve_ingreso_ItemClick);
+            // 
+            // barButtonItem2
+            // 
+            this.barButtonItem2.Id = 48;
+            this.barButtonItem2.Name = "barButtonItem2";
+            // 
+            // barButtonItem4
+            // 
+            this.barButtonItem4.Caption = "Orden de Compra";
+            this.barButtonItem4.Id = 45;
+            this.barButtonItem4.Name = "barButtonItem4";
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -453,5 +508,11 @@
         private DevExpress.XtraBars.BarButtonItem inve_tiposalida;
         private DevExpress.XtraBars.BarButtonItem inve_gironegocio;
         private DevExpress.XtraBars.BarButtonItem conta_tdocu_personal;
+        private DevExpress.XtraBars.BarSubItem inventario;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem4;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem2;
+        private DevExpress.XtraBars.BarButtonItem inve_salida;
+        private DevExpress.XtraBars.BarButtonItem inve_ingreso;
+        private DevExpress.XtraBars.BarButtonItem inve_orden_compra;
     }
 }

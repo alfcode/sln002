@@ -30,6 +30,7 @@ namespace Datos
                     var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
                     if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
                     if (name == "t_empresa") retorno.empresa = dr.MapData<EN_zero.datacombo>().ToList();
+                    if (name == "t_tipo_unidad") retorno.tipo_unidad = dr.MapData<EN_zero.datacombo>().ToList();
                     Result = dr.NextResult();
                 }
                 return retorno;
