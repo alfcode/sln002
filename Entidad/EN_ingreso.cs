@@ -252,6 +252,7 @@ namespace Entidad
 
         public class proc_ingreso_mnt
         {
+            public string modo { get; set; }
             public string id_usuario { get; set; }
             public string id_ingreso { get; set; }
             public string id_salida { get; set; }

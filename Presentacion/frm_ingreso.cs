@@ -184,10 +184,13 @@ namespace Presentacion
             Application.DoEvents();
             Cursor.Current = Cursors.Default;
 
-
-            gridView1.Focus();
-            gridView1.AddNewRow();
-            gridView1.FocusedColumn = gridView1.VisibleColumns[0];
+            if (modo == "nuevo")
+            {
+                gridView1.Focus();
+                gridView1.AddNewRow();
+                gridView1.FocusedColumn = gridView1.VisibleColumns[0];
+            }
+            
 
         }
 
@@ -205,19 +208,22 @@ namespace Presentacion
                 var retorno = new EN_ingreso.proc_ingreso_mnt_retorno();
                 var t_ingreso = new List<EN_ingreso.t_ingreso>();
 
-
+               
                 if (id_usuario != "")
                 {
                     string estado = "EST0000001";
-                    int count = dt_t_ingreso_det_grid.AsEnumerable()
-                                   .Count(row => row.Field<string>("id_usuario_ultimo").Equals("nuevo")
-                                              || row.Field<string>("id_usuario_ultimo").Equals("grabado")
-                                              || row.Field<string>("id_usuario_ultimo").Equals("modificar"));
 
+                    if (modo == "modificar"){
+                        int count = dt_t_ingreso_det_grid.AsEnumerable()
+                                                           .Count(row => row.Field<string>("id_usuario_ultimo").Equals("nuevo")
+                                                                      || row.Field<string>("id_usuario_ultimo").Equals("grabado")
+                                                                      || row.Field<string>("id_usuario_ultimo").Equals("modificar"));
 
+                        if (count == 0) estado = "EST0000002";
+                        if (count == 0) modo = "eliminar";
 
-                    if (count == 0) estado = "EST0000002";
-                    
+                    }
+
 
 
                     var cab = new EN_ingreso.t_ingreso();
@@ -267,7 +273,12 @@ namespace Presentacion
                     
                     t_ingreso.Add(cab);
                 }
+                else
+                {
+                    modo = "consultar";
+                }
                 ///----parametros a enviar.
+                parametro.modo = modo;
                 parametro.id_usuario = id_usuario;
                 parametro.id_ingreso = id_ingreso;
                 parametro.id_salida = id_salida;
@@ -323,10 +334,14 @@ namespace Presentacion
 
 
                     }
+
+
+                    cargar_unidad_almacen(cbo_almacen.EditValue.ToString());
+
                     retorno.t_ingreso_det.ToList().ForEach(c => { c.id_usuario_inicia = ""; c.id_usuario_ultimo = "grabado"; });
                     dt_t_ingreso_det_grid = Cls_Grid.ListToTable(retorno.t_ingreso_det);
                     gridControl1.DataSource = dt_t_ingreso_det_grid;
-
+                   
                     //Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_ingreso_det_grid);
                     //gridView1.OptionsView.ColumnAutoWidth = true;
                     //gridView1.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.True;
@@ -338,7 +353,6 @@ namespace Presentacion
                     modo = "consultar";
                     habilitar();
                     Application.DoEvents();
-                    cargar_unidad_almacen(cbo_almacen.EditValue.ToString());
                 }
 
 
@@ -403,7 +417,7 @@ namespace Presentacion
                 //id_orden_compra = frm.id_orden_compra;
                 //if (id_orden_compra == "") return;
 
-                id_ingreso = "I000000001";
+                id_ingreso = "I000000004";
 
                 if (dialogResult == DialogResult.Yes) mnt_datos("");
 
@@ -904,11 +918,15 @@ namespace Presentacion
                 string id2 = cbo_tipo_ingreso.EditValue.ToString();
                 bool transferencia = Convert.ToBoolean((from Lista in lista_tipo_ingreso.Where(w => w.id == id2) select Lista.flatmodtransf).First().ToString());
                 cbo_almacen2.Enabled = transferencia;
+              
+                cbo_almacen2.EditValue = null;
+            
             }
             else
             {
                 cbo_almacen2.Enabled = false;
                 cbo_almacen2.EditValue = null;
+                cbo_almacen2.Text = "";
             }
             
             
