@@ -112,6 +112,7 @@ namespace Presentacion
 
             modo = "cancelar";
             habilitar();
+       
         }
 
 
@@ -211,15 +212,14 @@ namespace Presentacion
                
                 if (id_usuario != "")
                 {
-                    string estado = "EST0000001";
+                   /// string estado = "EST0000001";
 
                     if (modo == "modificar"){
                         int count = dt_t_ingreso_det_grid.AsEnumerable()
-                                                           .Count(row => row.Field<string>("id_usuario_ultimo").Equals("nuevo")
-                                                                      || row.Field<string>("id_usuario_ultimo").Equals("grabado")
-                                                                      || row.Field<string>("id_usuario_ultimo").Equals("modificar"));
+                                                           .Count(row => row.Field<string>("fila_modo").Equals("nuevo")
+                                                                      || row.Field<string>("fila_modo").Equals("grabado")
+                                                                      || row.Field<string>("fila_modo").Equals("modificar"));
 
-                        if (count == 0) estado = "EST0000002";
                         if (count == 0) modo = "eliminar";
 
                     }
@@ -244,10 +244,10 @@ namespace Presentacion
   
                     cab.tipo_cambio = 0;
                     cab.comentario = txt_comentario.Text;
-                    cab.id_estado_cab = estado;
+                    cab.id_estado_cab = "";
 
                     cab.id_salida = id_salida;
-                    if (cbo_almacen2.EditValue != null)
+                    if (cbo_almacen2.EditValue != null && cbo_almacen2.EditValue.ToString() != "" )
                     {
 
                         cab.id_almacen2 = cbo_almacen2.EditValue.ToString();
@@ -257,6 +257,7 @@ namespace Presentacion
                     else
                     {
                         cab.id_almacen2 = "";
+                       
                         cab.tranferencia = false;
                         transferencia = false;
 
@@ -268,6 +269,7 @@ namespace Presentacion
 
                     cab.id_usuario_inicia = id_usuario;
                     cab.id_usuario_ultimo = modo;
+                    cab.fila_modo = modo;
                     cab.fecha_inicia = Convert.ToDateTime("01/01/2016");
                     cab.fecha_ultimo = Convert.ToDateTime("01/01/2016");
                     
@@ -292,7 +294,7 @@ namespace Presentacion
                 Cursor.Current = Cursors.Default;
 
                 if (Cls_Grid.ExisteError(retorno.informe)) return;
-
+    
                 if (id_usuario != "") //// cuando termino de grabar con dato de id usuario!=""
                 {
                     modo = "cancelar";
@@ -330,6 +332,12 @@ namespace Presentacion
                             cbo_almacen2.EditValue = p.id_almacen2;
 
                         }
+                        else
+                        {
+                            cbo_almacen2.Enabled = false;
+                            cbo_almacen2.EditValue = null;
+                            cbo_almacen2.Text = "";
+                        }
 
 
 
@@ -338,7 +346,7 @@ namespace Presentacion
 
                     cargar_unidad_almacen(cbo_almacen.EditValue.ToString());
 
-                    retorno.t_ingreso_det.ToList().ForEach(c => { c.id_usuario_inicia = ""; c.id_usuario_ultimo = "grabado"; });
+                    retorno.t_ingreso_det.ToList().ForEach(c => { c.id_usuario_inicia = ""; c.fila_modo = "grabado"; });
                     dt_t_ingreso_det_grid = Cls_Grid.ListToTable(retorno.t_ingreso_det);
                     gridControl1.DataSource = dt_t_ingreso_det_grid;
                    
@@ -411,13 +419,13 @@ namespace Presentacion
                 }
 
 
-                //frm_ingreso_busca frm = new frm_ingreso_busca();
-                //frm.ShowDialog();
+                frm_ingreso_busca frm = new frm_ingreso_busca();
+                frm.ShowDialog();
 
-                //id_orden_compra = frm.id_orden_compra;
-                //if (id_orden_compra == "") return;
+                id_ingreso = frm.id_ingreso;
+                if (id_ingreso == "") return;
 
-                id_ingreso = "I000000004";
+               /// id_ingreso = "I000000005";
 
                 if (dialogResult == DialogResult.Yes) mnt_datos("");
 
@@ -705,6 +713,7 @@ namespace Presentacion
                 dtp_documento.Enabled = true;
            
                 txt_comentario.Enabled = true;
+                txt_comentario.Text = "";
                 txt_numero_documento.Enabled = true;
                 txt_orden_compra.Enabled = true;
                 
@@ -712,6 +721,9 @@ namespace Presentacion
                 txt_numero_documento.Text = "";
 
                 lbl_estado.Text = "";
+               
+
+
 
             }
 
@@ -734,6 +746,7 @@ namespace Presentacion
                 dtp_documento.Enabled = false;
 
                 txt_comentario.Enabled = false;
+                txt_comentario.Text = "";
                 txt_numero_documento.Enabled = false;
                 txt_orden_compra.Enabled = false;
 

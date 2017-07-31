@@ -131,10 +131,11 @@ namespace Presentacion
                 Cls_Grid.editable_grid(gridControl1, gridView1, false);
 
                 gridView1.Appearance.FocusedRow.BackColor = Color.CadetBlue;
+
                 // gridView1.OptionsSelection.MultiSelect = false;
                 //gridView1.Appearance.SelectedRow.BackColor = Color.Aquamarine;
                 //gridView1.Appearance.TopNewRow.BackColor = Color.Black;
-                
+
                 ((GridView)gridControl1.MainView).MoveLast();
 
                 if (Cls_Global.mostrar_ancho_xgrid)

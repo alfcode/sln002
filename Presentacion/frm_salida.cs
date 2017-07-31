@@ -18,8 +18,8 @@ namespace Presentacion
     public partial class frm_salida : DevExpress.XtraEditors.XtraForm
     {
         string id_usuario = Cls_Global.id_usuario;
-        string id_salida = "";
         string id_ingreso = "";
+        string id_salida = "";
         string modo = "nuevo";
         bool transferencia = false;
         Cls_Grid_DevExpress_Mnt_1 Cls_Grid = new Cls_Grid_DevExpress_Mnt_1();
@@ -55,7 +55,7 @@ namespace Presentacion
             this.cbo_almacen.EditValueChanged += new System.EventHandler(this.cbo_almacen_EditValueChanged);
 
             this.Icon = Properties.Resources.empresa;
-            //this.Text = Cls_Global.empresa;
+            this.Text = Cls_Global.empresa;
             this.MaximizeBox = false;
             labelControl1.Text = "salidas";
 
@@ -112,6 +112,7 @@ namespace Presentacion
 
             modo = "cancelar";
             habilitar();
+
         }
 
 
@@ -164,13 +165,16 @@ namespace Presentacion
             //parametros.id_tipo_unidad_almacen_B = id_tipo_unidad_almacen_B;
 
             parametros.id_almacen = cbo_almacen.EditValue.ToString();
+            parametros.id_almacen2 = cbo_almacen.EditValue.ToString();
+
+            if (cbo_almacen2.Enabled == true) parametros.id_almacen2 = cbo_almacen2.EditValue.ToString();
 
             Cursor.Current = Cursors.WaitCursor;
             retorno = negocio.proc_salida_mnt_tipo_unidad_almacen(parametros);
             if (Cls_Grid.ExisteError(retorno.informe))
             {
                 Cursor.Current = Cursors.Default;
-                this.Close();
+
                 return;
             }
 
@@ -180,6 +184,15 @@ namespace Presentacion
 
             Application.DoEvents();
             Cursor.Current = Cursors.Default;
+
+            if (modo == "nuevo")
+            {
+                gridView1.Focus();
+                gridView1.AddNewRow();
+                gridView1.FocusedColumn = gridView1.VisibleColumns[0];
+            }
+
+
         }
 
 
@@ -199,15 +212,18 @@ namespace Presentacion
 
                 if (id_usuario != "")
                 {
-                    string estado = "EST0000001";
-                    int count = dt_t_salida_det_grid.AsEnumerable()
-                                   .Count(row => row.Field<string>("id_usuario_ultimo").Equals("nuevo")
-                                              || row.Field<string>("id_usuario_ultimo").Equals("grabado")
-                                              || row.Field<string>("id_usuario_ultimo").Equals("modificar"));
+                    /// string estado = "EST0000001";
 
+                    if (modo == "modificar")
+                    {
+                        int count = dt_t_salida_det_grid.AsEnumerable()
+                                                           .Count(row => row.Field<string>("fila_modo").Equals("nuevo")
+                                                                      || row.Field<string>("fila_modo").Equals("grabado")
+                                                                      || row.Field<string>("fila_modo").Equals("modificar"));
 
+                        if (count == 0) modo = "eliminar";
 
-                    if (count == 0) estado = "EST0000002";
+                    }
 
 
 
@@ -229,10 +245,10 @@ namespace Presentacion
 
                     cab.tipo_cambio = 0;
                     cab.comentario = txt_comentario.Text;
-                    cab.id_estado_cab = estado;
+                    cab.id_estado_cab = "";
 
-                    cab.id_ingreso = id_ingreso;
-                    if (cbo_almacen2.EditValue != null)
+                    cab.id_salida = id_salida;
+                    if (cbo_almacen2.EditValue != null && cbo_almacen2.EditValue.ToString() != "")
                     {
 
                         cab.id_almacen2 = cbo_almacen2.EditValue.ToString();
@@ -242,6 +258,7 @@ namespace Presentacion
                     else
                     {
                         cab.id_almacen2 = "";
+
                         cab.tranferencia = false;
                         transferencia = false;
 
@@ -253,15 +270,21 @@ namespace Presentacion
 
                     cab.id_usuario_inicia = id_usuario;
                     cab.id_usuario_ultimo = modo;
+                    cab.fila_modo = modo;
                     cab.fecha_inicia = Convert.ToDateTime("01/01/2016");
                     cab.fecha_ultimo = Convert.ToDateTime("01/01/2016");
 
                     t_salida.Add(cab);
                 }
+                else
+                {
+                    modo = "consultar";
+                }
                 ///----parametros a enviar.
+                parametro.modo = modo;
                 parametro.id_usuario = id_usuario;
-                parametro.id_salida = id_salida;
                 parametro.id_ingreso = id_ingreso;
+                parametro.id_salida = id_salida;
                 parametro.transferencia = transferencia;
                 ///tablas
                 parametro.t_salida = t_salida;
@@ -295,6 +318,7 @@ namespace Presentacion
                         cbo_tipo_documento.EditValue = p.id_tdocu_sunat;
 
                         txt_numero_documento.Text = p.nro_tdocu;
+                      //// txt_orden_compra.Text = p.id_orden_compra;
                         dtp_documento.Value = p.fecha_movimiento;
                         cbo_moneda.EditValue = p.id_moneda;
 
@@ -304,16 +328,26 @@ namespace Presentacion
                         if (p.tranferencia == true)
                         {
 
-                            id_ingreso = p.id_ingreso;
+                            id_salida = p.id_salida;
                             cbo_almacen2.Visible = true;
                             cbo_almacen2.EditValue = p.id_almacen2;
 
+                        }
+                        else
+                        {
+                            cbo_almacen2.Enabled = false;
+                            cbo_almacen2.EditValue = null;
+                            cbo_almacen2.Text = "";
                         }
 
 
 
                     }
-                    retorno.t_salida_det.ToList().ForEach(c => { c.id_usuario_inicia = ""; c.id_usuario_ultimo = "grabado"; });
+
+
+                    cargar_unidad_almacen(cbo_almacen.EditValue.ToString());
+
+                    retorno.t_salida_det.ToList().ForEach(c => { c.id_usuario_inicia = ""; c.fila_modo = "grabado"; });
                     dt_t_salida_det_grid = Cls_Grid.ListToTable(retorno.t_salida_det);
                     gridControl1.DataSource = dt_t_salida_det_grid;
 
@@ -328,7 +362,6 @@ namespace Presentacion
                     modo = "consultar";
                     habilitar();
                     Application.DoEvents();
-                    cargar_unidad_almacen(cbo_almacen.EditValue.ToString());
                 }
 
 
@@ -387,13 +420,13 @@ namespace Presentacion
                 }
 
 
-                //frm_salida_busca frm = new frm_salida_busca();
-                //frm.ShowDialog();
+                frm_salida_busca frm = new frm_salida_busca();
+                frm.ShowDialog();
 
-                //id_orden_compra = frm.id_orden_compra;
-                //if (id_orden_compra == "") return;
+                id_salida = frm.id_salida;
+                if (id_salida == "") return;
 
-                id_salida = "I00000006";
+                /// id_salida = "I000000005";
 
                 if (dialogResult == DialogResult.Yes) mnt_datos("");
 
@@ -504,12 +537,12 @@ namespace Presentacion
                 var filtro = (from Lista in lista_tipo_unidad_almacen.Where(w => (w.id_articulo == id_articulo)) select Lista).ToList();
                 ///   Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid_Filter_Doble(filtro, 300, 100);
 
-                var filtro_unidad = (from Lista in filtro.Where(w => w.id_tipo_unidad_registro == w.id_tipo_unidad_inventario) select Lista).ToList();
+                var filtro_unidad = (from Lista in filtro.Where(w => w.id_tipo_unidad_movi == w.id_tipo_unidad_inventario) select Lista).ToList();
                 foreach (var p in filtro_unidad)
                 {
                     gv.SetRowCellValue(gv.FocusedRowHandle, "id_tipo_unidad_inventario", p.id_tipo_unidad_inventario);
-                    gv.SetRowCellValue(gv.FocusedRowHandle, "id_tipo_unidad_registro", p.id_tipo_unidad_registro);
-                    gv.SetRowCellValue(gv.FocusedRowHandle, "factor", p.factor);
+                    gv.SetRowCellValue(gv.FocusedRowHandle, "id_tipo_unidad_movi", p.id_tipo_unidad_movi);
+                    gv.SetRowCellValue(gv.FocusedRowHandle, "factor_movi", p.factor);
                     gv.SetRowCellValue(gv.FocusedRowHandle, "id_unidad", p.id);//@id_unidad
                 }
 
@@ -534,7 +567,7 @@ namespace Presentacion
                 foreach (var p in filtro)
                 {
                     gv.SetRowCellValue(gv.FocusedRowHandle, "id_tipo_unidad_inventario", p.id_tipo_unidad_inventario);
-                    gv.SetRowCellValue(gv.FocusedRowHandle, "id_tipo_unidad_registro", p.id_tipo_unidad_registro);
+                    gv.SetRowCellValue(gv.FocusedRowHandle, "id_tipo_unidad_movi", p.id_tipo_unidad_movi);
                     gv.SetRowCellValue(gv.FocusedRowHandle, "factor", p.factor);
 
                     gv.SetRowCellValue(gv.FocusedRowHandle, "cantidad_nota", 0);
@@ -549,6 +582,30 @@ namespace Presentacion
                 var cantidad = e.Value.ToString();
                 gv.SetRowCellValue(gv.FocusedRowHandle, "cantidad_real", cantidad);
             }
+
+
+            if (name == "costo")
+            {
+                decimal factor = Convert.ToDecimal(gv.GetFocusedRowCellValue("factor_movi"));
+                decimal cantidad_nota = Convert.ToDecimal(gv.GetFocusedRowCellValue("cantidad_nota"));
+                decimal costo = Convert.ToDecimal(e.Value.ToString());
+               
+                    decimal nuevo_importe = costo * cantidad_nota;
+                    gv.SetRowCellValue(gv.FocusedRowHandle, "importe", nuevo_importe);
+            }
+
+            if (name == "importe")
+            {
+                decimal factor = Convert.ToDecimal(gv.GetFocusedRowCellValue("factor_movi"));
+                decimal cantidad_nota = Convert.ToDecimal(gv.GetFocusedRowCellValue("cantidad_nota"));
+                decimal importe = Convert.ToDecimal(e.Value.ToString());
+
+                decimal nuevo_costo = importe / cantidad_nota;
+                gv.SetRowCellValue(gv.FocusedRowHandle, "costo", nuevo_costo);
+            }
+
+
+
 
         }
 
@@ -634,26 +691,11 @@ namespace Presentacion
             {
                 if (view.FocusedColumn.FieldName == "importe")
                 {
-                    gridView1.CloseEditor();
-                    gridView1.UpdateCurrentRow();
-
-                    decimal factor = Convert.ToDecimal(view.GetFocusedRowCellValue("factor"));
-                    decimal cantidad_nota = Convert.ToDecimal(view.GetFocusedRowCellValue("cantidad_nota"));
-                    decimal importe = Convert.ToDecimal(view.GetFocusedRowCellValue("importe"));
-
-                    decimal nuevo_costo = importe / (cantidad_nota / factor);
-                    view.SetRowCellValue(view.FocusedRowHandle, "costo", nuevo_costo);
-
-
 
                     gridView1.CloseEditor();
                     gridView1.UpdateCurrentRow();
                     calculo_total();
                 }
-
-
-
-
             }
 
 
@@ -681,11 +723,17 @@ namespace Presentacion
                 dtp_documento.Enabled = true;
 
                 txt_comentario.Enabled = true;
+                txt_comentario.Text = "";
                 txt_numero_documento.Enabled = true;
+              ///  txt_orden_compra.Enabled = true;
 
+              //  txt_orden_compra.Text = "";
                 txt_numero_documento.Text = "";
 
                 lbl_estado.Text = "";
+
+
+
 
             }
 
@@ -708,8 +756,11 @@ namespace Presentacion
                 dtp_documento.Enabled = false;
 
                 txt_comentario.Enabled = false;
+                txt_comentario.Text = "";
                 txt_numero_documento.Enabled = false;
+               // txt_orden_compra.Enabled = false;
 
+               // txt_orden_compra.Text = "";
                 txt_numero_documento.Text = "";
 
                 lbl_estado.Text = "";
@@ -745,7 +796,8 @@ namespace Presentacion
 
                 txt_comentario.Enabled = true;
                 txt_numero_documento.Enabled = true;
-          
+               // txt_orden_compra.Enabled = true;
+
             }
 
             if (modo == "consultar")
@@ -764,7 +816,7 @@ namespace Presentacion
 
                 txt_comentario.Enabled = false;
                 txt_numero_documento.Enabled = false;
-              
+              //  txt_orden_compra.Enabled = false;
             }
 
 
@@ -807,9 +859,6 @@ namespace Presentacion
 
                     cargar_unidad_almacen(cbo_almacen.EditValue.ToString());
 
-                    gridView1.Focus();
-                    gridView1.AddNewRow();
-                    gridView1.FocusedColumn = gridView1.VisibleColumns[0];
 
                 }
             }
@@ -835,12 +884,17 @@ namespace Presentacion
                     gridView1.CloseEditor();
                     gridView1.UpdateCurrentRow();
 
-                    decimal factor = Convert.ToDecimal(gv.GetFocusedRowCellValue("factor"));
+                    decimal factor = Convert.ToDecimal(gv.GetFocusedRowCellValue("factor_movi"));
                     decimal cantidad_nota = Convert.ToDecimal(gv.GetFocusedRowCellValue("cantidad_nota"));
                     decimal costo = Convert.ToDecimal(gv.GetFocusedRowCellValue("costo"));
                     // var id_articulo = e.Value.ToString();
 
-                    decimal nuevo_importe = costo * (cantidad_nota / factor);
+                    decimal nuevo_importe;
+
+                    nuevo_importe = costo * (cantidad_nota / factor);
+
+                    nuevo_importe = (costo / factor) * cantidad_nota;
+
                     gv.SetRowCellValue(gv.FocusedRowHandle, "importe", nuevo_importe);
 
                     //gridView1.CloseEditor();
@@ -887,11 +941,15 @@ namespace Presentacion
                 string id2 = cbo_tipo_salida.EditValue.ToString();
                 bool transferencia = Convert.ToBoolean((from Lista in lista_tipo_salida.Where(w => w.id == id2) select Lista.flatmodtransf).First().ToString());
                 cbo_almacen2.Enabled = transferencia;
+
+                cbo_almacen2.EditValue = null;
+
             }
             else
             {
                 cbo_almacen2.Enabled = false;
                 cbo_almacen2.EditValue = null;
+                cbo_almacen2.Text = "";
             }
 
 

@@ -669,15 +669,15 @@ namespace Presentacion
             var gridView1 = sender as GridView;
 
 
-                if (gridView1.GetFocusedRowCellValue("id_usuario_ultimo") == null) return;
+                if (gridView1.GetFocusedRowCellValue("fila_modo") == null) return;
                
-                string id = gridView1.GetFocusedRowCellValue("id_usuario_ultimo").ToString();
+                string id = gridView1.GetFocusedRowCellValue("fila_modo").ToString();
 
 
                 if (id != "nuevo")
             {
                 DataRow row = gridView1.GetDataRow(gridView1.FocusedRowHandle);
-                row["id_usuario_ultimo"] = "modificar";
+                row["fila_modo"] = "modificar";
                 row["id_usuario_inicia"] = "modificar";
                    
             }
@@ -699,7 +699,7 @@ namespace Presentacion
 
             if (e.RowHandle >= 0)
             {
-                string estado_color = gridView1.GetRowCellDisplayText(e.RowHandle, gridView1.Columns["id_usuario_ultimo"]);
+                string estado_color = gridView1.GetRowCellDisplayText(e.RowHandle, gridView1.Columns["fila_modo"]);
                 if (estado_color == "eliminar")
                 {
                     e.Appearance.BackColor = Color.Salmon;
@@ -708,8 +708,8 @@ namespace Presentacion
 
                 if (estado_color == "modificar")
                 {
-                    e.Appearance.BackColor = Color.DeepSkyBlue;
-                    e.Appearance.BackColor2 = Color.LightCyan;
+                   e.Appearance.BackColor = Color.DeepSkyBlue;
+                   e.Appearance.BackColor2 = Color.LightCyan;
                 }
 
                 if (estado_color == "grabado")
@@ -736,7 +736,7 @@ namespace Presentacion
             if (e.Button.ButtonType == NavigatorButtonType.EndEdit)
             {
                 IEnumerable<DataRow> query = from myRow in dt_param1.AsEnumerable()
-                                             where myRow.Field<string>("id_usuario_ultimo").Equals("nuevo")
+                                             where myRow.Field<string>("fila_modo").Equals("nuevo")
                                              select myRow;
 
                 int id = 0;
@@ -750,7 +750,7 @@ namespace Presentacion
 
 
                 IEnumerable<DataRow> query2 = from myRow in dt_param1.AsEnumerable()
-                                              where myRow.Field<string>("id_usuario_ultimo") != ("grabado")
+                                              where myRow.Field<string>("fila_modo") != ("grabado")
                                               select myRow;
 
 
@@ -773,14 +773,14 @@ namespace Presentacion
 
                 e.Handled = true;
 
-                string id = gridView1.GetFocusedRowCellValue("id_usuario_ultimo").ToString();
+                string id = gridView1.GetFocusedRowCellValue("fila_modo").ToString();
                 //DataRow rowid = gridView1.GetDataRow(gridView1.FocusedRowHandle);
-                //string id = rowid["id_usuario_ultimo"].ToString();
+                //string id = rowid["fila_modo"].ToString();
 
                 if (id != "nuevo")
                 {
 
-                    string id2 = gridView1.GetFocusedRowCellValue("id_usuario_ultimo").ToString();
+                    string id2 = gridView1.GetFocusedRowCellValue("fila_modo").ToString();
                     if (id2 == "eliminar")
                     {
 
@@ -789,19 +789,19 @@ namespace Presentacion
                         if (id3 == "modificar")
                         {
                             DataRow row = gridView1.GetDataRow(gridView1.FocusedRowHandle);
-                            row["id_usuario_ultimo"] = "modificar";
+                            row["fila_modo"] = "modificar";
                         }
                         else
                         {
                             DataRow row = gridView1.GetDataRow(gridView1.FocusedRowHandle);
-                            row["id_usuario_ultimo"] = "grabado";
+                            row["fila_modo"] = "grabado";
                         }
 
                     }
                     else
                     {
                         DataRow row = gridView1.GetDataRow(gridView1.FocusedRowHandle);
-                        row["id_usuario_ultimo"] = "eliminar";
+                        row["fila_modo"] = "eliminar";
                     }
 
 

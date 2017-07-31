@@ -12,6 +12,7 @@ namespace Entidad
             /// [Key]   para columnas cuyo valor es unico en la grilla
             /// [Display(Prompt = "GRU0000001")]   valor por defecto
 
+
             [Display(Description = "id_salida")]
             [Column(Order = 0)]
             [Required]
@@ -99,17 +100,23 @@ namespace Entidad
             [Required]
             public bool tranferencia { get; set; }
 
-            [Display(Description = "id_ingreso")]
+            [Display(Description = "id_ingreso2")]
             [Column(Order = 0)]
             [Required]
             [MaxLength(10)]
-            public string id_ingreso { get; set; }
+            public string id_ingreso2 { get; set; }
 
             [Display(Description = "id_almacen2")]
             [Column(Order = 0)]
             [Required]
             [MaxLength(10)]
             public string id_almacen2 { get; set; }
+
+            [Display(Description = "id_ingreso1")]
+            [Column(Order = 0)]
+            [Required]
+            [MaxLength(10)]
+            public string id_ingreso1 { get; set; }
 
             [Display(Description = "")]
             [Column(Order = 0)]
@@ -137,6 +144,17 @@ namespace Entidad
             [Column(Order = 0)]
             [MaxLength(100)]
             public string estado_cab { get; set; }
+
+            [Display(Description = "")]
+            [Column(Order = 0)]
+            [MaxLength(10)]
+            public string fila_modo { get; set; }
+
+            [Display(Description = "")]
+            [Column(Order = 0)]
+            [MaxLength(10)]
+            public string fila_maestro { get; set; }
+
 
         }
 
@@ -169,15 +187,15 @@ namespace Entidad
             public decimal id_tipo_unidad_inventario { get; set; }
 
 
-            [Display(Description = "id_tipo_unidad_registro")]
+            [Display(Description = "id_tipo_unidad_movi")]
             [Column(Order = 0)]
             [Required]
-            public decimal id_tipo_unidad_registro { get; set; }
+            public decimal id_tipo_unidad_movi { get; set; }
 
-            [Display(Description = "factor")]
+            [Display(Description = "factor_movi")]
             [Column(Order = 0)]
             [Required]
-            public decimal factor { get; set; }
+            public decimal factor_movi { get; set; }
 
 
             [Display(Description = "Unidad")]
@@ -196,7 +214,7 @@ namespace Entidad
             [Required]
             public decimal cantidad_real { get; set; }
 
-            [Display(Description = "Precio", Prompt = "0")]
+            [Display(Description = "Costo", Prompt = "0")]
             [Column(Order = 60)]
             [Required]
             public decimal costo { get; set; }
@@ -227,7 +245,7 @@ namespace Entidad
             [MaxLength(10)]
             public string id_usuario_inicia { get; set; }
 
-            [Display(Description = "", Prompt = "nuevo")]
+            [Display(Description = "")]
             [Column(Order = 0)]
             [Required]
             [MaxLength(10)]
@@ -248,10 +266,21 @@ namespace Entidad
             [MaxLength(100)]
             public string estado_cab { get; set; }
 
+            [Display(Description = "", Prompt = "nuevo")]
+            [Column(Order = 0)]
+            [MaxLength(10)]
+            public string fila_modo { get; set; }
+
+            [Display(Description = "")]
+            [Column(Order = 0)]
+            [MaxLength(10)]
+            public string fila_maestro { get; set; }
+
         }
 
         public class proc_salida_mnt
         {
+            public string modo { get; set; }
             public string id_usuario { get; set; }
             public string id_salida { get; set; }
             public string id_ingreso { get; set; }
@@ -272,91 +301,152 @@ namespace Entidad
 
         public class t_salida_busca_cab
         {
-            [Display(Description = "O.Compra")]
-            [Column(Order = 75)]
-            public string orden { get; set; }
+            [Display(Description = "Salida")]
+            [Column(Order = 70)]
+            [Required]
+            [MaxLength(10)]
+            public string salida { get; set; }
 
-            [Display(Description = "")]
-            [Column(Order = 0)]
-            public string numero { get; set; }
+            [Display(Description = "Tipo de Salida")]
+            [Column(Order = 175)]
+            [MaxLength(50)]
+            public string tipo_salida { get; set; }
+
+            [Display(Description = "Almacen Salida")]
+            [Column(Order = 120)]
+            [Required]
+            [MaxLength(100)]
+            public string almacen_salida { get; set; }
+
+            [Display(Description = "Almacen Transferencia")]
+            [Column(Order = 150)]
+            [Required]
+            [MaxLength(100)]
+            public string almacen_transferencia { get; set; }
+
+            [Display(Description = "Ingreso Transferencia")]
+            [Column(Order = 90)]
+            [MaxLength(10)]
+            public string ingreso_transferencia { get; set; }
+
+            [Display(Description = "Ingreso Origen")]
+            [Column(Order = 80)]
+            [MaxLength(10)]
+            public string ingreso_origen { get; set; }
 
             [Display(Description = "Empresa")]
-            [Column(Order = 180)]
+            [Column(Order = 160)]
+            [Required]
+            [MaxLength(200)]
             public string empresa { get; set; }
 
-            [Display(Description = "Centro de Costo")]
-            [Column(Order = 150)]
+            [Display(Description = "Centro Costo")]
+            [Column(Order = 140)]
+            [Required]
+            [MaxLength(100)]
             public string centro_costo { get; set; }
 
-            [Display(Description = "Almacen")]
-            [Column(Order = 120)]
-            public string almacen { get; set; }
-
             [Display(Description = "Proveedor")]
-            [Column(Order = 200)]
+            [Column(Order = 170)]
+            [Required]
+            [MaxLength(100)]
             public string proveedor { get; set; }
 
-            [Display(Description = "Fec.Emision")]
-            [Column(Order = 70)]
-            public DateTime fecha_emision { get; set; }
-
-            [Display(Description = "Fec.Entrega")]
-            [Column(Order = 70)]
-            public DateTime fecha_entrega { get; set; }
-
-            [Display(Description = "Fec. Pago")]
-            [Column(Order = 70)]
-            public DateTime fecha_pago { get; set; }
-
             [Display(Description = "Moneda")]
-            [Column(Order = 000)]
+            [Column(Order = 85)]
+            [Required]
+            [MaxLength(60)]
             public string moneda { get; set; }
 
-            [Display(Description = "T.C")]
-            [Column(Order = 50)]
+            [Display(Description = "Documento")]
+            [Column(Order = 85)]
+            [Required]
+            [MaxLength(50)]
+            public string documento { get; set; }
+
+            [Display(Description = "Nro Documento")]
+            [Column(Order = 100)]
+            [Required]
+            [MaxLength(15)]
+            public string nro_documento { get; set; }
+
+            [Display(Description = "Fecha Documento")]
+            [Column(Order = 100)]
+            [Required]
+            public DateTime fecha_documento { get; set; }
+
+            [Display(Description = "Fecha Registro")]
+            [Column(Order = 90)]
+            [Required]
+            public DateTime fecha_registro { get; set; }
+
+            [Display(Description = "Tipo Cambio")]
+            [Column(Order = 55)]
+            [Required]
             public decimal tcambio { get; set; }
 
             [Display(Description = "Comentario")]
-            [Column(Order = 0)]
+            [Column(Order = 450)]
+            [Required]
+            [MaxLength(1000)]
             public string comentario { get; set; }
 
             [Display(Description = "Estado")]
-            [Column(Order = 80)]
+            [Column(Order = 95)]
+            [Required]
+            [MaxLength(50)]
             public string estado { get; set; }
 
         }
 
         public class t_salida_busca_det
         {
-            [Display(Description = "")]
-            [Column(Order = 0)]
-            public string orden { get; set; }
+            [Display(Description = "Salida")]
+            [Column(Order = 70)]
+            [Required]
+            [MaxLength(10)]
+            public string salida { get; set; }
 
             [Display(Description = "Item")]
             [Column(Order = 30)]
-            public decimal item { get; set; }
+            public long item { get; set; }
 
             [Display(Description = "Articulo")]
-            [Column(Order = 530)]
+            [Column(Order = 380)]
+            [Required]
+            [MaxLength(200)]
             public string articulo { get; set; }
 
             [Display(Description = "Unidad")]
-            [Column(Order = 137)]
+            [Column(Order = 92)]
+            [Required]
+            [MaxLength(50)]
             public string unidad { get; set; }
 
-
             [Display(Description = "Costo")]
-            [Column(Order = 80)]
+            [Column(Order = 45)]
+            [Required]
             public decimal costo { get; set; }
 
-            [Display(Description = "Cantidad")]
+            [Display(Description = "Cantidad Nota")]
             [Column(Order = 80)]
-            public decimal cantidad { get; set; }
+            [Required]
+            public decimal cantidad_nota { get; set; }
+
+            [Display(Description = "Cantidad Real")]
+            [Column(Order = 80)]
+            [Required]
+            public decimal cantidad_real { get; set; }
+
+            [Display(Description = "Importe")]
+            [Column(Order = 80)]
+            public decimal importe { get; set; }
 
         }
 
         public class proc_salida_mnt_busca
         {
+            public string id_almacen { get; set; }
             public string numero { get; set; }
             public string fecha_ini { get; set; }
             public string fecha_fin { get; set; }
@@ -368,6 +458,7 @@ namespace Entidad
             public List<EN_zero.informe> informe { get; set; }
             public List<t_salida_busca_cab> t_salida_busca_cab { get; set; }
             public List<t_salida_busca_det> t_salida_busca_det { get; set; }
+            public List<lista_almacen> almacen { get; set; }
         }
 
 
@@ -376,6 +467,7 @@ namespace Entidad
         public class proc_salida_mnt_tipo_unidad_almacen_parametros
         {
             public string id_almacen { get; set; }
+            public string id_almacen2 { get; set; }
         }
 
         public class proc_salida_mnt_tipo_unidad_almacen
@@ -426,7 +518,7 @@ namespace Entidad
             public string id { get; set; }
             public string nombre1 { get; set; }
             public string nombre2 { get; set; }
-            public decimal id_tipo_unidad_registro { get; set; }
+            public decimal id_tipo_unidad_movi { get; set; }
             public string id_articulo { get; set; }
             public decimal id_tipo_unidad_inventario { get; set; }
             public decimal factor { get; set; }

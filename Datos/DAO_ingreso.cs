@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Text;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Datos
 {
@@ -91,6 +92,8 @@ namespace Datos
                     if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
                     if (name == "t_tipo_unidad_almacen") retorno.lista_tipo_unidad_almacen = dr.MapData<EN_ingreso.lista_tipo_unidad_almacen>().ToList();
                     if (name == "t_articulo") retorno.lista_articulo = dr.MapData<EN_ingreso.lista_articulo>().ToList();
+                   
+
 
                     Result = dr.NextResult();
                 }
@@ -130,6 +133,7 @@ namespace Datos
                 cmd.CommandText = "inve.proc_ingreso_mnt_busca";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@id_almacen", parametros.id_almacen);
                 cmd.Parameters.AddWithValue("@numero", parametros.numero);
                 cmd.Parameters.AddWithValue("@fecha_ini", parametros.fecha_ini);
                 cmd.Parameters.AddWithValue("@fecha_fin", parametros.fecha_fin);
@@ -140,8 +144,9 @@ namespace Datos
                 {
                     var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
                     if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
-                    if (name == "t_orden_cab") retorno.t_ingreso_busca_cab = dr.MapData<EN_ingreso.t_ingreso_busca_cab>().ToList();
-                    if (name == "t_orden_det") retorno.t_ingreso_busca_det = dr.MapData<EN_ingreso.t_ingreso_busca_det>().ToList();
+                    if (name == "t_ingreso_cab") retorno.t_ingreso_busca_cab = dr.MapData<EN_ingreso.t_ingreso_busca_cab>().ToList();
+                    if (name == "t_ingreso_det") retorno.t_ingreso_busca_det = dr.MapData<EN_ingreso.t_ingreso_busca_det>().ToList();
+                    if (name == "t_almacen") retorno.almacen = dr.MapData<EN_ingreso.lista_almacen>().ToList();
 
                     Result = dr.NextResult();
                 }

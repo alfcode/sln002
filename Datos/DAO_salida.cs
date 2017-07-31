@@ -80,6 +80,7 @@ namespace Datos
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@id_almacen", parametros.id_almacen);
+                cmd.Parameters.AddWithValue("@id_almacen2", parametros.id_almacen2);
 
                 dr = cmd.ExecuteReader();
 
@@ -129,6 +130,7 @@ namespace Datos
                 cmd.CommandText = "inve.proc_salida_mnt_busca";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@id_almacen", parametros.id_almacen);
                 cmd.Parameters.AddWithValue("@numero", parametros.numero);
                 cmd.Parameters.AddWithValue("@fecha_ini", parametros.fecha_ini);
                 cmd.Parameters.AddWithValue("@fecha_fin", parametros.fecha_fin);
@@ -139,8 +141,9 @@ namespace Datos
                 {
                     var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
                     if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
-                    if (name == "t_orden_cab") retorno.t_salida_busca_cab = dr.MapData<EN_salida.t_salida_busca_cab>().ToList();
-                    if (name == "t_orden_det") retorno.t_salida_busca_det = dr.MapData<EN_salida.t_salida_busca_det>().ToList();
+                    if (name == "t_salida_cab") retorno.t_salida_busca_cab = dr.MapData<EN_salida.t_salida_busca_cab>().ToList();
+                    if (name == "t_salida_det") retorno.t_salida_busca_det = dr.MapData<EN_salida.t_salida_busca_det>().ToList();
+                    if (name == "t_almacen") retorno.almacen = dr.MapData<EN_salida.lista_almacen>().ToList();
 
                     Result = dr.NextResult();
                 }
@@ -199,6 +202,7 @@ namespace Datos
                 cmd.CommandText = "inve.proc_salida_mnt";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@modo", parametros.modo);
                 cmd.Parameters.AddWithValue("@id_usuario", parametros.id_usuario);
                 cmd.Parameters.AddWithValue("@id_salida", parametros.id_salida);
                 cmd.Parameters.AddWithValue("@id_ingreso", parametros.id_ingreso);

@@ -223,7 +223,8 @@ namespace Presentacion
 
         private void inve_salida_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-           
+            Form form = new frm_salida();
+            form.Show();
         }
 
         private void inve_ingreso_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
