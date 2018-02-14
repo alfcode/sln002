@@ -50,5 +50,16 @@ namespace Negocio
             return retorno;
         }
 
+
+        public EN_ingreso.proc_ingreso_mnt_filtra_proveedor proc_ingreso_mnt_filtra_proveedor(EN_ingreso.proc_filtra_proveedor parametros)
+        {
+            var retorno = new EN_ingreso.proc_ingreso_mnt_filtra_proveedor();
+            var datos = new DAO_ingreso();
+
+            retorno = datos.proc_ingreso_mnt_filtra_proveedor(parametros);
+
+            return retorno;
+        }
+
     }
 }

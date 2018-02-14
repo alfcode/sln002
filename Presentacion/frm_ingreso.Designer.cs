@@ -50,7 +50,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.dtp_documento = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
-            this.cbo_proveedor = new DevExpress.XtraEditors.GridLookUpEdit();
+            this.cbo_proveedorx = new DevExpress.XtraEditors.GridLookUpEdit();
             this.gridView4 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.label18 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -75,6 +75,9 @@
             this.label16 = new System.Windows.Forms.Label();
             this.lbl_total = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.progressPanel = new DevExpress.XtraWaitForm.ProgressPanel();
+            this.cbo_proveedor = new DevExpress.XtraEditors.SearchLookUpEdit();
+            this.searchLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cbo_almacen2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView8)).BeginInit();
@@ -86,7 +89,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbo_moneda.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbo_proveedor.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbo_proveedorx.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbo_centro_costo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
@@ -95,6 +98,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cbo_proveedor.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
             this.SuspendLayout();
             // 
             // lbl_subtotal
@@ -132,6 +137,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cbo_proveedor);
             this.panel1.Controls.Add(this.cbo_almacen2);
             this.panel1.Controls.Add(this.lbl_caption_almacen2);
             this.panel1.Controls.Add(this.txt_numero_documento);
@@ -145,7 +151,6 @@
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.dtp_documento);
             this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.cbo_proveedor);
             this.panel1.Controls.Add(this.label18);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
@@ -254,7 +259,7 @@
             this.cbo_tipo_ingreso.Properties.View = this.gridView7;
             this.cbo_tipo_ingreso.Size = new System.Drawing.Size(287, 20);
             this.cbo_tipo_ingreso.TabIndex = 44;
-                       // 
+            // 
             // gridView7
             // 
             this.gridView7.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
@@ -271,7 +276,7 @@
             this.cbo_almacen.Properties.View = this.gridView3;
             this.cbo_almacen.Size = new System.Drawing.Size(286, 20);
             this.cbo_almacen.TabIndex = 3;
-                      // 
+            // 
             // gridView3
             // 
             this.gridView3.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
@@ -326,15 +331,15 @@
             this.label7.TabIndex = 27;
             this.label7.Text = "Fecha Ingreso";
             // 
-            // cbo_proveedor
+            // cbo_proveedorx
             // 
-            this.cbo_proveedor.Location = new System.Drawing.Point(117, 50);
-            this.cbo_proveedor.Name = "cbo_proveedor";
-            this.cbo_proveedor.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.cbo_proveedorx.Location = new System.Drawing.Point(418, 6);
+            this.cbo_proveedorx.Name = "cbo_proveedorx";
+            this.cbo_proveedorx.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbo_proveedor.Properties.View = this.gridView4;
-            this.cbo_proveedor.Size = new System.Drawing.Size(287, 20);
-            this.cbo_proveedor.TabIndex = 4;
+            this.cbo_proveedorx.Properties.View = this.gridView4;
+            this.cbo_proveedorx.Size = new System.Drawing.Size(287, 20);
+            this.cbo_proveedorx.TabIndex = 4;
             // 
             // gridView4
             // 
@@ -588,11 +593,44 @@
             this.label19.Text = "Total";
             this.label19.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // progressPanel
+            // 
+            this.progressPanel.Appearance.BackColor = System.Drawing.Color.Transparent;
+            this.progressPanel.Appearance.Options.UseBackColor = true;
+            this.progressPanel.BarAnimationElementThickness = 2;
+            this.progressPanel.Caption = "Por favor espere";
+            this.progressPanel.Description = "Cargando datos ...";
+            this.progressPanel.Location = new System.Drawing.Point(414, 29);
+            this.progressPanel.Name = "progressPanel";
+            this.progressPanel.Size = new System.Drawing.Size(219, 52);
+            this.progressPanel.TabIndex = 57;
+            this.progressPanel.Text = "progressPanel";
+            this.progressPanel.Visible = false;
+            this.progressPanel.WaitAnimationType = DevExpress.Utils.Animation.WaitingAnimatorType.Ring;
+            // 
+            // cbo_proveedor
+            // 
+            this.cbo_proveedor.Location = new System.Drawing.Point(119, 50);
+            this.cbo_proveedor.Name = "cbo_proveedor";
+            this.cbo_proveedor.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbo_proveedor.Properties.View = this.searchLookUpEdit1View;
+            this.cbo_proveedor.Size = new System.Drawing.Size(285, 20);
+            this.cbo_proveedor.TabIndex = 51;
+            // 
+            // searchLookUpEdit1View
+            // 
+            this.searchLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.searchLookUpEdit1View.Name = "searchLookUpEdit1View";
+            this.searchLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.searchLookUpEdit1View.OptionsView.ShowGroupPanel = false;
+            // 
             // frm_ingreso
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(667, 599);
+            this.Controls.Add(this.progressPanel);
             this.Controls.Add(this.lbl_total);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.lbl_isc);
@@ -605,10 +643,12 @@
             this.Controls.Add(this.label14);
             this.Controls.Add(this.txt_comentario);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.cbo_proveedorx);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.labelControl1);
             this.Name = "frm_ingreso";
             this.Text = "frm_ingreso_compra";
+            this.Shown += new System.EventHandler(this.frm_ingreso_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cbo_almacen2.Properties)).EndInit();
@@ -621,7 +661,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbo_moneda.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbo_proveedor.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbo_proveedorx.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbo_centro_costo.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
@@ -631,6 +671,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cbo_proveedor.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -643,7 +685,7 @@
         private System.Windows.Forms.TextBox txt_comentario;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lbl_estado;
-        private DevExpress.XtraEditors.GridLookUpEdit cbo_proveedor;
+        private DevExpress.XtraEditors.GridLookUpEdit cbo_proveedorx;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView4;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label3;
@@ -685,5 +727,8 @@
         private DevExpress.XtraEditors.GridLookUpEdit cbo_almacen2;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView8;
         private System.Windows.Forms.Label lbl_caption_almacen2;
+        private DevExpress.XtraWaitForm.ProgressPanel progressPanel;
+        private DevExpress.XtraEditors.SearchLookUpEdit cbo_proveedor;
+        private DevExpress.XtraGrid.Views.Grid.GridView searchLookUpEdit1View;
     }
 }

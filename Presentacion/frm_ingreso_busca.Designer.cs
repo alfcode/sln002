@@ -282,7 +282,7 @@
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(66, 18);
             this.label14.TabIndex = 60;
-            this.label14.Text = "Total";
+            this.label14.Text = "Sub Total";
             this.label14.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // cbo_almacen

@@ -291,6 +291,12 @@
     <Compile Include="frm_almacen.Designer.cs">
       <DependentUpon>frm_almacen.cs</DependentUpon>
     </Compile>
+    <Compile Include="xprueba.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="xprueba.Designer.cs">
+      <DependentUpon>xprueba.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frm_almacen.resx">
       <DependentUpon>frm_almacen.cs</DependentUpon>
     </EmbeddedResource>
@@ -396,7 +402,6 @@
     <EmbeddedResource Include="mdi.resx">
       <DependentUpon>mdi.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -407,23 +412,23 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
+    <EmbeddedResource Include="xprueba.resx">
+      <DependentUpon>xprueba.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entidad\Entidad.csproj">
       <Project>{66c5dedd-5574-4a0c-a888-9fb362e68a59}</Project>
       <Name>Entidad</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FeedbackSource\FeedbackSource.csproj">
+      <Project>{4494b896-792f-477e-9d79-b035b3b7d084}</Project>
+      <Name>FeedbackSource</Name>
     </ProjectReference>
     <ProjectReference Include="..\Negocio\Negocio.csproj">
       <Project>{cdf16e93-3bea-4239-b259-e073b4810a86}</Project>
@@ -490,6 +495,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ico\salir64_formulario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ico\cargando.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

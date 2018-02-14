@@ -496,6 +496,33 @@ namespace Entidad
         }
 
 
+        public class proc_ingreso_mnt_filtra_proveedor
+        {
+            public List<EN_zero.informe> informe { get; set; }
+            public List<EN_zero.datacombo_simple> proveedor { get; set; }
+        }
+
+        public class proc_filtra_proveedor
+        {
+            public string proveedor { get; set; }
+        }
+
+        public class t_proveedor_filter
+        {
+             [Display(Description = "")]
+            [Column(Order = 0)]
+            [MaxLength(50)]
+            
+            public string id{ get; set; }
+            [Display(Description = "")]
+            [Column(Order = 0)]
+            [MaxLength(100)]
+          
+            public string nombre1 { get; set; }
+        }
+
+
+
         public class lista_articulo
         {
             public string id { get; set; }

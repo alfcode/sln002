@@ -14,6 +14,54 @@ namespace Datos
     public class DAO_ingreso
     {
 
+        public EN_ingreso.proc_ingreso_mnt_filtra_proveedor proc_ingreso_mnt_filtra_proveedor(EN_ingreso.proc_filtra_proveedor parametros)
+        {
+            var retorno = new EN_ingreso.proc_ingreso_mnt_filtra_proveedor();
+            var cmd = new SqlCommand();
+            SqlDataReader dr = null;
+
+            try
+            {
+                cmd.Connection = AdoConn.Conn();
+                cmd.Connection.Open();
+                cmd.CommandText = "inve.proc_ingreso_mnt_filtra_proveedor";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@proveedor", parametros.proveedor);
+
+                dr = cmd.ExecuteReader();
+
+                var Result = true;
+                while (Result)
+                {
+                    var name = (dr.GetSchemaTable().Rows.Cast<DataRow>().Select(r => (string)r[0]).ToList()).First().ToString();
+                    if (name == "informe") retorno.informe = dr.MapData<EN_zero.informe>().ToList();
+                    if (name == "t_proveedor") retorno.proveedor = dr.MapData<EN_zero.datacombo_simple>().ToList();
+                    Result = dr.NextResult();
+                }
+
+                dr.Close();
+                return retorno;
+            }
+
+            catch (Exception ex)
+            {
+                var error = new DAO_zero();
+                retorno.informe = error.msg_exception(ex);
+                return retorno;
+            }
+            finally
+            {
+                cmd.Connection.Close();
+                cmd.Connection.Dispose();
+            }
+
+        }
+
+
+
+
+
         public EN_ingreso.proc_ingreso_mnt_combo proc_ingreso_mnt_combo()
         {
             var retorno = new EN_ingreso.proc_ingreso_mnt_combo();

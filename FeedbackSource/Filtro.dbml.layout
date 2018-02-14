@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Filtro">
+  <DataContextMoniker Name="/FiltroDataContext" />
+  <nestedChildShapes>
+    <classShape Id="c4cabf5d-8149-4ea8-82fc-155d5743dfa6" absoluteBounds="3.25, 1.375, 2, 1.1939925130208331">
+      <DataClassMoniker Name="/FiltroDataContext/v_proveedor" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fccb2246-9bc7-4d86-860f-2a0c392fe7c1" absoluteBounds="3.265, 1.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

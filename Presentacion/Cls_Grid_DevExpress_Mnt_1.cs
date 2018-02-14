@@ -625,6 +625,80 @@ namespace Presentacion
 
         }
 
+        public void Load_Combo_SearchLookUpEdit(DevExpress.XtraEditors.SearchLookUpEdit riLookup, DevExpress.Data.Linq.LinqInstantFeedbackSource lista, int Width, int Height)
+        {
+            riLookup.Properties.DataSource = lista;
+            int count = riLookup.Properties.View.Columns.Count;
+            if (count == 0)
+            {
+                
+                riLookup.Properties.ValueMember = "id";
+                riLookup.Properties.DisplayMember = "nombre";
+                riLookup.Properties.View.Columns.AddField("nombre").Visible = true;
+
+                //PropertyInfo[] propiedades = typeof(T).GetProperties();
+                //int i = 0;
+                //foreach (PropertyInfo p in propiedades)
+                //{
+                //    DevExpress.XtraGrid.Columns.GridColumn col = riLookup.Properties.View.Columns.AddField(p.Name);
+                //    col.VisibleIndex = i;
+                //    if (i == 0) col.Visible = false;
+                //    if (i == 1)
+                //    {
+                //        col.Visible = true;
+                //        col.Caption = "Descripción";
+                //    }
+                //    if (i >= 2) col.Visible = false;
+                //    i++;
+                //}
+                riLookup.Properties.NullText = "-seleccione-";
+                riLookup.Properties.ImmediatePopup = true;
+                riLookup.Properties.TextEditStyle = TextEditStyles.Standard;
+                riLookup.Properties.BestFitMode = BestFitMode.BestFitResizePopup;
+                riLookup.Properties.PopupFilterMode = PopupFilterMode.Contains;
+                riLookup.Properties.View.BestFitColumns();
+                riLookup.Properties.PopupFormMinSize = new Size(Width, Height);
+              //  riLookup.Properties.PopupFindMode = FindMode.FindClick;
+            }
+
+
+        }
+
+
+        public void Load_Combo_GridLookUpEdit_Filtrobb<T>(DevExpress.XtraEditors.GridLookUpEdit riLookup, IList<T> lista, int Width, int Height)
+        {
+
+            riLookup.Properties.DataSource = lista;
+            int count = riLookup.Properties.View.Columns.Count;
+            if (count == 0)
+            {
+                riLookup.Properties.ValueMember = "id";
+                riLookup.Properties.DisplayMember = "nombre1";
+                
+                PropertyInfo[] propiedades = typeof(T).GetProperties();
+                int i = 0;
+                foreach (PropertyInfo p in propiedades)
+                {
+                    DevExpress.XtraGrid.Columns.GridColumn col = riLookup.Properties.View.Columns.AddField(p.Name);
+                    col.VisibleIndex = i;
+                    if (i == 0) col.Visible = false;
+                    if (i == 1)
+                    {
+                        col.Visible = true;
+                        col.Caption = "Descripción";
+                    }
+                    if (i >= 2) col.Visible = false;
+                    i++;
+                }
+                riLookup.Properties.NullText = "-seleccione-";
+                riLookup.Properties.ImmediatePopup = true;
+                riLookup.Properties.TextEditStyle = TextEditStyles.Standard;
+                riLookup.Properties.BestFitMode = BestFitMode.BestFitResizePopup;
+                riLookup.Properties.PopupFilterMode = PopupFilterMode.Contains;
+              //  riLookup.Properties.View.BestFitColumns();
+                riLookup.Properties.PopupFormMinSize = new Size(Width, Height);
+            }
+        }
 
 
 

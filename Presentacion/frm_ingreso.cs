@@ -12,6 +12,13 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraEditors.Repository;
 using System.Threading;
 using System.Threading.Tasks;
+using DevExpress.Skins;
+using DevExpress.LookAndFeel;
+using Presentacion.Properties;
+using FeedbackSource;
+using DevExpress.Data.Linq;
+using DevExpress.XtraEditors.Controls;
+using System.Data.SqlClient;
 
 namespace Presentacion
 {
@@ -30,16 +37,21 @@ namespace Presentacion
 
         List<EN_ingreso.lista_articulo> lista_articulo = new List<EN_ingreso.lista_articulo>();
         List<EN_ingreso.lista_tipo_unidad_almacen> lista_tipo_unidad_almacen = new List<EN_ingreso.lista_tipo_unidad_almacen>();
- 
+
         List<EN_ingreso.lista_almacen> lista_almacen = new List<EN_ingreso.lista_almacen>();
         List<EN_ingreso.lista_tipo_ingreso> lista_tipo_ingreso = new List<EN_ingreso.lista_tipo_ingreso>();
 
         //decimal id_tipo_unidad_almacen_A = 0;
         //decimal id_tipo_unidad_almacen_B = 0;
 
+        private DevExpress.Data.Linq.LinqInstantFeedbackSource linq_proveedor_source ;
 
         public frm_ingreso()
         {
+            linq_proveedor_source = new DevExpress.Data.Linq.LinqInstantFeedbackSource();
+            linq_proveedor_source.GetQueryable += new System.EventHandler<DevExpress.Data.Linq.GetQueryableEventArgs>(linq_proveedor_GetQueryable);
+            linq_proveedor_source.DismissQueryable += new System.EventHandler<DevExpress.Data.Linq.GetQueryableEventArgs>(linq_proveedor_DismissQueryable);
+
             DevExpress.UserSkins.BonusSkins.Register();
             DevExpress.Skins.SkinManager.EnableFormSkins();
             DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = Cls_Global.skinName;
@@ -73,12 +85,16 @@ namespace Presentacion
 
         private void frm_ingreso_Load(object sender, EventArgs e)
         {
-
+           
             inicio();
+            progressPanel.Visible = true;
         }
 
         private void inicio()
         {
+
+          
+
             dt_t_ingreso_det_grid = Cls_Grid.ListToTable(t_ingreso_det);
             dt_t_ingreso_det_final = Cls_Grid.ListToTable(t_ingreso_det);
 
@@ -108,17 +124,26 @@ namespace Presentacion
             //gridView1.ColumnPanelRowHeight = 75;
 
 
-           cargar_combo();
+
+
+            //    cargar_combo();
 
             modo = "cancelar";
             habilitar();
-       
+
         }
 
 
 
-        private void cargar_combo()
+        public async void cargar_combo()
         {
+
+
+          
+           
+            Application.DoEvents();
+            await Task.Run(new Action(LongTaskCargaCombo));
+            
             var negocio = new LN_ingreso();
             var retorno = new EN_ingreso.proc_ingreso_mnt_combo();
 
@@ -136,16 +161,21 @@ namespace Presentacion
             Cls_Grid.Load_Combo_GridLookUpEdit_Simple(cbo_centro_costo, retorno.centro_costo, cbo_centro_costo.Width, 300);
             Cls_Grid.Load_Combo_GridLookUpEdit_Simple(cbo_tipo_ingreso, retorno.tingreso, cbo_tipo_ingreso.Width, 300);
             Cls_Grid.Load_Combo_GridLookUpEdit_Simple(cbo_almacen, retorno.almacen, cbo_almacen.Width, 300);
-            Cls_Grid.Load_Combo_GridLookUpEdit_Simple(cbo_proveedor, retorno.proveedor, cbo_proveedor.Width, 300);
+           // Cls_Grid.Load_Combo_GridLookUpEdit_Simple(cbo_proveedor, retorno.proveedor, cbo_proveedor.Width, 300);
             Cls_Grid.Load_Combo_GridLookUpEdit_Simple(cbo_tipo_documento, retorno.tdocu_sunat, cbo_tipo_documento.Width, 300);
             Cls_Grid.Load_Combo_GridLookUpEdit_Simple(cbo_moneda, retorno.moneda, cbo_moneda.Width, 300);
             Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid_Simple(gridView1, retorno.unidad, "id_unidad", 300, 200);
+
+
+            Cls_Grid.Load_Combo_SearchLookUpEdit(cbo_proveedor, linq_proveedor_source, cbo_proveedor.Width, 200);
 
             lista_almacen = retorno.almacen;
             lista_tipo_ingreso = retorno.tingreso;
 
             Application.DoEvents();
             Cursor.Current = Cursors.Default;
+            progressPanel.Visible = false;
+            
         }
 
         private void cargar_unidad_almacen(string id_almacen)
@@ -167,14 +197,14 @@ namespace Presentacion
             parametros.id_almacen = cbo_almacen.EditValue.ToString();
             parametros.id_almacen2 = cbo_almacen.EditValue.ToString();
 
-            if (cbo_almacen2.Enabled==true) parametros.id_almacen2 = cbo_almacen2.EditValue.ToString();
+            if (cbo_almacen2.Enabled == true) parametros.id_almacen2 = cbo_almacen2.EditValue.ToString();
 
             Cursor.Current = Cursors.WaitCursor;
             retorno = negocio.proc_ingreso_mnt_tipo_unidad_almacen(parametros);
             if (Cls_Grid.ExisteError(retorno.informe))
             {
                 Cursor.Current = Cursors.Default;
-                
+
                 return;
             }
 
@@ -191,7 +221,7 @@ namespace Presentacion
                 gridView1.AddNewRow();
                 gridView1.FocusedColumn = gridView1.VisibleColumns[0];
             }
-            
+
 
         }
 
@@ -209,12 +239,12 @@ namespace Presentacion
                 var retorno = new EN_ingreso.proc_ingreso_mnt_retorno();
                 var t_ingreso = new List<EN_ingreso.t_ingreso>();
 
-               
+
                 if (id_usuario != "")
                 {
-                   /// string estado = "EST0000001";
+                    /// string estado = "EST0000001";
 
-                    if (modo == "modificar"){
+                    if (modo == "modificar") {
                         int count = dt_t_ingreso_det_grid.AsEnumerable()
                                                            .Count(row => row.Field<string>("fila_modo").Equals("nuevo")
                                                                       || row.Field<string>("fila_modo").Equals("grabado")
@@ -228,7 +258,7 @@ namespace Presentacion
 
                     var cab = new EN_ingreso.t_ingreso();
                     cab.id_ingreso = id_ingreso;
-                   
+
                     cab.id_orden_compra = txt_orden_compra.Text;
 
                     cab.id_empresa = cbo_empresa.EditValue.ToString();
@@ -236,18 +266,18 @@ namespace Presentacion
 
                     cab.id_tingreso = cbo_tipo_ingreso.EditValue.ToString();
                     cab.id_almacen = cbo_almacen.EditValue.ToString();
-                    cab.id_proveedor = cbo_proveedor.EditValue.ToString();
+                    cab.id_proveedor = cbo_proveedorx.EditValue.ToString();
                     cab.id_tdocu_sunat = cbo_tipo_documento.EditValue.ToString();
                     cab.fecha_movimiento = dtp_documento.Value;
                     cab.id_moneda = cbo_moneda.EditValue.ToString();
                     cab.nro_tdocu = txt_numero_documento.Text;
-  
+
                     cab.tipo_cambio = 0;
                     cab.comentario = txt_comentario.Text;
                     cab.id_estado_cab = "";
 
                     cab.id_salida = id_salida;
-                    if (cbo_almacen2.EditValue != null && cbo_almacen2.EditValue.ToString() != "" )
+                    if (cbo_almacen2.EditValue != null && cbo_almacen2.EditValue.ToString() != "")
                     {
 
                         cab.id_almacen2 = cbo_almacen2.EditValue.ToString();
@@ -257,7 +287,7 @@ namespace Presentacion
                     else
                     {
                         cab.id_almacen2 = "";
-                       
+
                         cab.tranferencia = false;
                         transferencia = false;
 
@@ -265,14 +295,14 @@ namespace Presentacion
 
 
 
-                    
+
 
                     cab.id_usuario_inicia = id_usuario;
                     cab.id_usuario_ultimo = modo;
                     cab.fila_modo = modo;
                     cab.fecha_inicia = Convert.ToDateTime("01/01/2016");
                     cab.fecha_ultimo = Convert.ToDateTime("01/01/2016");
-                    
+
                     t_ingreso.Add(cab);
                 }
                 else
@@ -294,7 +324,7 @@ namespace Presentacion
                 Cursor.Current = Cursors.Default;
 
                 if (Cls_Grid.ExisteError(retorno.informe)) return;
-    
+
                 if (id_usuario != "") //// cuando termino de grabar con dato de id usuario!=""
                 {
                     modo = "cancelar";
@@ -306,14 +336,14 @@ namespace Presentacion
 
                     foreach (var p in retorno.t_ingreso)
                     {
-                        id_ingreso= p.id_ingreso  ;
+                        id_ingreso = p.id_ingreso;
                         cbo_empresa.EditValue = p.id_empresa;
                         cbo_centro_costo.EditValue = p.id_centro_costo;
 
                         cbo_tipo_ingreso.EditValue = p.id_tingreso;
                         cbo_almacen.EditValue = p.id_almacen;
                         cbo_almacen2.EditValue = p.id_almacen2;
-                        cbo_proveedor.EditValue = p.id_proveedor;
+                        cbo_proveedorx.EditValue = p.id_proveedor;
                         cbo_tipo_documento.EditValue = p.id_tdocu_sunat;
 
                         txt_numero_documento.Text = p.nro_tdocu;
@@ -349,7 +379,7 @@ namespace Presentacion
                     retorno.t_ingreso_det.ToList().ForEach(c => { c.id_usuario_inicia = ""; c.fila_modo = "grabado"; });
                     dt_t_ingreso_det_grid = Cls_Grid.ListToTable(retorno.t_ingreso_det);
                     gridControl1.DataSource = dt_t_ingreso_det_grid;
-                   
+
                     //Cls_Grid.Load_Grid(gridControl1, gridView1, dt_t_ingreso_det_grid);
                     //gridView1.OptionsView.ColumnAutoWidth = true;
                     //gridView1.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.True;
@@ -425,7 +455,7 @@ namespace Presentacion
                 id_ingreso = frm.id_ingreso;
                 if (id_ingreso == "") return;
 
-               /// id_ingreso = "I000000005";
+                /// id_ingreso = "I000000005";
 
                 if (dialogResult == DialogResult.Yes) mnt_datos("");
 
@@ -532,9 +562,9 @@ namespace Presentacion
             if (name == "id_articulo")
             {
                 id_articulo = e.Value.ToString();
-               /// var filtro = (from Lista in lista_unidad_almacen.Where(w => (w.id_articulo == id_articulo) && (w.id_tipo_unidad == id_tipo_unidad_almacen_A || w.id_tipo_unidad == id_tipo_unidad_almacen_B)) select Lista).ToList();
-                var filtro = (from Lista in lista_tipo_unidad_almacen.Where(w => (w.id_articulo == id_articulo)  ) select Lista).ToList();
-                 ///   Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid_Filter_Doble(filtro, 300, 100);
+                /// var filtro = (from Lista in lista_unidad_almacen.Where(w => (w.id_articulo == id_articulo) && (w.id_tipo_unidad == id_tipo_unidad_almacen_A || w.id_tipo_unidad == id_tipo_unidad_almacen_B)) select Lista).ToList();
+                var filtro = (from Lista in lista_tipo_unidad_almacen.Where(w => (w.id_articulo == id_articulo)) select Lista).ToList();
+                ///   Cls_Grid.Load_Combo_GridLookUpEdit_In_Grid_Filter_Doble(filtro, 300, 100);
 
                 var filtro_unidad = (from Lista in filtro.Where(w => w.id_tipo_unidad_movi == w.id_tipo_unidad_inventario) select Lista).ToList();
                 foreach (var p in filtro_unidad)
@@ -548,8 +578,8 @@ namespace Presentacion
                 var filtro_articulo = (from Lista in lista_articulo.Where(w => w.id == id_articulo) select Lista).ToList();
                 foreach (var p in filtro_articulo)
                 {
-                  gv.SetRowCellValue(gv.FocusedRowHandle, "igv", p.igv);
-                  gv.SetRowCellValue(gv.FocusedRowHandle, "isc", p.isc);
+                    gv.SetRowCellValue(gv.FocusedRowHandle, "igv", p.igv);
+                    gv.SetRowCellValue(gv.FocusedRowHandle, "isc", p.isc);
 
                     gv.SetRowCellValue(gv.FocusedRowHandle, "cantidad_nota", 0);
                     gv.SetRowCellValue(gv.FocusedRowHandle, "cantidad_real", 0);
@@ -574,17 +604,17 @@ namespace Presentacion
                     gv.SetRowCellValue(gv.FocusedRowHandle, "costo", 0);
                     gv.SetRowCellValue(gv.FocusedRowHandle, "importe", 0);
                 }
-              }
+            }
 
             if (name == "cantidad_nota")
             {
-               var  cantidad= e.Value.ToString();
+                var cantidad = e.Value.ToString();
                 gv.SetRowCellValue(gv.FocusedRowHandle, "cantidad_real", cantidad);
             }
 
         }
 
-      
+
         private bool valida_combo()
         {
 
@@ -612,7 +642,7 @@ namespace Presentacion
                 return true;
             }
 
-            if (cbo_proveedor.EditValue == null || cbo_proveedor.Text == "")
+            if (cbo_proveedorx.EditValue == null || cbo_proveedorx.Text == "")
             {
                 DevExpress.XtraEditors.XtraMessageBox.Show("Seleccion el valor Proveedor", Cls_Mensajes.titulo_ventana, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                 return true;
@@ -668,22 +698,22 @@ namespace Presentacion
                 {
                     gridView1.CloseEditor();
                     gridView1.UpdateCurrentRow();
-                    
+
                     decimal factor = Convert.ToDecimal(view.GetFocusedRowCellValue("factor_movi"));
                     decimal cantidad_nota = Convert.ToDecimal(view.GetFocusedRowCellValue("cantidad_nota"));
                     decimal importe = Convert.ToDecimal(view.GetFocusedRowCellValue("importe"));
 
-                    decimal nuevo_costo = importe /(cantidad_nota / factor) ;
+                    decimal nuevo_costo = importe / (cantidad_nota / factor);
                     view.SetRowCellValue(view.FocusedRowHandle, "costo", nuevo_costo);
 
-                   
-                  
+
+
                     gridView1.CloseEditor();
                     gridView1.UpdateCurrentRow();
                     calculo_total();
                 }
 
-                
+
 
 
             }
@@ -704,24 +734,24 @@ namespace Presentacion
                 cbo_centro_costo.Enabled = true;
                 cbo_empresa.Enabled = true;
                 cbo_moneda.Enabled = true;
-                cbo_proveedor.Enabled = true;
+                cbo_proveedorx.Enabled = true;
                 cbo_tipo_ingreso.Enabled = true;
                 cbo_tipo_documento.Enabled = true;
 
-               // cbo_almacen2.Enabled = true;
+                // cbo_almacen2.Enabled = true;
 
                 dtp_documento.Enabled = true;
-           
+
                 txt_comentario.Enabled = true;
                 txt_comentario.Text = "";
                 txt_numero_documento.Enabled = true;
                 txt_orden_compra.Enabled = true;
-                
+
                 txt_orden_compra.Text = "";
                 txt_numero_documento.Text = "";
 
                 lbl_estado.Text = "";
-               
+
 
 
 
@@ -739,7 +769,7 @@ namespace Presentacion
                 cbo_centro_costo.Enabled = false;
                 cbo_empresa.Enabled = false;
                 cbo_moneda.Enabled = false;
-                cbo_proveedor.Enabled = false;
+                cbo_proveedorx.Enabled = false;
                 cbo_tipo_ingreso.Enabled = false;
                 cbo_tipo_documento.Enabled = false;
 
@@ -755,13 +785,13 @@ namespace Presentacion
 
                 lbl_estado.Text = "";
 
-                cbo_almacen.Text=null;
+                cbo_almacen.Text = null;
                 cbo_almacen2.Text = null;
 
                 cbo_centro_costo.Text = null;
                 cbo_empresa.Text = null;
                 cbo_moneda.Text = null;
-                cbo_proveedor.Text = null;
+                cbo_proveedorx.Text = null;
                 cbo_tipo_ingreso.Text = null;
                 cbo_tipo_documento.Text = null;
 
@@ -778,7 +808,7 @@ namespace Presentacion
                 cbo_centro_costo.Enabled = true;
                 cbo_empresa.Enabled = true;
                 cbo_moneda.Enabled = true;
-                cbo_proveedor.Enabled = true;
+                cbo_proveedorx.Enabled = true;
                 cbo_tipo_ingreso.Enabled = true;
                 cbo_tipo_documento.Enabled = true;
 
@@ -798,7 +828,7 @@ namespace Presentacion
                 cbo_centro_costo.Enabled = false;
                 cbo_empresa.Enabled = false;
                 cbo_moneda.Enabled = false;
-                cbo_proveedor.Enabled = false;
+                cbo_proveedorx.Enabled = false;
                 cbo_tipo_ingreso.Enabled = false;
                 cbo_tipo_documento.Enabled = false;
 
@@ -823,8 +853,8 @@ namespace Presentacion
             foreach (DataRow row in dt_t_ingreso_det_grid.Rows)
             {
                 sub_total = sub_total + (Convert.ToDecimal(row["importe"]));
-                      igv = igv + (Convert.ToDecimal(row["importe"])) * (Convert.ToDecimal(row["igv"]))/100;
-                      isc = isc + (Convert.ToDecimal(row["importe"])) * (Convert.ToDecimal(row["isc"])) / 100;
+                igv = igv + (Convert.ToDecimal(row["importe"])) * (Convert.ToDecimal(row["igv"])) / 100;
+                isc = isc + (Convert.ToDecimal(row["importe"])) * (Convert.ToDecimal(row["isc"])) / 100;
             }
             lbl_subtotal.Text = sub_total.ToString("N");
             lbl_igv.Text = igv.ToString("N");
@@ -837,17 +867,21 @@ namespace Presentacion
             Thread.Sleep(50);
         }
 
+        public void LongTaskCargaCombo()
+        {
 
+            Thread.Sleep(300);
+        }
 
         private void txt_numero_documento_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Tab || e.KeyCode == Keys.Enter)
             {
-                if (txt_numero_documento.TextLength!=0 || txt_numero_documento.Text!="" )
+                if (txt_numero_documento.TextLength != 0 || txt_numero_documento.Text != "")
                 {
                     if (valida_combo() == true) return;
 
-                   cargar_unidad_almacen(cbo_almacen.EditValue.ToString());
+                    cargar_unidad_almacen(cbo_almacen.EditValue.ToString());
 
 
                 }
@@ -859,15 +893,15 @@ namespace Presentacion
         {
 
             if (e.KeyCode == Keys.Tab || e.KeyCode == Keys.Enter)
-             {
+            {
                 GridView gv = sender as GridView;
                 string name = gv.FocusedColumn.FieldName;
 
-                   if (name == "id_articulo" || name == "id_unidad")
-                    {
-                        var index = gv.Columns["cantidad_nota"].VisibleIndex;
-                        gridView1.FocusedColumn = gridView1.VisibleColumns[index];
-                    }
+                if (name == "id_articulo" || name == "id_unidad")
+                {
+                    var index = gv.Columns["cantidad_nota"].VisibleIndex;
+                    gridView1.FocusedColumn = gridView1.VisibleColumns[index];
+                }
 
                 if (name == "costo")
                 {
@@ -883,7 +917,7 @@ namespace Presentacion
 
                     nuevo_importe = costo * (cantidad_nota / factor);
 
-                    nuevo_importe = (costo /  factor)* cantidad_nota;
+                    nuevo_importe = (costo / factor) * cantidad_nota;
 
                     gv.SetRowCellValue(gv.FocusedRowHandle, "importe", nuevo_importe);
 
@@ -909,7 +943,7 @@ namespace Presentacion
             }
         }
 
-  
+
         private void cbo_almacen_EditValueChanged(object sender, EventArgs e)
         {
 
@@ -931,9 +965,9 @@ namespace Presentacion
                 string id2 = cbo_tipo_ingreso.EditValue.ToString();
                 bool transferencia = Convert.ToBoolean((from Lista in lista_tipo_ingreso.Where(w => w.id == id2) select Lista.flatmodtransf).First().ToString());
                 cbo_almacen2.Enabled = transferencia;
-              
+
                 cbo_almacen2.EditValue = null;
-            
+
             }
             else
             {
@@ -941,8 +975,39 @@ namespace Presentacion
                 cbo_almacen2.EditValue = null;
                 cbo_almacen2.Text = "";
             }
+
+
+        }
+
+
+        public async void llama_proveedor(string dato)
+        {
+            await Task.Run(new Action(LongTask));
             
+            Application.DoEvents();
+            Cursor.Current = Cursors.Default;
+
             
         }
+
+       
+
+        private void frm_ingreso_Shown(object sender, EventArgs e)
+        {
+            cargar_combo();
+        }
+
+
+        private void linq_proveedor_GetQueryable(object sender, GetQueryableEventArgs e)
+        {
+            FiltroDataContext  data = new FiltroDataContext();
+            e.QueryableSource = data.v_proveedor;
+            e.Tag = data;
+        }
+        private void linq_proveedor_DismissQueryable(object sender, GetQueryableEventArgs e)
+        {
+            (e.Tag as FiltroDataContext).Dispose();
+        }
+
     }
 }

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Class="FiltroDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="inve.v_proveedor" Member="v_proveedor">
+    <Type Name="v_proveedor">
+      <Column Name="id" Storage="_id_proveedor" Type="System.String" DbType="varchar(10)" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="varchar(200)" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
